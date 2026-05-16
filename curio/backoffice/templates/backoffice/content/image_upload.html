@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container">
     <h1>{% trans "Upload Images" %}</h1>
-    <form method="post" enctype="multipart/form-data">
+    <form class="mt-lh" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="id_files">{% trans "Files" %}</label>
       <input type="file" id="id_files" name="files" accept="image/*" multiple required>

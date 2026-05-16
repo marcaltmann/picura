@@ -1,38 +1,40 @@
 {% load i18n %}
 {% if exif %}
-  <h2>{% trans "EXIF Metadata" %}</h2>
-  <dl class="details">
-    {% if exif.data.camera_make or exif.data.camera_model %}
-      <dt>{% trans "Camera" %}</dt>
-      <dd>{{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}</dd>
-    {% endif %}
-    {% if exif.data.format %}
-      <dt>{% trans "Format" %}</dt>
-      <dd>{{ exif.data.format }}</dd>
-    {% endif %}
-    {% if exif.data.color_mode %}
-      <dt>{% trans "Color mode" %}</dt>
-      <dd>{{ exif.data.color_mode }}</dd>
-    {% endif %}
-    {% if exif.data.icc_profile %}
-      <dt>{% trans "ICC profile" %}</dt>
-      <dd>{{ exif.data.icc_profile }}</dd>
-    {% endif %}
-    {% if exif.data.lens %}
-      <dt>{% trans "Lens" %}</dt>
-      <dd>{{ exif.data.lens }}</dd>
-    {% endif %}
-    {% if exif.data.aperture %}
-      <dt>{% trans "Aperture" %}</dt>
-      <dd>f/{{ exif.data.aperture }}</dd>
-    {% endif %}
-    {% if exif.data.shutter_speed %}
-      <dt>{% trans "Shutter speed" %}</dt>
-      <dd>{{ exif.data.shutter_speed }}s</dd>
-    {% endif %}
-    {% if exif.data.focal_length %}
-      <dt>{% trans "Focal length" %}</dt>
-      <dd>{{ exif.data.focal_length }}mm</dd>
-    {% endif %}
-  </dl>
+  <div class="metadata mt-lh">
+    <h2>{% trans "EXIF Metadata" %}</h2>
+    <dl class="details">
+      {% if exif.data.camera_make or exif.data.camera_model %}
+        <dt>{% trans "Camera" %}</dt>
+        <dd>{{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}</dd>
+      {% endif %}
+      {% if exif.data.format %}
+        <dt>{% trans "Format" %}</dt>
+        <dd>{{ exif.data.format }}</dd>
+      {% endif %}
+      {% if exif.data.color_mode %}
+        <dt>{% trans "Color mode" %}</dt>
+        <dd>{{ exif.data.color_mode }}</dd>
+      {% endif %}
+      {% if exif.data.icc_profile %}
+        <dt>{% trans "ICC profile" %}</dt>
+        <dd>{{ exif.data.icc_profile }}</dd>
+      {% endif %}
+      {% if exif.data.lens %}
+        <dt>{% trans "Lens" %}</dt>
+        <dd>{{ exif.data.lens }}</dd>
+      {% endif %}
+      {% if exif.data.aperture %}
+        <dt>{% trans "Aperture" %}</dt>
+        <dd>f/{{ exif.data.aperture }}</dd>
+      {% endif %}
+      {% if exif.data.shutter_speed %}
+        <dt>{% trans "Shutter speed" %}</dt>
+        <dd>{{ exif.data.shutter_speed }}s</dd>
+      {% endif %}
+      {% if exif.data.focal_length %}
+        <dt>{% trans "Focal length" %}</dt>
+        <dd>{{ exif.data.focal_length }}mm</dd>
+      {% endif %}
+    </dl>
+  </div>
 {% endif %}

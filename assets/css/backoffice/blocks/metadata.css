@@ -1,0 +1,17 @@
+.metadata {
+    width: fit-content;
+    font-size: 0.8125rem;
+    color: color-mix(in srgb, var(--color-ink) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+    border-radius: 3px;
+    padding: 0.75rlh 1rlh;
+}
+
+.metadata > h2 {
+    font-size: 0.6875rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-block: 0 0.5rlh;
+    color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+}

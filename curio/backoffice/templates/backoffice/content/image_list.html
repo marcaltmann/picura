@@ -4,7 +4,11 @@
 {% block content %}
   <div class="container">
     <h1>{% trans "Images" %}</h1>
-    <a href="{% url 'backoffice_image_upload' %}">{% trans "Upload" %}</a>
+
+    <div class="mt-lh">
+      <a href="{% url 'backoffice_image_upload' %}">{% trans "Upload" %}</a>
+    </div>
+
     <div class="scroll-x:auto">
       <table class="data-table">
         <thead>
