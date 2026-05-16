@@ -13,3 +13,10 @@ a {
 a:hover {
     color: color-mix(in srgb, var(--color-accent) 75%, var(--color-ink));
 }
+
+h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.5rlh;
+    margin-block: 0.5rlh 0;
+}
