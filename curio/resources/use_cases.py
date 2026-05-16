@@ -3,6 +3,7 @@ import json
 import subprocess
 import tempfile
 from datetime import datetime, timedelta
+from fractions import Fraction
 from pathlib import Path
 
 import mutagen
@@ -40,6 +41,10 @@ def extract_metadata(file):
 _EXIF_TAG_MAKE = 271
 _EXIF_TAG_MODEL = 272
 _EXIF_TAG_DATETIME_ORIGINAL = 36867
+_EXIF_TAG_FNUMBER = 33437
+_EXIF_TAG_EXPOSURE_TIME = 33434
+_EXIF_TAG_FOCAL_LENGTH = 37386
+_EXIF_TAG_LENS_MODEL = 42036
 
 
 def extract_image_metadata(file):
@@ -52,6 +57,10 @@ def extract_image_metadata(file):
         'taken_at': None,
         'camera_make': None,
         'camera_model': None,
+        'lens': None,
+        'aperture': None,
+        'shutter_speed': None,
+        'focal_length': None,
     }
     try:
         img = Image.open(file)
@@ -78,6 +87,21 @@ def extract_image_metadata(file):
             result['taken_at'] = timezone.make_aware(naive)
         result['camera_make'] = exif.get(_EXIF_TAG_MAKE) or None
         result['camera_model'] = exif.get(_EXIF_TAG_MODEL) or None
+        exif_ifd = exif.get_ifd(0x8769)
+        result['lens'] = exif_ifd.get(_EXIF_TAG_LENS_MODEL) or None
+        raw_aperture = exif_ifd.get(_EXIF_TAG_FNUMBER)
+        if raw_aperture is not None:
+            result['aperture'] = float(raw_aperture)
+        raw_shutter = exif_ifd.get(_EXIF_TAG_EXPOSURE_TIME)
+        if raw_shutter is not None:
+            frac = Fraction(float(raw_shutter)).limit_denominator(100000)
+            if frac.denominator == 1:
+                result['shutter_speed'] = str(frac.numerator)
+            else:
+                result['shutter_speed'] = f'{frac.numerator}/{frac.denominator}'
+        raw_focal = exif_ifd.get(_EXIF_TAG_FOCAL_LENGTH)
+        if raw_focal is not None:
+            result['focal_length'] = float(raw_focal)
     except Exception:
         pass
     return result
@@ -104,6 +128,10 @@ def upload_image_files(files):
                 'icc_profile': meta['icc_profile'],
                 'camera_make': meta['camera_make'],
                 'camera_model': meta['camera_model'],
+                'lens': meta['lens'],
+                'aperture': meta['aperture'],
+                'shutter_speed': meta['shutter_speed'],
+                'focal_length': meta['focal_length'],
             }.items()
             if v is not None
         }

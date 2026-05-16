@@ -175,6 +175,10 @@ EMPTY_IMAGE_META = {
     'taken_at': None,
     'camera_make': None,
     'camera_model': None,
+    'lens': None,
+    'aperture': None,
+    'shutter_speed': None,
+    'focal_length': None,
 }
 
 
@@ -238,6 +242,25 @@ def test_upload_image_files_stores_exif_metadata():
     exif = resource.metadata.get(type=Metadata.Type.EXIF)
     assert exif.data['camera_make'] == 'Canon'
     assert exif.data['camera_model'] == 'EOS R5'
+
+
+@pytest.mark.django_db
+def test_upload_image_files_stores_lens_and_exposure_metadata():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    meta = {
+        **EMPTY_IMAGE_META,
+        'lens': 'EF 50mm f/1.4 USM',
+        'aperture': 1.4,
+        'shutter_speed': '1/250',
+        'focal_length': 50.0,
+    }
+    with patch('curio.resources.use_cases.extract_image_metadata', return_value=meta):
+        upload_image_files([f])
+    exif = ImageResource.objects.first().metadata.get(type=Metadata.Type.EXIF)
+    assert exif.data['lens'] == 'EF 50mm f/1.4 USM'
+    assert exif.data['aperture'] == 1.4
+    assert exif.data['shutter_speed'] == '1/250'
+    assert exif.data['focal_length'] == 50.0
 
 
 @pytest.mark.django_db

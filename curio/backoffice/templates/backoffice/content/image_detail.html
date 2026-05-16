@@ -40,6 +40,22 @@
           <dt>{% trans "ICC profile" %}</dt>
           <dd>{{ exif.data.icc_profile }}</dd>
         {% endif %}
+        {% if exif.data.lens %}
+          <dt>{% trans "Lens" %}</dt>
+          <dd>{{ exif.data.lens }}</dd>
+        {% endif %}
+        {% if exif.data.aperture %}
+          <dt>{% trans "Aperture" %}</dt>
+          <dd>f/{{ exif.data.aperture }}</dd>
+        {% endif %}
+        {% if exif.data.shutter_speed %}
+          <dt>{% trans "Shutter speed" %}</dt>
+          <dd>{{ exif.data.shutter_speed }}s</dd>
+        {% endif %}
+        {% if exif.data.focal_length %}
+          <dt>{% trans "Focal length" %}</dt>
+          <dd>{{ exif.data.focal_length }}mm</dd>
+        {% endif %}
       </dl>
     {% endif %}
   </div>

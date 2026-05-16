@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-16 20:09+0200\n"
+"POT-Creation-Date: 2026-05-16 22:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,35 @@ msgstr "Bilder"
 msgid "Videos"
 msgstr "Videos"
 
+#: curio/backoffice/templates/backoffice/content/audio_delete.html:3
+#: curio/backoffice/templates/backoffice/content/audio_delete.html:11
+#: curio/backoffice/templates/backoffice/content/audio_detail.html:19
+#: curio/backoffice/templates/backoffice/content/image_delete.html:3
+#: curio/backoffice/templates/backoffice/content/image_delete.html:11
+#: curio/backoffice/templates/backoffice/content/image_detail.html:23
+#: curio/backoffice/templates/backoffice/content/video_delete.html:3
+#: curio/backoffice/templates/backoffice/content/video_delete.html:11
+#: curio/backoffice/templates/backoffice/content/video_detail.html:33
+msgid "Delete"
+msgstr "Löschen"
+
+#: curio/backoffice/templates/backoffice/content/audio_delete.html:7
+msgid "Delete audio"
+msgstr "Audio löschen"
+
+#: curio/backoffice/templates/backoffice/content/audio_delete.html:8
+#: curio/backoffice/templates/backoffice/content/image_delete.html:8
+#: curio/backoffice/templates/backoffice/content/video_delete.html:8
+#, python-format
+msgid "Are you sure you want to delete \"%(title)s\"?"
+msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
+
+#: curio/backoffice/templates/backoffice/content/audio_delete.html:12
+#: curio/backoffice/templates/backoffice/content/image_delete.html:12
+#: curio/backoffice/templates/backoffice/content/video_delete.html:12
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:10
 #: curio/backoffice/templates/backoffice/content/image_detail.html:10
 #: curio/backoffice/templates/backoffice/content/video_detail.html:12
@@ -66,35 +95,19 @@ msgstr "Dauer"
 
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:14
 #: curio/backoffice/templates/backoffice/content/audio_list.html:14
+#: curio/backoffice/templates/backoffice/content/image_detail.html:18
+#: curio/backoffice/templates/backoffice/content/image_list.html:15
 #: curio/backoffice/templates/backoffice/content/video_detail.html:28
-msgid "Bitrate"
-msgstr "Bitrate"
-
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:16
-#: curio/backoffice/templates/backoffice/content/audio_list.html:15
-msgid "Sample rate"
-msgstr "Abtastrate"
-
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:18
-#: curio/backoffice/templates/backoffice/content/audio_list.html:16
-msgid "Channels"
-msgstr "Kanäle"
-
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:20
-#: curio/backoffice/templates/backoffice/content/audio_list.html:17
-#: curio/backoffice/templates/backoffice/content/image_detail.html:28
-#: curio/backoffice/templates/backoffice/content/image_list.html:16
-#: curio/backoffice/templates/backoffice/content/video_detail.html:42
-#: curio/backoffice/templates/backoffice/content/video_list.html:16
+#: curio/backoffice/templates/backoffice/content/video_list.html:15
 msgid "File size"
 msgstr "Dateigröße"
 
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:22
-#: curio/backoffice/templates/backoffice/content/audio_list.html:18
-#: curio/backoffice/templates/backoffice/content/image_detail.html:30
-#: curio/backoffice/templates/backoffice/content/image_list.html:17
-#: curio/backoffice/templates/backoffice/content/video_detail.html:44
-#: curio/backoffice/templates/backoffice/content/video_list.html:17
+#: curio/backoffice/templates/backoffice/content/audio_detail.html:16
+#: curio/backoffice/templates/backoffice/content/audio_list.html:15
+#: curio/backoffice/templates/backoffice/content/image_detail.html:20
+#: curio/backoffice/templates/backoffice/content/image_list.html:16
+#: curio/backoffice/templates/backoffice/content/video_detail.html:30
+#: curio/backoffice/templates/backoffice/content/video_list.html:16
 msgid "Created"
 msgstr "Erstellt"
 
@@ -113,7 +126,7 @@ msgstr "Hochladen"
 msgid "Title"
 msgstr "Titel"
 
-#: curio/backoffice/templates/backoffice/content/audio_list.html:34
+#: curio/backoffice/templates/backoffice/content/audio_list.html:28
 msgid "No audio resources found."
 msgstr "Keine Audio-Ressourcen gefunden."
 
@@ -128,6 +141,10 @@ msgstr "Audio hochladen"
 msgid "Files"
 msgstr "Dateien"
 
+#: curio/backoffice/templates/backoffice/content/image_delete.html:7
+msgid "Delete image"
+msgstr "Bild löschen"
+
 #: curio/backoffice/templates/backoffice/content/image_detail.html:12
 #: curio/backoffice/templates/backoffice/content/image_list.html:13
 #: curio/backoffice/templates/backoffice/content/video_detail.html:24
@@ -136,36 +153,50 @@ msgid "Dimensions"
 msgstr "Abmessungen"
 
 #: curio/backoffice/templates/backoffice/content/image_detail.html:16
-#: curio/backoffice/templates/backoffice/content/image_list.html:14
+msgid "Produced at"
+msgstr "Aufgenommen am"
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:25
+msgid "EXIF Metadata"
+msgstr "EXIF-Metadaten"
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:28
+msgid "Camera"
+msgstr "Kamera"
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:32
 msgid "Format"
 msgstr "Format"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:18
+#: curio/backoffice/templates/backoffice/content/image_detail.html:36
 msgid "Color mode"
 msgstr "Farbmodus"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:20
-#: curio/resources/models.py:51
+#: curio/backoffice/templates/backoffice/content/image_detail.html:40
 msgid "ICC profile"
 msgstr "ICC-Profil"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:22
-msgid "Taken at"
-msgstr "Aufgenommen am"
+#: curio/backoffice/templates/backoffice/content/image_detail.html:44
+msgid "Lens"
+msgstr "Objektiv"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:24
-msgid "Camera make"
-msgstr "Kamerahersteller"
+#: curio/backoffice/templates/backoffice/content/image_detail.html:48
+msgid "Aperture"
+msgstr "Blende"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:26
-msgid "Camera model"
-msgstr "Kameramodell"
+#: curio/backoffice/templates/backoffice/content/image_detail.html:52
+msgid "Shutter speed"
+msgstr "Belichtungszeit"
 
-#: curio/backoffice/templates/backoffice/content/image_list.html:15
-msgid "Taken"
+#: curio/backoffice/templates/backoffice/content/image_detail.html:56
+msgid "Focal length"
+msgstr "Brennweite"
+
+#: curio/backoffice/templates/backoffice/content/image_list.html:14
+msgid "Produced"
 msgstr "Aufgenommen"
 
-#: curio/backoffice/templates/backoffice/content/image_list.html:34
+#: curio/backoffice/templates/backoffice/content/image_list.html:32
 msgid "No image resources found."
 msgstr "Keine Bild-Ressourcen gefunden."
 
@@ -174,24 +205,15 @@ msgstr "Keine Bild-Ressourcen gefunden."
 msgid "Upload Images"
 msgstr "Bilder hochladen"
 
+#: curio/backoffice/templates/backoffice/content/video_delete.html:7
+msgid "Delete video"
+msgstr "Video löschen"
+
 #: curio/backoffice/templates/backoffice/content/video_detail.html:14
 msgid "Poster"
 msgstr "Vorschaubild"
 
-#: curio/backoffice/templates/backoffice/content/video_detail.html:30
-#: curio/backoffice/templates/backoffice/content/video_list.html:15
-msgid "Video codec"
-msgstr "Video-Codec"
-
-#: curio/backoffice/templates/backoffice/content/video_detail.html:32
-msgid "Frame rate"
-msgstr "Bildrate"
-
-#: curio/backoffice/templates/backoffice/content/video_detail.html:40
-msgid "Audio codec"
-msgstr "Audio-Codec"
-
-#: curio/backoffice/templates/backoffice/content/video_list.html:34
+#: curio/backoffice/templates/backoffice/content/video_list.html:32
 msgid "No video resources found."
 msgstr "Keine Video-Ressourcen gefunden."
 
@@ -225,148 +247,100 @@ msgstr "Mein Konto"
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: curio/resources/models.py:6
+#: curio/resources/models.py:8
 msgid "title"
 msgstr "Titel"
 
-#: curio/resources/models.py:7
+#: curio/resources/models.py:9
 msgid "file size"
 msgstr "Dateigröße"
 
-#: curio/resources/models.py:8
+#: curio/resources/models.py:11
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: curio/resources/models.py:9 curio/resources/models.py:111
+#: curio/resources/models.py:13 curio/resources/models.py:92
 msgid "created at"
 msgstr "Erstellt am"
 
-#: curio/resources/models.py:10 curio/resources/models.py:112
+#: curio/resources/models.py:14 curio/resources/models.py:93
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: curio/resources/models.py:13 curio/resources/models.py:107
+#: curio/resources/models.py:17 curio/resources/models.py:88
 msgid "resource"
 msgstr "Ressource"
 
-#: curio/resources/models.py:14
+#: curio/resources/models.py:18
 msgid "resources"
 msgstr "Ressourcen"
 
-#: curio/resources/models.py:21 curio/resources/models.py:39
-#: curio/resources/models.py:67
+#: curio/resources/models.py:25 curio/resources/models.py:34
+#: curio/resources/models.py:46
 msgid "file"
 msgstr "Datei"
 
-#: curio/resources/models.py:22 curio/resources/models.py:71
+#: curio/resources/models.py:26 curio/resources/models.py:50
 msgid "duration"
 msgstr "Dauer"
 
-#: curio/resources/models.py:24 curio/resources/models.py:77
-msgid "bitrate"
-msgstr "Bitrate"
-
-#: curio/resources/models.py:27
-msgid "sample rate"
-msgstr "Abtastrate"
-
-#: curio/resources/models.py:30
-msgid "channels"
-msgstr "Kanäle"
-
-#: curio/resources/models.py:34
+#: curio/resources/models.py:29
 msgid "audio resource"
 msgstr "Audio-Ressource"
 
-#: curio/resources/models.py:35
+#: curio/resources/models.py:30
 msgid "audio resources"
 msgstr "Audio-Ressourcen"
 
-#: curio/resources/models.py:40 curio/resources/models.py:72
+#: curio/resources/models.py:35 curio/resources/models.py:51
 msgid "width"
 msgstr "Breite"
 
-#: curio/resources/models.py:42 curio/resources/models.py:74
+#: curio/resources/models.py:37 curio/resources/models.py:53
 msgid "height"
 msgstr "Höhe"
 
-#: curio/resources/models.py:45
-msgid "format"
-msgstr "Format"
-
-#: curio/resources/models.py:48
-msgid "color mode"
-msgstr "Farbmodus"
-
-#: curio/resources/models.py:53
-msgid "taken at"
-msgstr "Aufgenommen am"
-
-#: curio/resources/models.py:55
-msgid "camera make"
-msgstr "Kamerahersteller"
-
-#: curio/resources/models.py:58
-msgid "camera model"
-msgstr "Kameramodell"
-
-#: curio/resources/models.py:62
+#: curio/resources/models.py:41
 msgid "image resource"
 msgstr "Bild-Ressource"
 
-#: curio/resources/models.py:63
+#: curio/resources/models.py:42
 msgid "image resources"
 msgstr "Bild-Ressourcen"
 
-#: curio/resources/models.py:69
+#: curio/resources/models.py:48
 msgid "poster"
 msgstr "Vorschaubild"
 
-#: curio/resources/models.py:80
-msgid "video codec"
-msgstr "Video-Codec"
-
-#: curio/resources/models.py:83
-msgid "frame rate numerator"
-msgstr "Bildraten-Zähler"
-
-#: curio/resources/models.py:86
-msgid "frame rate denominator"
-msgstr "Bildraten-Nenner"
-
-#: curio/resources/models.py:89
-msgid "audio codec"
-msgstr "Audio-Codec"
-
-#: curio/resources/models.py:93
+#: curio/resources/models.py:57
 msgid "video resource"
 msgstr "Video-Ressource"
 
-#: curio/resources/models.py:94
+#: curio/resources/models.py:58
 msgid "video resources"
 msgstr "Video-Ressourcen"
 
-#: curio/resources/models.py:99
+#: curio/resources/models.py:80
 msgid "EXIF"
 msgstr "EXIF"
 
-#: curio/resources/models.py:100
+#: curio/resources/models.py:81
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: curio/resources/models.py:101
+#: curio/resources/models.py:82
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: curio/resources/models.py:109
+#: curio/resources/models.py:90
 msgid "type"
 msgstr "Typ"
 
-#: curio/resources/models.py:110
+#: curio/resources/models.py:91
 msgid "data"
 msgstr "Daten"
 
-#: curio/resources/models.py:115 curio/resources/models.py:116
+#: curio/resources/models.py:96 curio/resources/models.py:97
 msgid "metadata"
 msgstr "Metadaten"
 
@@ -377,3 +351,66 @@ msgstr "Deutsch"
 #: curio/settings.py:150
 msgid "English"
 msgstr "Englisch"
+
+#~ msgid "Bitrate"
+#~ msgstr "Bitrate"
+
+#~ msgid "Sample rate"
+#~ msgstr "Abtastrate"
+
+#~ msgid "Channels"
+#~ msgstr "Kanäle"
+
+#~ msgid "Taken at"
+#~ msgstr "Aufgenommen am"
+
+#~ msgid "Camera model"
+#~ msgstr "Kameramodell"
+
+#~ msgid "Taken"
+#~ msgstr "Aufgenommen"
+
+#~ msgid "Video codec"
+#~ msgstr "Video-Codec"
+
+#~ msgid "Frame rate"
+#~ msgstr "Bildrate"
+
+#~ msgid "Audio codec"
+#~ msgstr "Audio-Codec"
+
+#~ msgid "bitrate"
+#~ msgstr "Bitrate"
+
+#~ msgid "sample rate"
+#~ msgstr "Abtastrate"
+
+#~ msgid "channels"
+#~ msgstr "Kanäle"
+
+#~ msgid "format"
+#~ msgstr "Format"
+
+#~ msgid "color mode"
+#~ msgstr "Farbmodus"
+
+#~ msgid "taken at"
+#~ msgstr "Aufgenommen am"
+
+#~ msgid "camera make"
+#~ msgstr "Kamerahersteller"
+
+#~ msgid "camera model"
+#~ msgstr "Kameramodell"
+
+#~ msgid "video codec"
+#~ msgstr "Video-Codec"
+
+#~ msgid "frame rate numerator"
+#~ msgstr "Bildraten-Zähler"
+
+#~ msgid "frame rate denominator"
+#~ msgstr "Bildraten-Nenner"
+
+#~ msgid "audio codec"
+#~ msgstr "Audio-Codec"
