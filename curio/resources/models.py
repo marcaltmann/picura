@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
@@ -54,6 +56,23 @@ class VideoResource(Resource):
     class Meta:
         verbose_name = _('video resource')
         verbose_name_plural = _('video resources')
+
+
+@receiver(post_delete, sender=AudioResource)
+def delete_audio_file(sender, instance, **kwargs):
+    instance.file.delete(save=False)
+
+
+@receiver(post_delete, sender=ImageResource)
+def delete_image_file(sender, instance, **kwargs):
+    instance.file.delete(save=False)
+
+
+@receiver(post_delete, sender=VideoResource)
+def delete_video_files(sender, instance, **kwargs):
+    instance.file.delete(save=False)
+    if instance.poster:
+        instance.poster.delete(save=False)
 
 
 class Metadata(models.Model):

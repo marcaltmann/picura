@@ -30,5 +30,6 @@
       <dt>{% trans "Created" %}</dt>
       <dd>{{ video.created_at }}</dd>
     </dl>
+    <a href="{% url 'backoffice_video_delete' video.pk %}">{% trans "Delete" %}</a>
   </div>
 {% endblock %}

@@ -16,5 +16,6 @@
             <dt>{% trans "Created" %}</dt>
             <dd>{{ audio.created_at }}</dd>
         </dl>
+        <a href="{% url 'backoffice_audio_delete' audio.pk %}">{% trans "Delete" %}</a>
     </div>
 {% endblock %}

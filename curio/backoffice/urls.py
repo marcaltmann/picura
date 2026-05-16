@@ -17,4 +17,17 @@ urlpatterns = [
         'content/videos/<int:pk>/', views.video_detail, name='backoffice_video_detail'
     ),
     path('content/videos/upload/', views.video_upload, name='backoffice_video_upload'),
+    path(
+        'content/audio/<int:pk>/delete/', views.audio_delete, name='backoffice_audio_delete'
+    ),
+    path(
+        'content/images/<int:pk>/delete/',
+        views.image_delete,
+        name='backoffice_image_delete',
+    ),
+    path(
+        'content/videos/<int:pk>/delete/',
+        views.video_delete,
+        name='backoffice_video_delete',
+    ),
 ]

@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 from django.urls import reverse
 
-from curio.resources.models import AudioResource
+from curio.resources.models import AudioResource, ImageResource, VideoResource
 
 
 @pytest.mark.django_db
@@ -65,3 +65,57 @@ def test_audio_upload_post_calls_use_case_and_redirects(client):
     assert mock.called
     assert response.status_code == 302
     assert response['Location'] == reverse('backoffice_audio_list')
+
+
+@pytest.mark.django_db
+def test_audio_delete_get_returns_200(client):
+    audio = AudioResource.objects.create(title='Delete Me', file='audio/test.mp3')
+    response = client.get(reverse('backoffice_audio_delete', args=[audio.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_audio_delete_get_returns_404_for_missing(client):
+    response = client.get(reverse('backoffice_audio_delete', args=[9999]))
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_audio_delete_post_deletes_and_redirects(client):
+    audio = AudioResource.objects.create(title='Delete Me', file='audio/test.mp3')
+    response = client.post(reverse('backoffice_audio_delete', args=[audio.pk]))
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_audio_list')
+    assert not AudioResource.objects.filter(pk=audio.pk).exists()
+
+
+@pytest.mark.django_db
+def test_image_delete_get_returns_200(client):
+    image = ImageResource.objects.create(title='Delete Me', file='images/test.jpg')
+    response = client.get(reverse('backoffice_image_delete', args=[image.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_image_delete_post_deletes_and_redirects(client):
+    image = ImageResource.objects.create(title='Delete Me', file='images/test.jpg')
+    response = client.post(reverse('backoffice_image_delete', args=[image.pk]))
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_image_list')
+    assert not ImageResource.objects.filter(pk=image.pk).exists()
+
+
+@pytest.mark.django_db
+def test_video_delete_get_returns_200(client):
+    video = VideoResource.objects.create(title='Delete Me', file='videos/test.mp4')
+    response = client.get(reverse('backoffice_video_delete', args=[video.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_video_delete_post_deletes_and_redirects(client):
+    video = VideoResource.objects.create(title='Delete Me', file='videos/test.mp4')
+    response = client.post(reverse('backoffice_video_delete', args=[video.pk]))
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_video_list')
+    assert not VideoResource.objects.filter(pk=video.pk).exists()

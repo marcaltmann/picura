@@ -20,6 +20,7 @@
       <dt>{% trans "Created" %}</dt>
       <dd>{{ image.created_at }}</dd>
     </dl>
+    <a href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
     {% if exif %}
       <h2>{% trans "EXIF Metadata" %}</h2>
       <dl class="details">

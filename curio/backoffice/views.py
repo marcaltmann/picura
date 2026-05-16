@@ -79,3 +79,27 @@ def video_upload(request):
         upload_video_files(request.FILES.getlist('files'))
         return redirect('backoffice_video_list')
     return render(request, 'backoffice/content/video_upload.html')
+
+
+def audio_delete(request, pk):
+    audio = get_object_or_404(AudioResource, pk=pk)
+    if request.method == 'POST':
+        audio.delete()
+        return redirect('backoffice_audio_list')
+    return render(request, 'backoffice/content/audio_delete.html', {'audio': audio})
+
+
+def image_delete(request, pk):
+    image = get_object_or_404(ImageResource, pk=pk)
+    if request.method == 'POST':
+        image.delete()
+        return redirect('backoffice_image_list')
+    return render(request, 'backoffice/content/image_delete.html', {'image': image})
+
+
+def video_delete(request, pk):
+    video = get_object_or_404(VideoResource, pk=pk)
+    if request.method == 'POST':
+        video.delete()
+        return redirect('backoffice_video_list')
+    return render(request, 'backoffice/content/video_delete.html', {'video': video})

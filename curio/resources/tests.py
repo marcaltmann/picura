@@ -55,6 +55,42 @@ def test_multiple_metadata_types_per_resource():
     assert types == {Metadata.Type.EXIF, Metadata.Type.DUBLIN_CORE}
 
 
+@pytest.mark.django_db
+def test_deleting_audio_resource_deletes_file():
+    audio = AudioResource.objects.create(
+        title='Podcast',
+        file=SimpleUploadedFile('ep.mp3', b'audio data'),
+    )
+    name = audio.file.name
+    audio.delete()
+    assert not audio.file.storage.exists(name)
+
+
+@pytest.mark.django_db
+def test_deleting_image_resource_deletes_file():
+    image = ImageResource.objects.create(
+        title='Photo',
+        file=SimpleUploadedFile('photo.jpg', b'image data'),
+    )
+    name = image.file.name
+    image.delete()
+    assert not image.file.storage.exists(name)
+
+
+@pytest.mark.django_db
+def test_deleting_video_resource_deletes_file_and_poster():
+    video = VideoResource.objects.create(
+        title='Clip',
+        file=SimpleUploadedFile('clip.mp4', b'video data'),
+        poster=SimpleUploadedFile('poster.jpg', b'image data'),
+    )
+    file_name = video.file.name
+    poster_name = video.poster.name
+    video.delete()
+    assert not video.file.storage.exists(file_name)
+    assert not video.file.storage.exists(poster_name)
+
+
 EMPTY_META = {
     'title': None,
     'duration': None,
