@@ -1,0 +1,6 @@
+.image-thumbnail {
+    display: block;
+    height: 3rlh;
+    width: 3rlh;
+    object-fit: contain;
+}

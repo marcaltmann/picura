@@ -9,6 +9,7 @@
       <table class="data-table">
         <thead>
           <tr>
+            <th></th>
             <th>{% trans "Title" %}</th>
             <th data-align="end">{% trans "Dimensions" %}</th>
             <th>{% trans "Produced" %}</th>
@@ -19,6 +20,7 @@
         <tbody>
           {% for image in image_list %}
             <tr>
+              <td><a href="{% url 'backoffice_image_detail' image.pk %}"><img class="image-thumbnail" src="{{ image.file.url }}" alt=""></a></td>
               <td><a href="{% url 'backoffice_image_detail' image.pk %}">{{ image.title }}</a></td>
               <td data-align="end">
                 {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
