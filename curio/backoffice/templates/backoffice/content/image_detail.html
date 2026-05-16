@@ -5,7 +5,7 @@
   <div class="container mt-lh">
     <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a>
     <h1>{{ image.title }}</h1>
-    <img class="max-w:100%" src="{{ image.file.url }}" alt="{{ image.title }}">
+    <img class="image-preview" src="{{ image.file.url }}" alt="{{ image.title }}">
     <dl class="details">
       <dt>{% trans "File" %}</dt>
       <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
