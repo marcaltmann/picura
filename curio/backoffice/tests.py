@@ -3,8 +3,18 @@ from unittest.mock import patch
 
 import pytest
 from django.urls import reverse
+from PIL import Image
 
 from curio.resources.models import AudioResource, ImageResource, VideoResource
+
+
+@pytest.fixture
+def image_resource(settings):
+    img_dir = settings.MEDIA_ROOT / 'images'
+    img_dir.mkdir(parents=True, exist_ok=True)
+    img = Image.new('RGB', (10, 10), color='red')
+    img.save(img_dir / 'test.jpg', 'JPEG')
+    return ImageResource.objects.create(title='Test Image', file='images/test.jpg')
 
 
 @pytest.mark.django_db
@@ -87,6 +97,30 @@ def test_audio_delete_post_deletes_and_redirects(client):
     assert response.status_code == 302
     assert response['Location'] == reverse('backoffice_audio_list')
     assert not AudioResource.objects.filter(pk=audio.pk).exists()
+
+
+@pytest.mark.django_db
+def test_image_detail_post_updates_title_and_redirects(client):
+    image = ImageResource.objects.create(title='Old Title', file='images/test.jpg')
+    response = client.post(
+        reverse('backoffice_image_detail', args=[image.pk]),
+        {'title': 'New Title'},
+    )
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_image_detail', args=[image.pk])
+    image.refresh_from_db()
+    assert image.title == 'New Title'
+
+
+@pytest.mark.django_db
+def test_image_detail_post_invalid_rerenders_form(client, image_resource):
+    response = client.post(
+        reverse('backoffice_image_detail', args=[image_resource.pk]),
+        {'title': ''},
+    )
+    assert response.status_code == 200
+    image_resource.refresh_from_db()
+    assert image_resource.title == 'Test Image'
 
 
 @pytest.mark.django_db

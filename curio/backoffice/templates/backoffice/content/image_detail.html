@@ -4,11 +4,18 @@
 {% block content %}
   <div class="container mt-lh">
     <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a>
-    <h1>{{ image.title }}</h1>
-    <div class="media-object">
+    <div class="media-object mt-lh">
       <a href="{{ image.file.url }}"><img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt="{{ image.title }}"></a>
       <div>
         <dl class="details">
+          <dt>{% trans "Title" %}</dt>
+          <dd>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.title }}
+              <button class="button" type="submit">{% trans "Save" %}</button>
+            </form>
+          </dd>
           <dt>{% trans "File" %}</dt>
           <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
           <dt>{% trans "Dimensions" %}</dt>
@@ -26,7 +33,7 @@
     </div>
 
     <div class="mt-lh">
-      <a href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
+      <a class="button" data-variant="secondary" href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
     </div>
 
     {% include "backoffice/content/image_exif.html" %}

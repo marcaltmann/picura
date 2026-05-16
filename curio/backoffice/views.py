@@ -7,6 +7,8 @@ from curio.resources.use_cases import (
     upload_video_files,
 )
 
+from .forms import ImageResourceForm
+
 
 def dashboard(request):
     return render(request, 'backoffice/dashboard.html')
@@ -46,9 +48,18 @@ def image_list(request):
 
 def image_detail(request, pk):
     image = get_object_or_404(ImageResource, pk=pk)
+    if request.method == 'POST':
+        form = ImageResourceForm(request.POST, instance=image)
+        if form.is_valid():
+            form.save()
+            return redirect('backoffice_image_detail', pk=pk)
+    else:
+        form = ImageResourceForm(instance=image)
     exif = image.metadata.filter(type=Metadata.Type.EXIF).first()
     return render(
-        request, 'backoffice/content/image_detail.html', {'image': image, 'exif': exif}
+        request,
+        'backoffice/content/image_detail.html',
+        {'image': image, 'exif': exif, 'form': form},
     )
 
 
