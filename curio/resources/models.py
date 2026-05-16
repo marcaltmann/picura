@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
 
 
 class Resource(models.Model):
@@ -35,6 +37,12 @@ class ImageResource(Resource):
     width = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('width'))
     height = models.PositiveIntegerField(
         null=True, blank=True, verbose_name=_('height')
+    )
+    thumbnail = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(300, 300)],
+        format='JPEG',
+        options={'quality': 80},
     )
 
     class Meta:

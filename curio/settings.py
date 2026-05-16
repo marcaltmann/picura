@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'curio.core',
     'curio.my_account',
     'curio.resources',
+    'imagekit',
     'django_vite',
     'django.contrib.admin',
     'django.contrib.auth',

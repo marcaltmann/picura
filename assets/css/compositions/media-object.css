@@ -1,0 +1,14 @@
+.media-object {
+  display: flex;
+  gap: var(--media-object-gap, 1rlh);
+  align-items: start;
+}
+
+.media-object > :first-child {
+  flex-shrink: 0;
+}
+
+.media-object > :last-child {
+  flex-grow: 1;
+  min-width: 0;
+}

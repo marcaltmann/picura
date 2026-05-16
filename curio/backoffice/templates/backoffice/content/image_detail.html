@@ -5,22 +5,29 @@
   <div class="container mt-lh">
     <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a>
     <h1>{{ image.title }}</h1>
-    <img class="image-preview" src="{{ image.file.url }}" alt="{{ image.title }}">
-    <dl class="details">
-      <dt>{% trans "File" %}</dt>
-      <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
-      <dt>{% trans "Dimensions" %}</dt>
-      <dd>
-        {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
-      </dd>
-      <dt>{% trans "Produced at" %}</dt>
-      <dd>{{ image.produced_at|default:"–" }}</dd>
-      <dt>{% trans "File size" %}</dt>
-      <dd>{{ image.file_size|filesizeformat }}</dd>
-      <dt>{% trans "Created" %}</dt>
-      <dd>{{ image.created_at }}</dd>
-    </dl>
-    <a href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
+    <div class="media-object">
+      <a href="{{ image.file.url }}"><img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt="{{ image.title }}"></a>
+      <div>
+        <dl class="details">
+          <dt>{% trans "File" %}</dt>
+          <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
+          <dt>{% trans "Dimensions" %}</dt>
+          <dd>
+            {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
+          </dd>
+          <dt>{% trans "Produced at" %}</dt>
+          <dd>{{ image.produced_at|default:"–" }}</dd>
+          <dt>{% trans "File size" %}</dt>
+          <dd>{{ image.file_size|filesizeformat }}</dd>
+          <dt>{% trans "Created" %}</dt>
+          <dd>{{ image.created_at }}</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="mt-lh">
+      <a href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
+    </div>
+
     {% include "backoffice/content/image_exif.html" %}
-  </div>
 {% endblock %}

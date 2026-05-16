@@ -3,6 +3,8 @@
     grid-template-columns: max-content 1fr;
     gap: 0.25rlh 1.5rlh;
     font-size: 0.875rem;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .details dt {
