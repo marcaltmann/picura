@@ -2,18 +2,36 @@
 {% load i18n %}
 {% block title %}{{ image.title }} – {{ block.super }}{% endblock %}
 {% block content %}
-  <div class="container mt-lh">
-    <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a>
-    <div class="media-object mt-lh">
-      <a href="{{ image.file.url }}"><img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt="{{ image.title }}"></a>
+  <div class="container mt-lh mb-lh">
+    <header class="header">
+      <div class="header__breadcrumbs">
+        <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a> /
+        {{ image.title }}
+      </div>
+
+      <div class="header__main">
+        <h1 class="header__title">
+          {{ image.title }}
+        </h1>
+        <div class="header__actions">
+          <a class="button" data-variant="secondary" href="{% url 'backoffice_image_list' %}">{% trans "List" %}</a>
+          <button class="button" type="submit" form="main-form">{% trans "Save" %}</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="halves mt-lh">
+      <div class="image-preview">
+        <img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt="{{ image.title }}">
+      </div>
+
       <div>
         <dl class="details">
           <dt>{% trans "Title" %}</dt>
           <dd>
-            <form method="post">
+            <form id="main-form" method="post">
               {% csrf_token %}
               {{ form.title }}
-              <button class="button" type="submit">{% trans "Save" %}</button>
             </form>
           </dd>
           <dt>{% trans "File" %}</dt>
@@ -30,13 +48,13 @@
           <dd>{{ image.file_size|filesizeformat }}</dd>
           <dt>{% trans "Created" %}</dt>
           <dd>{{ image.created_at }}</dd>
+
+          {% include "backoffice/content/image_exif.html" %}
         </dl>
+
+        <div class="mt-lh">
+          <a class="button" data-variant="secondary" href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
+        </div>
       </div>
     </div>
-
-    <div class="mt-lh">
-      <a class="button" data-variant="secondary" href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
-    </div>
-
-    {% include "backoffice/content/image_exif.html" %}
 {% endblock %}

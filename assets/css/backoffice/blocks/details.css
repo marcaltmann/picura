@@ -1,18 +1,16 @@
 .details {
     display: grid;
+    font-family: var(--font-serif);
+    gap: 0.5rlh 1.5rlh;
     grid-template-columns: max-content 1fr;
-    gap: 0.25rlh 1.5rlh;
-    font-size: 0.875rem;
-    margin-block-start: 0;
     margin-block-end: 0;
+    margin-block-start: 0;
 }
 
 .details dt {
-    font-size: 0.75rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    opacity: 0.55;
+    color: var(--color-ink-faded);
+    font-family: var(--font-serif);
+    font-style: italic;
 }
 
 .details dd {

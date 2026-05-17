@@ -6,14 +6,17 @@
 @import "./compositions/stack.css" layer(compositions);
 @import "./compositions/media-object.css" layer(compositions);
 @import "./compositions/with-sidebar.css" layer(compositions);
+@import "./compositions/halves.css" layer(compositions);
 @import "./blocks/button.css" layer(blocks);
 @import "./blocks/card.css" layer(blocks);
 @import "./utilities/margin-lh.css" layer(utilities);
 @import "./utilities/overflow.css" layer(utilities);
 @import "./utilities/max-width.css" layer(utilities);
 @import "./backoffice/tokens.css" layer(base);        /* overrides */
+@import "./backoffice/blocks/header.css" layer(blocks);
 @import "./backoffice/blocks/audio-player.css" layer(blocks);
 @import "./backoffice/blocks/data-table.css" layer(blocks);
+@import "./backoffice/blocks/image-preview.css" layer(blocks);
 @import "./backoffice/blocks/image-thumbnail.css" layer(blocks);
 @import "./backoffice/blocks/details.css" layer(blocks);
 @import "./backoffice/blocks/metadata.css" layer(blocks);

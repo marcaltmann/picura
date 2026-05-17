@@ -1,0 +1,9 @@
+.halves {
+  display: grid;
+  gap: 2rlh;
+  grid-template-columns: 1fr 1fr;
+}
+
+.halves > * {
+  min-width: 0;
+}
