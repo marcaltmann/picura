@@ -1,5 +1,17 @@
 :root {
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Liberation Sans", sans-serif;
+    /* Display / archival voice (was: Fraunces) */
+    --font-serif: ui-serif, "New York", "Sitka Text", Cambria,
+                    Georgia, "DejaVu Serif", serif;
+
+    /* UI / body text (was: Inter) */
+    --font-sans:  system-ui, -apple-system, BlinkMacSystemFont,
+                    "Segoe UI", Roboto, Cantarell, Ubuntu, sans-serif;
+
+    /* Catalog metadata, EXIF, filenames (was: JetBrains Mono) */
+    --font-mono:  ui-monospace, "SF Mono", "Cascadia Mono", Menlo,
+                    Consolas, "DejaVu Sans Mono", monospace;
+
+    font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.5rem;
 }
@@ -15,6 +27,7 @@ a:hover {
 }
 
 h1 {
+    font-family: var(--font-serif);
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.5rlh;
