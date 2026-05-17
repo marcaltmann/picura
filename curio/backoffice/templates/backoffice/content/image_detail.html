@@ -42,14 +42,33 @@
           <dd>
             {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
           </dd>
-          <dt>{% trans "Produced at" %}</dt>
-          <dd>{{ image.produced_at|default:"–" }}</dd>
           <dt>{% trans "File size" %}</dt>
           <dd>{{ image.file_size|filesizeformat }}</dd>
-          <dt>{% trans "Created" %}</dt>
+          <dt>{% trans "Uploaded at" %}</dt>
           <dd>{{ image.created_at }}</dd>
+          <dt>{% trans "Produced at" %}</dt>
+          <dd>{{ image.produced_at|default:"–" }}</dd>
 
-          {% include "backoffice/content/image_exif.html" %}
+          {% if exif.data.camera_make or exif.data.camera_model %}
+            <dt>{% trans "Camera" %}</dt>
+            <dd>{{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}</dd>
+          {% endif %}
+          {% if exif.data.lens %}
+            <dt>{% trans "Lens" %}</dt>
+            <dd>{{ exif.data.lens }}</dd>
+          {% endif %}
+          {% if exif.data.focal_length %}
+            <dt>{% trans "Focal length" %}</dt>
+            <dd>{{ exif.data.focal_length }}mm</dd>
+          {% endif %}
+          {% if exif.data.aperture %}
+            <dt>{% trans "Aperture" %}</dt>
+            <dd>f/{{ exif.data.aperture }}</dd>
+          {% endif %}
+          {% if exif.data.shutter_speed %}
+            <dt>{% trans "Shutter speed" %}</dt>
+            <dd>{{ exif.data.shutter_speed }}s</dd>
+          {% endif %}
         </dl>
 
         <div class="mt-lh">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 03:21+0200\n"
+"POT-Creation-Date: 2026-05-17 12:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:6
+#: curio/backoffice/templates/backoffice/_sidebar.html:18
 msgid "Overview"
 msgstr "Übersicht"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:8
+#: curio/backoffice/templates/backoffice/_sidebar.html:20
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:13
+#: curio/backoffice/templates/backoffice/_sidebar.html:25
 msgid "Content"
 msgstr "Inhalte"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:15
+#: curio/backoffice/templates/backoffice/_sidebar.html:27
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:6
 #: curio/backoffice/templates/backoffice/content/audio_list.html:3
 #: curio/backoffice/templates/backoffice/content/audio_list.html:6
@@ -38,14 +38,14 @@ msgstr "Inhalte"
 msgid "Audio"
 msgstr "Audio"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:16
-#: curio/backoffice/templates/backoffice/content/image_detail.html:6
+#: curio/backoffice/templates/backoffice/_sidebar.html:28
+#: curio/backoffice/templates/backoffice/content/image_detail.html:8
 #: curio/backoffice/templates/backoffice/content/image_list.html:3
 #: curio/backoffice/templates/backoffice/content/image_list.html:6
 msgid "Images"
 msgstr "Bilder"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:17
+#: curio/backoffice/templates/backoffice/_sidebar.html:29
 #: curio/backoffice/templates/backoffice/content/video_detail.html:6
 #: curio/backoffice/templates/backoffice/content/video_list.html:3
 #: curio/backoffice/templates/backoffice/content/video_list.html:6
@@ -57,7 +57,7 @@ msgstr "Videos"
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:19
 #: curio/backoffice/templates/backoffice/content/image_delete.html:3
 #: curio/backoffice/templates/backoffice/content/image_delete.html:12
-#: curio/backoffice/templates/backoffice/content/image_detail.html:38
+#: curio/backoffice/templates/backoffice/content/image_detail.html:75
 #: curio/backoffice/templates/backoffice/content/video_delete.html:3
 #: curio/backoffice/templates/backoffice/content/video_delete.html:11
 #: curio/backoffice/templates/backoffice/content/video_detail.html:33
@@ -82,7 +82,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:10
-#: curio/backoffice/templates/backoffice/content/image_detail.html:19
+#: curio/backoffice/templates/backoffice/content/image_detail.html:37
 #: curio/backoffice/templates/backoffice/content/video_detail.html:12
 msgid "File"
 msgstr "Datei"
@@ -96,7 +96,7 @@ msgstr "Dauer"
 
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:14
 #: curio/backoffice/templates/backoffice/content/audio_list.html:14
-#: curio/backoffice/templates/backoffice/content/image_detail.html:29
+#: curio/backoffice/templates/backoffice/content/image_detail.html:45
 #: curio/backoffice/templates/backoffice/content/image_list.html:21
 #: curio/backoffice/templates/backoffice/content/video_detail.html:28
 #: curio/backoffice/templates/backoffice/content/video_list.html:15
@@ -105,7 +105,6 @@ msgstr "Dateigröße"
 
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:16
 #: curio/backoffice/templates/backoffice/content/audio_list.html:15
-#: curio/backoffice/templates/backoffice/content/image_detail.html:31
 #: curio/backoffice/templates/backoffice/content/image_list.html:22
 #: curio/backoffice/templates/backoffice/content/video_detail.html:30
 #: curio/backoffice/templates/backoffice/content/video_list.html:16
@@ -122,7 +121,7 @@ msgid "Upload"
 msgstr "Hochladen"
 
 #: curio/backoffice/templates/backoffice/content/audio_list.html:12
-#: curio/backoffice/templates/backoffice/content/image_detail.html:11
+#: curio/backoffice/templates/backoffice/content/image_detail.html:30
 #: curio/backoffice/templates/backoffice/content/image_list.html:17
 #: curio/backoffice/templates/backoffice/content/video_list.html:12
 msgid "Title"
@@ -147,61 +146,58 @@ msgstr "Dateien"
 msgid "Delete image"
 msgstr "Bild löschen"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:16
+#: curio/backoffice/templates/backoffice/content/image_detail.html:17
+msgid "List"
+msgstr ""
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:18
 msgid "Save"
 msgstr ""
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:21
+#: curio/backoffice/templates/backoffice/content/image_detail.html:39
 #: curio/backoffice/templates/backoffice/content/image_list.html:19
 msgid "Media type"
 msgstr "Medientyp"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:23
+#: curio/backoffice/templates/backoffice/content/image_detail.html:41
 #: curio/backoffice/templates/backoffice/content/image_list.html:18
 #: curio/backoffice/templates/backoffice/content/video_detail.html:24
 #: curio/backoffice/templates/backoffice/content/video_list.html:14
 msgid "Dimensions"
 msgstr "Abmessungen"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:27
+#: curio/backoffice/templates/backoffice/content/image_detail.html:47
+msgid "Uploaded at"
+msgstr "Hochgeladen am"
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:49
 msgid "Produced at"
 msgstr "Aufgenommen am"
 
+#: curio/backoffice/templates/backoffice/content/image_detail.html:53
 #: curio/backoffice/templates/backoffice/content/image_exif.html:4
-msgid "EXIF Metadata"
-msgstr "EXIF-Metadaten"
-
-#: curio/backoffice/templates/backoffice/content/image_exif.html:7
 msgid "Camera"
 msgstr "Kamera"
 
-#: curio/backoffice/templates/backoffice/content/image_exif.html:11
-msgid "Format"
-msgstr "Format"
-
-#: curio/backoffice/templates/backoffice/content/image_exif.html:15
-msgid "Color mode"
-msgstr "Farbmodus"
-
-#: curio/backoffice/templates/backoffice/content/image_exif.html:19
-msgid "ICC profile"
-msgstr "ICC-Profil"
-
-#: curio/backoffice/templates/backoffice/content/image_exif.html:23
+#: curio/backoffice/templates/backoffice/content/image_detail.html:57
+#: curio/backoffice/templates/backoffice/content/image_exif.html:8
 msgid "Lens"
 msgstr "Objektiv"
 
-#: curio/backoffice/templates/backoffice/content/image_exif.html:27
+#: curio/backoffice/templates/backoffice/content/image_detail.html:61
+#: curio/backoffice/templates/backoffice/content/image_exif.html:12
+msgid "Focal length"
+msgstr "Brennweite"
+
+#: curio/backoffice/templates/backoffice/content/image_detail.html:65
+#: curio/backoffice/templates/backoffice/content/image_exif.html:16
 msgid "Aperture"
 msgstr "Blende"
 
-#: curio/backoffice/templates/backoffice/content/image_exif.html:31
+#: curio/backoffice/templates/backoffice/content/image_detail.html:69
+#: curio/backoffice/templates/backoffice/content/image_exif.html:20
 msgid "Shutter speed"
 msgstr "Belichtungszeit"
-
-#: curio/backoffice/templates/backoffice/content/image_exif.html:35
-msgid "Focal length"
-msgstr "Brennweite"
 
 #: curio/backoffice/templates/backoffice/content/image_list.html:20
 msgid "Produced"
@@ -353,6 +349,18 @@ msgstr "Deutsch"
 #: curio/settings.py:151
 msgid "English"
 msgstr "Englisch"
+
+#~ msgid "EXIF Metadata"
+#~ msgstr "EXIF-Metadaten"
+
+#~ msgid "Format"
+#~ msgstr "Format"
+
+#~ msgid "Color mode"
+#~ msgstr "Farbmodus"
+
+#~ msgid "ICC profile"
+#~ msgstr "ICC-Profil"
 
 #~ msgid "audio resource"
 #~ msgstr "Audio-Ressource"
