@@ -3,6 +3,7 @@
 @import "./base/typography.css" layer(base);
 @import "./compositions/cluster.css" layer(compositions);
 @import "./compositions/container.css" layer(compositions);
+@import "./compositions/repel.css" layer(compositions);
 @import "./compositions/stack.css" layer(compositions);
 @import "./blocks/button.css" layer(blocks);
 @import "./blocks/card.css" layer(blocks);
@@ -10,5 +11,6 @@
 @import "./utilities/margin-lh.css" layer(utilities);
 @import "./public/tokens.css" layer(base);       /* overrides */
 @import "./public/compositions/site-frame.css" layer(compositions);
+@import "./public/blocks/footer.css" layer(blocks);
 @import "./public/blocks/hero.css" layer(blocks);
 @import "./public/blocks/pricing.css" layer(blocks);

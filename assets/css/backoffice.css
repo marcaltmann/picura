@@ -7,6 +7,7 @@
 @import "./compositions/media-object.css" layer(compositions);
 @import "./compositions/with-sidebar.css" layer(compositions);
 @import "./compositions/halves.css" layer(compositions);
+@import "./compositions/repel.css" layer(compositions);
 @import "./blocks/button.css" layer(blocks);
 @import "./blocks/card.css" layer(blocks);
 @import "./utilities/margin-lh.css" layer(utilities);

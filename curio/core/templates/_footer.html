@@ -1,12 +1,18 @@
 {% load i18n %}
-{% load static %}
-{% get_current_language as LANGUAGE_CODE %}
-<footer class="footer site__footer">
-    <div class="footer__inner container container--wide">
-        <p class="u-align-center">
-            Curio
-        </p>
-        <nav class="secondary-nav u-mt">
-        </nav>
+<footer class="footer">
+    <div class="container container-lg">
+        <div class="repel">
+            <ul class="footer__nav">
+                <li><a href="">{% trans "Contact" %}</a></li>
+                <li><a href="">{% trans "Terms" %}</a></li>
+                <li><a href="">{% trans "Privacy" %}</a></li>
+                <li><a href="">{% trans "Legal notice" %}</a></li>
+            </ul>
+            <a class="footer__link" href="https://github.com/marcaltmann/curio">
+                <span class="footer__text">{% trans "runs on" %}</span>
+                {% include "_curio_logo.html" %}
+                <span class="footer__brand">Curio</span>
+            </a>
+        </div>
     </div>
 </footer>
