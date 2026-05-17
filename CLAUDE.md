@@ -30,6 +30,8 @@ TDD is preferred. Write tests before or alongside implementation. Use `uv run py
 
 Keep commit messages short (one line is usually enough). Do not add `Co-Authored-By` trailers.
 
+`.mo` files are gitignored — never stage or commit them.
+
 ## Architecture
 
 **Project layout:** The Django project package is `curio/` (contains `settings.py`, `urls.py`). Apps live inside it as sub-packages (e.g. `curio/my_account/`).
@@ -38,6 +40,6 @@ Keep commit messages short (one line is usually enough). Do not add `Co-Authored
 
 **i18n:** `LocaleMiddleware` is active. Supported languages are `de` and `en` (default). Translation files live in `locale/` at the project root. Only German needs `.po` entries — English is the source language and has no `.po` file.
 
-**Dependencies** (see `pyproject.toml`): Django 6, `django-allauth` (installed but not yet wired into `INSTALLED_APPS`), `psycopg` (PostgreSQL driver installed but SQLite is used in development).
+**Dependencies** (see `pyproject.toml`): Django 6, `django-allauth` (installed but not yet wired into `INSTALLED_APPS`), `psycopg` (PostgreSQL is used in development).
 
 **Models:** Every model must include `created_at = models.DateTimeField(auto_now_add=True)` and `updated_at = models.DateTimeField(auto_now=True)`.
