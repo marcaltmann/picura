@@ -1,16 +1,31 @@
 .sidebar {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: var(--color-creme);
+  color: var(--color-ink);
   padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2rlh;
+  border-right: 1px solid var(--color-ink-faded);
 }
 
 .sidebar__brand {
   color: inherit;
   font-weight: bold;
   text-decoration: none;
+}
+
+.sidebar__title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+}
+
+.sidebar__subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--color-ink-faded);
+  font-weight: 300;
 }
 
 .sidebar__nav {
