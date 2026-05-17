@@ -104,6 +104,7 @@ def test_upload_audio_files_creates_resources():
     resource = Resource.objects.filter(resource_type=Resource.Type.AUDIO).first()
     assert resource.title == 'My Podcast'
     assert resource.file_size == len(b'audio data')
+    assert resource.media_type == 'audio/mpeg'
 
 
 @pytest.mark.django_db
@@ -184,6 +185,7 @@ def test_upload_image_files_creates_resources():
     resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
     assert resource.title == 'My Photo'
     assert resource.file_size == len(b'image data')
+    assert resource.media_type == 'image/jpeg'
 
 
 @pytest.mark.django_db
@@ -305,6 +307,7 @@ def test_upload_video_files_creates_resources():
     resource = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first()
     assert resource.title == 'My Video'
     assert resource.file_size == len(b'video data')
+    assert resource.media_type == 'video/mp4'
 
 
 @pytest.mark.django_db

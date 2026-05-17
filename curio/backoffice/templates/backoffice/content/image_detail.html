@@ -18,6 +18,8 @@
           </dd>
           <dt>{% trans "File" %}</dt>
           <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
+          <dt>{% trans "Media type" %}</dt>
+          <dd>{{ image.media_type|default:"–" }}</dd>
           <dt>{% trans "Dimensions" %}</dt>
           <dd>
             {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}

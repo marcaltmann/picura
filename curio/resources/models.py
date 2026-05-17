@@ -26,6 +26,9 @@ class Resource(models.Model):
     )
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to=_resource_file_upload, verbose_name=_('file'))
+    media_type = models.CharField(
+        max_length=100, blank=True, default='', verbose_name=_('media type')
+    )
     file_size = models.PositiveIntegerField(default=0, verbose_name=_('file size'))
     produced_at = models.DateTimeField(
         null=True, blank=True, verbose_name=_('produced at')

@@ -1,5 +1,6 @@
 import io
 import json
+import mimetypes
 import subprocess
 import tempfile
 from datetime import datetime, timedelta
@@ -106,10 +107,12 @@ def upload_image_files(files):
         meta = extract_image_metadata(f)
         f.seek(0)
         title = Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
+        media_type, _ = mimetypes.guess_type(f.name)
         resource = Resource.objects.create(
             resource_type=Resource.Type.IMAGE,
             title=title,
             file=f,
+            media_type=media_type or '',
             file_size=f.size,
             width=meta['width'],
             height=meta['height'],
@@ -191,10 +194,12 @@ def upload_video_files(files):
         meta = extract_video_metadata(f)
         f.seek(0)
         title = Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
+        media_type, _ = mimetypes.guess_type(f.name)
         Resource.objects.create(
             resource_type=Resource.Type.VIDEO,
             title=title,
             file=f,
+            media_type=media_type or '',
             file_size=f.size,
             duration=meta['duration'],
             width=meta['width'],
@@ -210,10 +215,12 @@ def upload_audio_files(files):
             meta['title']
             or Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
         )
+        media_type, _ = mimetypes.guess_type(f.name)
         Resource.objects.create(
             resource_type=Resource.Type.AUDIO,
             title=title,
             file=f,
+            media_type=media_type or '',
             file_size=f.size,
             duration=meta['duration'],
         )
