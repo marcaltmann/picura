@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import AudioResource, ImageResource, Metadata, Resource, VideoResource
+from .models import Metadata, Resource
 
 
 class MetadataInline(admin.TabularInline):
@@ -11,8 +11,3 @@ class MetadataInline(admin.TabularInline):
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
     inlines = [MetadataInline]
-
-
-admin.site.register(AudioResource)
-admin.site.register(ImageResource)
-admin.site.register(VideoResource)

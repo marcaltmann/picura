@@ -9,16 +9,13 @@ from pathlib import Path
 import mutagen
 from PIL import Image, ImageCms
 
-from .models import AudioResource, ImageResource, Metadata, VideoResource
+from .models import Metadata, Resource
 
 
 def extract_metadata(file):
     result = {
         'title': None,
         'duration': None,
-        'bitrate': None,
-        'sample_rate': None,
-        'channels': None,
     }
     try:
         audio = mutagen.File(file, easy=True)
@@ -32,9 +29,6 @@ def extract_metadata(file):
             result['title'] = titles[0]
     if audio.info:
         result['duration'] = timedelta(seconds=audio.info.length)
-        result['bitrate'] = getattr(audio.info, 'bitrate', None)
-        result['sample_rate'] = getattr(audio.info, 'sample_rate', None)
-        result['channels'] = getattr(audio.info, 'channels', None)
     return result
 
 
@@ -112,7 +106,8 @@ def upload_image_files(files):
         meta = extract_image_metadata(f)
         f.seek(0)
         title = Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
-        resource = ImageResource.objects.create(
+        resource = Resource.objects.create(
+            resource_type=Resource.Type.IMAGE,
             title=title,
             file=f,
             file_size=f.size,
@@ -170,11 +165,6 @@ def extract_video_metadata(file):
         'duration': None,
         'width': None,
         'height': None,
-        'bitrate': None,
-        'video_codec': None,
-        'frame_rate_num': None,
-        'frame_rate_den': None,
-        'audio_codec': None,
     }
     if hasattr(file, 'temporary_file_path'):
         data = _ffprobe(file.temporary_file_path())
@@ -189,22 +179,10 @@ def extract_video_metadata(file):
     duration_str = fmt.get('duration')
     if duration_str:
         result['duration'] = timedelta(seconds=float(duration_str))
-    bitrate_str = fmt.get('bit_rate')
-    if bitrate_str:
-        result['bitrate'] = int(bitrate_str)
     for stream in data.get('streams', []):
-        codec_type = stream.get('codec_type')
-        if codec_type == 'video' and result['video_codec'] is None:
-            result['video_codec'] = stream.get('codec_name')
+        if stream.get('codec_type') == 'video' and result['width'] is None:
             result['width'] = stream.get('width')
             result['height'] = stream.get('height')
-            r_frame_rate = stream.get('r_frame_rate', '')
-            if '/' in r_frame_rate:
-                num, den = r_frame_rate.split('/')
-                result['frame_rate_num'] = int(num)
-                result['frame_rate_den'] = int(den)
-        elif codec_type == 'audio' and result['audio_codec'] is None:
-            result['audio_codec'] = stream.get('codec_name')
     return result
 
 
@@ -213,11 +191,14 @@ def upload_video_files(files):
         meta = extract_video_metadata(f)
         f.seek(0)
         title = Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
-        VideoResource.objects.create(
+        Resource.objects.create(
+            resource_type=Resource.Type.VIDEO,
             title=title,
             file=f,
             file_size=f.size,
-            **meta,
+            duration=meta['duration'],
+            width=meta['width'],
+            height=meta['height'],
         )
 
 
@@ -229,12 +210,10 @@ def upload_audio_files(files):
             meta['title']
             or Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
         )
-        AudioResource.objects.create(
+        Resource.objects.create(
+            resource_type=Resource.Type.AUDIO,
             title=title,
             file=f,
             file_size=f.size,
             duration=meta['duration'],
-            bitrate=meta['bitrate'],
-            sample_rate=meta['sample_rate'],
-            channels=meta['channels'],
         )

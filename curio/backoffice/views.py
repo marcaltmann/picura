@@ -1,13 +1,13 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from curio.resources.models import AudioResource, ImageResource, Metadata, VideoResource
+from curio.resources.models import Metadata, Resource
 from curio.resources.use_cases import (
     upload_audio_files,
     upload_image_files,
     upload_video_files,
 )
 
-from .forms import ImageResourceForm
+from .forms import ResourceForm
 
 
 def dashboard(request):
@@ -19,13 +19,15 @@ def audio_list(request):
         request,
         'backoffice/content/audio_list.html',
         {
-            'audio_list': AudioResource.objects.order_by('-created_at'),
+            'audio_list': Resource.objects.filter(
+                resource_type=Resource.Type.AUDIO
+            ).order_by('-created_at'),
         },
     )
 
 
 def audio_detail(request, pk):
-    audio = get_object_or_404(AudioResource, pk=pk)
+    audio = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.AUDIO)
     return render(request, 'backoffice/content/audio_detail.html', {'audio': audio})
 
 
@@ -41,20 +43,22 @@ def image_list(request):
         request,
         'backoffice/content/image_list.html',
         {
-            'image_list': ImageResource.objects.order_by('-created_at'),
+            'image_list': Resource.objects.filter(
+                resource_type=Resource.Type.IMAGE
+            ).order_by('-created_at'),
         },
     )
 
 
 def image_detail(request, pk):
-    image = get_object_or_404(ImageResource, pk=pk)
+    image = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.IMAGE)
     if request.method == 'POST':
-        form = ImageResourceForm(request.POST, instance=image)
+        form = ResourceForm(request.POST, instance=image)
         if form.is_valid():
             form.save()
             return redirect('backoffice_image_detail', pk=pk)
     else:
-        form = ImageResourceForm(instance=image)
+        form = ResourceForm(instance=image)
     exif = image.metadata.filter(type=Metadata.Type.EXIF).first()
     return render(
         request,
@@ -75,13 +79,15 @@ def video_list(request):
         request,
         'backoffice/content/video_list.html',
         {
-            'video_list': VideoResource.objects.order_by('-created_at'),
+            'video_list': Resource.objects.filter(
+                resource_type=Resource.Type.VIDEO
+            ).order_by('-created_at'),
         },
     )
 
 
 def video_detail(request, pk):
-    video = get_object_or_404(VideoResource, pk=pk)
+    video = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.VIDEO)
     return render(request, 'backoffice/content/video_detail.html', {'video': video})
 
 
@@ -93,7 +99,7 @@ def video_upload(request):
 
 
 def audio_delete(request, pk):
-    audio = get_object_or_404(AudioResource, pk=pk)
+    audio = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.AUDIO)
     if request.method == 'POST':
         audio.delete()
         return redirect('backoffice_audio_list')
@@ -101,7 +107,7 @@ def audio_delete(request, pk):
 
 
 def image_delete(request, pk):
-    image = get_object_or_404(ImageResource, pk=pk)
+    image = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.IMAGE)
     if request.method == 'POST':
         image.delete()
         return redirect('backoffice_image_list')
@@ -109,7 +115,7 @@ def image_delete(request, pk):
 
 
 def video_delete(request, pk):
-    video = get_object_or_404(VideoResource, pk=pk)
+    video = get_object_or_404(Resource, pk=pk, resource_type=Resource.Type.VIDEO)
     if request.method == 'POST':
         video.delete()
         return redirect('backoffice_video_list')
