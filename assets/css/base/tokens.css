@@ -4,4 +4,9 @@
     --color-paper: #f4f1ea;
     --color-creme: #ece7dc;
     --color-accent: #b4471f;  /* Terracotta */
+
+    --color-video: #6e6a5d;
+    --color-audio: #5b8a92;
+    --color-image: #b4471f;
+    --color-document: #b9a679;
 }
