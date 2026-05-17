@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 14:26+0200\n"
+"POT-Creation-Date: 2026-05-17 22:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,7 +265,7 @@ msgstr "Videos"
 msgid "Document"
 msgstr "Dokument"
 
-#: curio/resources/models.py:28 curio/resources/models.py:125
+#: curio/resources/models.py:28 curio/resources/models.py:129
 msgid "type"
 msgstr "Typ"
 
@@ -285,88 +285,97 @@ msgstr "Hergestellt am"
 msgid "poster"
 msgstr "Vorschaubild"
 
-#: curio/resources/models.py:44 curio/resources/models.py:94
-#: curio/resources/models.py:127
+#: curio/resources/models.py:44 curio/resources/models.py:98
+#: curio/resources/models.py:131
 msgid "created at"
 msgstr "Erstellt am"
 
-#: curio/resources/models.py:45 curio/resources/models.py:95
-#: curio/resources/models.py:128
+#: curio/resources/models.py:45 curio/resources/models.py:99
+#: curio/resources/models.py:132
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: curio/resources/models.py:60 curio/resources/models.py:72
-#: curio/resources/models.py:123
+#: curio/resources/models.py:64 curio/resources/models.py:76
+#: curio/resources/models.py:127
 msgid "resource"
 msgstr "Ressource"
 
-#: curio/resources/models.py:61
+#: curio/resources/models.py:65
 msgid "resources"
 msgstr "Ressourcen"
 
-#: curio/resources/models.py:74
+#: curio/resources/models.py:78
 msgid "file"
 msgstr "Datei"
 
-#: curio/resources/models.py:76
+#: curio/resources/models.py:80
 msgid "media type"
 msgstr "Medientyp"
 
-#: curio/resources/models.py:78
+#: curio/resources/models.py:82
 msgid "file size"
 msgstr "Dateigröße"
 
-#: curio/resources/models.py:80
+#: curio/resources/models.py:84
 msgid "role"
 msgstr "Rolle"
 
-#: curio/resources/models.py:82
+#: curio/resources/models.py:86
 msgid "order"
 msgstr "Reihenfolge"
 
-#: curio/resources/models.py:84
+#: curio/resources/models.py:88
 msgid "duration"
 msgstr "Dauer"
 
-#: curio/resources/models.py:86
+#: curio/resources/models.py:90
 msgid "width"
 msgstr "Breite"
 
-#: curio/resources/models.py:88
+#: curio/resources/models.py:92
 msgid "height"
 msgstr "Höhe"
 
-#: curio/resources/models.py:92
+#: curio/resources/models.py:96
 msgid "page count"
 msgstr "Seitenanzahl"
 
-#: curio/resources/models.py:105
+#: curio/resources/models.py:109
 msgid "media file"
 msgstr "Mediendatei"
 
-#: curio/resources/models.py:106
+#: curio/resources/models.py:110
 msgid "media files"
 msgstr "Mediendateien"
 
-#: curio/resources/models.py:115
+#: curio/resources/models.py:119
 msgid "EXIF"
 msgstr "EXIF"
 
-#: curio/resources/models.py:116
+#: curio/resources/models.py:120
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: curio/resources/models.py:117
+#: curio/resources/models.py:121
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: curio/resources/models.py:126
+#: curio/resources/models.py:130
 msgid "data"
 msgstr "Daten"
 
-#: curio/resources/models.py:131 curio/resources/models.py:132
+#: curio/resources/models.py:135 curio/resources/models.py:136
 msgid "metadata"
 msgstr "Metadaten"
+
+#: curio/resources/templates/resources/_player_audio.html:11
+#: curio/resources/templates/resources/_player_audio.html:12
+msgid "Repeat"
+msgstr "Wiederholen"
+
+#: curio/resources/templates/resources/_player_document.html:3
+msgid "Download"
+msgstr "Herunterladen"
 
 #: curio/settings.py:150
 msgid "German"

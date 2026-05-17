@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('backoffice/', include('curio.backoffice.urls')),
     path('accounts/', include('allauth.urls')),
+    path('resources/', include('curio.resources.urls')),
     path('', core_views.welcome, name='welcome'),
 ]
 

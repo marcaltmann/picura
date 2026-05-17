@@ -21,10 +21,11 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "devDependencies": {
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "vitest": "^4.1.6"
   },
   "dependencies": {
     "alpinejs": "^3.15.12"

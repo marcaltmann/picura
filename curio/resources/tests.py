@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
 
 from .models import MediaFile, Metadata, Resource
 from .use_cases import upload_audio_files, upload_image_files, upload_video_files
@@ -22,7 +23,9 @@ def test_metadata_can_be_attached_to_resource():
 
 @pytest.mark.django_db
 def test_metadata_accessible_via_resource():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO, title='Podcast'
+    )
     Metadata.objects.create(
         resource=resource,
         type=Metadata.Type.DUBLIN_CORE,
@@ -57,7 +60,9 @@ def test_multiple_metadata_types_per_resource():
 
 @pytest.mark.django_db
 def test_deleting_media_file_deletes_file():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO, title='Podcast'
+    )
     media_file = MediaFile.objects.create(
         resource=resource,
         file=SimpleUploadedFile('ep.mp3', b'audio data'),
@@ -69,7 +74,9 @@ def test_deleting_media_file_deletes_file():
 
 @pytest.mark.django_db
 def test_deleting_resource_cascades_to_media_files():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO, title='Podcast'
+    )
     media_file = MediaFile.objects.create(
         resource=resource,
         file=SimpleUploadedFile('ep.mp3', b'audio data'),
@@ -200,7 +207,9 @@ def test_upload_image_files_stores_dimensions():
     meta = {**EMPTY_IMAGE_META, 'width': 1920, 'height': 1080}
     with patch('curio.resources.use_cases.extract_image_metadata', return_value=meta):
         upload_image_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first().files.first()
+    media_file = (
+        Resource.objects.filter(resource_type=Resource.Type.IMAGE).first().files.first()
+    )
     assert media_file.width == 1920
     assert media_file.height == 1080
 
@@ -329,7 +338,9 @@ def test_upload_video_files_stores_duration_and_dimensions():
     }
     with patch('curio.resources.use_cases.extract_video_metadata', return_value=meta):
         upload_video_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
+    media_file = (
+        Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
+    )
     assert media_file.duration == timedelta(seconds=120)
     assert media_file.width == 1920
     assert media_file.height == 1080
@@ -339,7 +350,9 @@ def test_upload_video_files_stores_duration_and_dimensions():
 def test_upload_video_files_stores_none_metadata_when_unreadable():
     f = SimpleUploadedFile('video.mp4', b'not real video')
     upload_video_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
+    media_file = (
+        Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
+    )
     assert media_file.duration is None
     assert media_file.width is None
 
@@ -363,3 +376,44 @@ def test_upload_video_files_derives_title_from_filename():
         )
     )
     assert titles == {'My Video', 'Beach Holiday', 'Intro'}
+
+
+# --- resource_detail view ---
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    'resource_type',
+    [
+        Resource.Type.IMAGE,
+        Resource.Type.AUDIO,
+        Resource.Type.VIDEO,
+        Resource.Type.DOCUMENT,
+    ],
+)
+def test_resource_detail_returns_200(client, resource_type):
+    resource = Resource.objects.create(resource_type=resource_type, title='Test')
+    response = client.get(reverse('resource_detail', args=[resource.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_resource_detail_returns_404_for_unknown_pk(client):
+    response = client.get(reverse('resource_detail', args=[99999]))
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_resource_detail_shows_title(client):
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO, title='My Podcast'
+    )
+    response = client.get(reverse('resource_detail', args=[resource.pk]))
+    assert b'My Podcast' in response.content
+
+
+@pytest.mark.django_db
+def test_resource_detail_context_contains_resource(client):
+    resource = Resource.objects.create(resource_type=Resource.Type.IMAGE, title='Photo')
+    response = client.get(reverse('resource_detail', args=[resource.pk]))
+    assert response.context['resource'] == resource

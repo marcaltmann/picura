@@ -28,7 +28,9 @@ class Resource(models.Model):
         max_length=16, choices=Type.choices, verbose_name=_('type')
     )
     title = models.CharField(max_length=255, verbose_name=_('title'))
-    description = models.TextField(blank=True, default='', verbose_name=_('description'))
+    description = models.TextField(
+        blank=True, default='', verbose_name=_('description')
+    )
     produced_at = models.DateTimeField(
         null=True, blank=True, verbose_name=_('produced at')
     )
@@ -55,6 +57,11 @@ class Resource(models.Model):
             if pf:
                 return pf.file_thumbnail
         return self.poster_thumbnail
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse('resource_detail', args=[self.pk])
 
     class Meta:
         verbose_name = _('resource')
