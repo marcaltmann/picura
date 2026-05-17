@@ -35,7 +35,7 @@ class Resource(models.Model):
     produced_at = models.DateTimeField(
         null=True, blank=True, verbose_name=_('produced at')
     )
-    # Audio & Video
+    # Audio, Video & Document
     poster = models.ImageField(
         upload_to='posters/', null=True, blank=True, verbose_name=_('poster')
     )
