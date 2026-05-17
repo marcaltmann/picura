@@ -40,6 +40,8 @@ Keep commit messages short (one line is usually enough). Do not add `Co-Authored
 
 **i18n:** `LocaleMiddleware` is active. Supported languages are `de` and `en` (default). Translation files live in `locale/` at the project root. Only German needs `.po` entries — English is the source language and has no `.po` file.
 
+Whenever a translatable string is added, changed, or removed: run `uv run manage.py makemessages -a`, update the German `.po` file in `locale/de/LC_MESSAGES/django.po`, then run `uv run manage.py compilemessages`.
+
 **Dependencies** (see `pyproject.toml`): Django 6, `django-allauth` (installed but not yet wired into `INSTALLED_APPS`), `psycopg` (PostgreSQL is used in development).
 
 **Models:** Every model must include `created_at = models.DateTimeField(auto_now_add=True)` and `updated_at = models.DateTimeField(auto_now=True)`.

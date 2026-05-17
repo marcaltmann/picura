@@ -11,6 +11,7 @@ def _resource_file_upload(instance, filename):
         Resource.Type.IMAGE: 'images',
         Resource.Type.AUDIO: 'audio',
         Resource.Type.VIDEO: 'videos',
+        Resource.Type.DOCUMENT: 'documents',
     }
     return f'{folders.get(instance.resource_type, "resources")}/{filename}'
 
@@ -20,6 +21,7 @@ class Resource(models.Model):
         IMAGE = 'image', _('Image')
         AUDIO = 'audio', _('Audio')
         VIDEO = 'video', _('Video')
+        DOCUMENT = 'document', _('Document')
 
     resource_type = models.CharField(
         max_length=16, choices=Type.choices, verbose_name=_('type')
@@ -38,6 +40,10 @@ class Resource(models.Model):
         upload_to='posters/', null=True, blank=True, verbose_name=_('poster')
     )
     duration = models.DurationField(null=True, blank=True, verbose_name=_('duration'))
+    # Document
+    page_count = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name=_('page count')
+    )
     # Image & Video
     width = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('width'))
     height = models.PositiveIntegerField(
