@@ -22,6 +22,13 @@ sudo -u postgres psql -c "CREATE DATABASE curio OWNER curio;"
 
 Then copy `.env.example` to `.env` and fill in your credentials (the defaults match the commands above).
 
+For resetting the database:
+
+```bash
+sudo -u postgres psql -c "DROP DATABASE curio;"
+sudo -u postgres psql -c "CREATE DATABASE curio OWNER curio;"
+```
+
 ### Application
 
 ```bash
