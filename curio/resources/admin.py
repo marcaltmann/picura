@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from .models import Metadata, Resource
+from .models import MediaFile, Metadata, Resource
+
+
+class MediaFileInline(admin.TabularInline):
+    model = MediaFile
+    extra = 0
 
 
 class MetadataInline(admin.TabularInline):
@@ -10,4 +15,4 @@ class MetadataInline(admin.TabularInline):
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    inlines = [MetadataInline]
+    inlines = [MediaFileInline, MetadataInline]

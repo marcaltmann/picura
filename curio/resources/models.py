@@ -6,14 +6,15 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 
 
-def _resource_file_upload(instance, filename):
+def _media_file_upload(instance, filename):
     folders = {
         Resource.Type.IMAGE: 'images',
         Resource.Type.AUDIO: 'audio',
         Resource.Type.VIDEO: 'videos',
         Resource.Type.DOCUMENT: 'documents',
     }
-    return f'{folders.get(instance.resource_type, "resources")}/{filename}'
+    resource_type = instance.resource.resource_type if instance.resource_id else None
+    return f'{folders.get(resource_type, "media")}/{filename}'
 
 
 class Resource(models.Model):
@@ -27,27 +28,68 @@ class Resource(models.Model):
         max_length=16, choices=Type.choices, verbose_name=_('type')
     )
     title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.FileField(upload_to=_resource_file_upload, verbose_name=_('file'))
+    description = models.TextField(blank=True, default='', verbose_name=_('description'))
+    produced_at = models.DateTimeField(
+        null=True, blank=True, verbose_name=_('produced at')
+    )
+    poster = models.ImageField(
+        upload_to='posters/', null=True, blank=True, verbose_name=_('poster')
+    )
+    poster_thumbnail = ImageSpecField(
+        source='poster',
+        processors=[ResizeToFit(300, 300)],
+        format='JPEG',
+        options={'quality': 80},
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    @property
+    def primary_file(self):
+        return next(iter(self.files.all()), None)
+
+    @property
+    def thumbnail(self):
+        if self.resource_type == self.Type.IMAGE:
+            pf = self.primary_file
+            if pf:
+                return pf.file_thumbnail
+        return self.poster_thumbnail
+
+    class Meta:
+        verbose_name = _('resource')
+        verbose_name_plural = _('resources')
+
+    def __str__(self):
+        return self.title
+
+
+class MediaFile(models.Model):
+    resource = models.ForeignKey(
+        Resource,
+        on_delete=models.CASCADE,
+        related_name='files',
+        verbose_name=_('resource'),
+    )
+    file = models.FileField(upload_to=_media_file_upload, verbose_name=_('file'))
     media_type = models.CharField(
         max_length=100, blank=True, default='', verbose_name=_('media type')
     )
     file_size = models.PositiveIntegerField(default=0, verbose_name=_('file size'))
-    produced_at = models.DateTimeField(
-        null=True, blank=True, verbose_name=_('produced at')
+    role = models.CharField(
+        max_length=50, blank=True, default='', verbose_name=_('role')
     )
-    # Audio, Video & Document
-    poster = models.ImageField(
-        upload_to='posters/', null=True, blank=True, verbose_name=_('poster')
-    )
+    order = models.PositiveIntegerField(default=0, verbose_name=_('order'))
+    # Audio & Video
     duration = models.DurationField(null=True, blank=True, verbose_name=_('duration'))
-    # Document
-    page_count = models.PositiveIntegerField(
-        null=True, blank=True, verbose_name=_('page count')
-    )
     # Image & Video
     width = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('width'))
     height = models.PositiveIntegerField(
         null=True, blank=True, verbose_name=_('height')
+    )
+    # Document
+    page_count = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name=_('page count')
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
@@ -58,25 +100,14 @@ class Resource(models.Model):
         format='JPEG',
         options={'quality': 80},
     )
-    poster_thumbnail = ImageSpecField(
-        source='poster',
-        processors=[ResizeToFit(300, 300)],
-        format='JPEG',
-        options={'quality': 80},
-    )
-
-    @property
-    def thumbnail(self):
-        if self.resource_type == self.Type.IMAGE:
-            return self.file_thumbnail
-        return self.poster_thumbnail
 
     class Meta:
-        verbose_name = _('resource')
-        verbose_name_plural = _('resources')
+        verbose_name = _('media file')
+        verbose_name_plural = _('media files')
+        ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return f'{self.resource} ({self.media_type or self.file.name})'
 
 
 class Metadata(models.Model):
@@ -105,7 +136,11 @@ class Metadata(models.Model):
 
 
 @receiver(post_delete, sender=Resource)
-def delete_resource_files(sender, instance, **kwargs):
-    instance.file.delete(save=False)
+def delete_resource_poster(sender, instance, **kwargs):
     if instance.poster:
         instance.poster.delete(save=False)
+
+
+@receiver(post_delete, sender=MediaFile)
+def delete_media_file(sender, instance, **kwargs):
+    instance.file.delete(save=False)

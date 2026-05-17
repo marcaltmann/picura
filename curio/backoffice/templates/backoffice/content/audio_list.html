@@ -19,8 +19,8 @@
                     {% for audio in audio_list %}
                         <tr>
                             <td><a href="{% url 'backoffice_audio_detail' audio.pk %}">{{ audio.title }}</a></td>
-                            <td data-align="end">{{ audio.duration|duration|default:"–" }}</td>
-                            <td data-align="end">{{ audio.file_size|filesizeformat }}</td>
+                            <td data-align="end">{{ audio.primary_file.duration|duration|default:"–" }}</td>
+                            <td data-align="end">{{ audio.primary_file.file_size|filesizeformat }}</td>
                             <td>{{ audio.created_at }}</td>
                         </tr>
                     {% empty %}

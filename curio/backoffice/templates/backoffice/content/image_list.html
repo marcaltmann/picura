@@ -28,11 +28,11 @@
               <td><a href="{% url 'backoffice_image_detail' image.pk %}"><img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt=""></a></td>
               <td><a href="{% url 'backoffice_image_detail' image.pk %}">{{ image.title }}</a></td>
               <td data-align="end">
-                {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
+                {% if image.primary_file.width and image.primary_file.height %}{{ image.primary_file.width }}×{{ image.primary_file.height }}{% else %}–{% endif %}
               </td>
-              <td>{{ image.media_type|default:"–" }}</td>
+              <td>{{ image.primary_file.media_type|default:"–" }}</td>
               <td>{{ image.produced_at|default:"–" }}</td>
-              <td data-align="end">{{ image.file_size|filesizeformat }}</td>
+              <td data-align="end">{{ image.primary_file.file_size|filesizeformat }}</td>
               <td>{{ image.created_at }}</td>
             </tr>
           {% empty %}

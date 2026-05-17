@@ -5,14 +5,14 @@
     <div class="container mt-lh">
         <a href="{% url 'backoffice_audio_list' %}">{% trans "Audio" %}</a>
         <h1>{{ audio.title }}</h1>
-        <audio class="audio-player" controls src="{{ audio.file.url }}"></audio>
+        <audio class="audio-player" controls src="{{ audio.primary_file.file.url }}"></audio>
         <dl class="details">
             <dt>{% trans "File" %}</dt>
-            <dd><a href="{{ audio.file.url }}">{{ audio.file.name }}</a></dd>
+            <dd><a href="{{ audio.primary_file.file.url }}">{{ audio.primary_file.file.name }}</a></dd>
             <dt>{% trans "Duration" %}</dt>
-            <dd>{{ audio.duration|duration|default:"–" }}</dd>
+            <dd>{{ audio.primary_file.duration|duration|default:"–" }}</dd>
             <dt>{% trans "File size" %}</dt>
-            <dd>{{ audio.file_size|filesizeformat }}</dd>
+            <dd>{{ audio.primary_file.file_size|filesizeformat }}</dd>
             <dt>{% trans "Created" %}</dt>
             <dd>{{ audio.created_at }}</dd>
         </dl>

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from curio.resources.models import Metadata, Resource
+from curio.resources.models import MediaFile, Metadata, Resource
 from curio.resources.use_cases import (
     upload_audio_files,
     upload_image_files,
@@ -21,7 +21,7 @@ def audio_list(request):
         {
             'audio_list': Resource.objects.filter(
                 resource_type=Resource.Type.AUDIO
-            ).order_by('-created_at'),
+            ).prefetch_related('files').order_by('-created_at'),
         },
     )
 
@@ -45,7 +45,7 @@ def image_list(request):
         {
             'image_list': Resource.objects.filter(
                 resource_type=Resource.Type.IMAGE
-            ).order_by('-created_at'),
+            ).prefetch_related('files').order_by('-created_at'),
         },
     )
 
@@ -81,7 +81,7 @@ def video_list(request):
         {
             'video_list': Resource.objects.filter(
                 resource_type=Resource.Type.VIDEO
-            ).order_by('-created_at'),
+            ).prefetch_related('files').order_by('-created_at'),
         },
     )
 

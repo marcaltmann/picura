@@ -6,11 +6,11 @@
     <a href="{% url 'backoffice_video_list' %}">{% trans "Videos" %}</a>
     <h1>{{ video.title }}</h1>
     <video class="video-player" controls {% if video.poster %}poster="{{ video.poster.url }}"{% endif %}>
-      <source src="{{ video.file.url }}">
+      <source src="{{ video.primary_file.file.url }}">
     </video>
     <dl class="details">
       <dt>{% trans "File" %}</dt>
-      <dd><a href="{{ video.file.url }}">{{ video.file.name }}</a></dd>
+      <dd><a href="{{ video.primary_file.file.url }}">{{ video.primary_file.file.name }}</a></dd>
       <dt>{% trans "Poster" %}</dt>
       <dd>
         {% if video.poster %}
@@ -20,13 +20,13 @@
         {% endif %}
       </dd>
       <dt>{% trans "Duration" %}</dt>
-      <dd>{{ video.duration|duration|default:"–" }}</dd>
+      <dd>{{ video.primary_file.duration|duration|default:"–" }}</dd>
       <dt>{% trans "Dimensions" %}</dt>
       <dd>
-        {% if video.width and video.height %}{{ video.width }}×{{ video.height }}{% else %}–{% endif %}
+        {% if video.primary_file.width and video.primary_file.height %}{{ video.primary_file.width }}×{{ video.primary_file.height }}{% else %}–{% endif %}
       </dd>
       <dt>{% trans "File size" %}</dt>
-      <dd>{{ video.file_size|filesizeformat }}</dd>
+      <dd>{{ video.primary_file.file_size|filesizeformat }}</dd>
       <dt>{% trans "Created" %}</dt>
       <dd>{{ video.created_at }}</dd>
     </dl>
