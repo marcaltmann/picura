@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
-from curio.resources.models import MediaFile, Resource
+from curio.resources.models import Resource
 
 SAMPLES = [
     {
@@ -40,12 +40,12 @@ class Command(BaseCommand):
 
         for sample in SAMPLES:
             filename = sample['title'].lower().replace(' ', '_') + '.mp3'
-            resource = Resource.objects.create(
+            resource = Resource(
                 resource_type=Resource.Type.AUDIO,
                 title=sample['title'],
+                duration=sample['duration'],
             )
-            media_file = MediaFile(resource=resource, duration=sample['duration'])
-            media_file.file.save(filename, ContentFile(b''), save=True)
+            resource.file.save(filename, ContentFile(b''), save=True)
             self.stdout.write(f'Created: {sample["title"]}')
 
         self.stdout.write(self.style.SUCCESS('Done.'))

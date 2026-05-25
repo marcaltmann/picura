@@ -20,11 +20,11 @@
           {% for video in video_list %}
             <tr>
               <td><a href="{% url 'backoffice_video_detail' video.pk %}">{{ video.title }}</a></td>
-              <td data-align="end">{{ video.primary_file.duration|duration|default:"–" }}</td>
+              <td data-align="end">{{ video.duration|duration|default:"–" }}</td>
               <td data-align="end">
-                {% if video.primary_file.width and video.primary_file.height %}{{ video.primary_file.width }}×{{ video.primary_file.height }}{% else %}–{% endif %}
+                {% if video.width and video.height %}{{ video.width }}×{{ video.height }}{% else %}–{% endif %}
               </td>
-              <td data-align="end">{{ video.primary_file.file_size|filesizeformat }}</td>
+              <td data-align="end">{{ video.file_size|filesizeformat }}</td>
               <td>{{ video.created_at }}</td>
             </tr>
           {% empty %}

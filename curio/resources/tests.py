@@ -4,13 +4,15 @@ from unittest.mock import patch
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from .models import MediaFile, Metadata, Resource
+from .models import Metadata, Resource
 from .use_cases import upload_audio_files, upload_image_files, upload_video_files
 
 
 @pytest.mark.django_db
 def test_metadata_can_be_attached_to_resource():
-    resource = Resource.objects.create(resource_type=Resource.Type.IMAGE, title='Photo')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.IMAGE, title='Photo', file_size=0
+    )
     meta = Metadata.objects.create(
         resource=resource,
         type=Metadata.Type.EXIF,
@@ -22,7 +24,9 @@ def test_metadata_can_be_attached_to_resource():
 
 @pytest.mark.django_db
 def test_metadata_accessible_via_resource():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO, title='Podcast', file_size=0
+    )
     Metadata.objects.create(
         resource=resource,
         type=Metadata.Type.DUBLIN_CORE,
@@ -33,7 +37,9 @@ def test_metadata_accessible_via_resource():
 
 @pytest.mark.django_db
 def test_metadata_deleted_with_resource():
-    resource = Resource.objects.create(resource_type=Resource.Type.VIDEO, title='Clip')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.VIDEO, title='Clip', file_size=0
+    )
     Metadata.objects.create(
         resource=resource, type=Metadata.Type.CUSTOM, data={'foo': 'bar'}
     )
@@ -43,7 +49,9 @@ def test_metadata_deleted_with_resource():
 
 @pytest.mark.django_db
 def test_multiple_metadata_types_per_resource():
-    resource = Resource.objects.create(resource_type=Resource.Type.IMAGE, title='Photo')
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.IMAGE, title='Photo', file_size=0
+    )
     Metadata.objects.create(
         resource=resource, type=Metadata.Type.EXIF, data={'ISO': 400}
     )
@@ -56,43 +64,30 @@ def test_multiple_metadata_types_per_resource():
 
 
 @pytest.mark.django_db
-def test_deleting_media_file_deletes_file():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
-    media_file = MediaFile.objects.create(
-        resource=resource,
+def test_deleting_resource_deletes_file():
+    resource = Resource.objects.create(
+        resource_type=Resource.Type.AUDIO,
+        title='Podcast',
         file=SimpleUploadedFile('ep.mp3', b'audio data'),
     )
-    name = media_file.file.name
-    media_file.delete()
-    assert not media_file.file.storage.exists(name)
-
-
-@pytest.mark.django_db
-def test_deleting_resource_cascades_to_media_files():
-    resource = Resource.objects.create(resource_type=Resource.Type.AUDIO, title='Podcast')
-    media_file = MediaFile.objects.create(
-        resource=resource,
-        file=SimpleUploadedFile('ep.mp3', b'audio data'),
-    )
-    name = media_file.file.name
+    name = resource.file.name
     resource.delete()
-    assert not media_file.file.storage.exists(name)
+    assert not resource.file.storage.exists(name)
 
 
 @pytest.mark.django_db
-def test_deleting_resource_with_poster_deletes_poster():
+def test_deleting_resource_with_poster_deletes_both_files():
     resource = Resource.objects.create(
         resource_type=Resource.Type.VIDEO,
         title='Clip',
+        file=SimpleUploadedFile('clip.mp4', b'video data'),
         poster=SimpleUploadedFile('poster.jpg', b'image data'),
     )
-    MediaFile.objects.create(
-        resource=resource,
-        file=SimpleUploadedFile('clip.mp4', b'video data'),
-    )
+    file_name = resource.file.name
     poster_name = resource.poster.name
     resource.delete()
-    assert not resource.poster.storage.exists(poster_name)
+    assert not resource.file.storage.exists(file_name)
+    assert not resource.file.storage.exists(poster_name)
 
 
 EMPTY_META = {
@@ -108,9 +103,8 @@ def test_upload_audio_files_creates_resources():
     assert Resource.objects.filter(resource_type=Resource.Type.AUDIO).count() == 1
     resource = Resource.objects.filter(resource_type=Resource.Type.AUDIO).first()
     assert resource.title == 'My Podcast'
-    media_file = resource.files.first()
-    assert media_file.file_size == len(b'audio data')
-    assert media_file.media_type == 'audio/mpeg'
+    assert resource.file_size == len(b'audio data')
+    assert resource.media_type == 'audio/mpeg'
 
 
 @pytest.mark.django_db
@@ -119,8 +113,9 @@ def test_upload_audio_files_stores_duration():
     meta = {**EMPTY_META, 'duration': timedelta(seconds=90)}
     with patch('curio.resources.use_cases.extract_metadata', return_value=meta):
         upload_audio_files([f])
-    resource = Resource.objects.filter(resource_type=Resource.Type.AUDIO).first()
-    assert resource.files.first().duration == timedelta(seconds=90)
+    assert Resource.objects.filter(
+        resource_type=Resource.Type.AUDIO
+    ).first().duration == timedelta(seconds=90)
 
 
 @pytest.mark.django_db
@@ -128,7 +123,7 @@ def test_upload_audio_files_stores_none_duration_when_unreadable():
     f = SimpleUploadedFile('episode.mp3', b'not real audio')
     upload_audio_files([f])
     resource = Resource.objects.filter(resource_type=Resource.Type.AUDIO).first()
-    assert resource.files.first().duration is None
+    assert resource.duration is None
 
 
 @pytest.mark.django_db
@@ -189,9 +184,8 @@ def test_upload_image_files_creates_resources():
     assert Resource.objects.filter(resource_type=Resource.Type.IMAGE).count() == 1
     resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
     assert resource.title == 'My Photo'
-    media_file = resource.files.first()
-    assert media_file.file_size == len(b'image data')
-    assert media_file.media_type == 'image/jpeg'
+    assert resource.file_size == len(b'image data')
+    assert resource.media_type == 'image/jpeg'
 
 
 @pytest.mark.django_db
@@ -200,9 +194,9 @@ def test_upload_image_files_stores_dimensions():
     meta = {**EMPTY_IMAGE_META, 'width': 1920, 'height': 1080}
     with patch('curio.resources.use_cases.extract_image_metadata', return_value=meta):
         upload_image_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first().files.first()
-    assert media_file.width == 1920
-    assert media_file.height == 1080
+    resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
+    assert resource.width == 1920
+    assert resource.height == 1080
 
 
 @pytest.mark.django_db
@@ -267,9 +261,8 @@ def test_upload_image_files_stores_none_metadata_when_unreadable():
     f = SimpleUploadedFile('photo.jpg', b'not real image')
     upload_image_files([f])
     resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
-    media_file = resource.files.first()
-    assert media_file.width is None
-    assert media_file.height is None
+    assert resource.width is None
+    assert resource.height is None
     assert resource.produced_at is None
     assert resource.metadata.count() == 0
 
@@ -313,9 +306,8 @@ def test_upload_video_files_creates_resources():
     assert Resource.objects.filter(resource_type=Resource.Type.VIDEO).count() == 1
     resource = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first()
     assert resource.title == 'My Video'
-    media_file = resource.files.first()
-    assert media_file.file_size == len(b'video data')
-    assert media_file.media_type == 'video/mp4'
+    assert resource.file_size == len(b'video data')
+    assert resource.media_type == 'video/mp4'
 
 
 @pytest.mark.django_db
@@ -329,19 +321,19 @@ def test_upload_video_files_stores_duration_and_dimensions():
     }
     with patch('curio.resources.use_cases.extract_video_metadata', return_value=meta):
         upload_video_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
-    assert media_file.duration == timedelta(seconds=120)
-    assert media_file.width == 1920
-    assert media_file.height == 1080
+    resource = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first()
+    assert resource.duration == timedelta(seconds=120)
+    assert resource.width == 1920
+    assert resource.height == 1080
 
 
 @pytest.mark.django_db
 def test_upload_video_files_stores_none_metadata_when_unreadable():
     f = SimpleUploadedFile('video.mp4', b'not real video')
     upload_video_files([f])
-    media_file = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first().files.first()
-    assert media_file.duration is None
-    assert media_file.width is None
+    resource = Resource.objects.filter(resource_type=Resource.Type.VIDEO).first()
+    assert resource.duration is None
+    assert resource.width is None
 
 
 @pytest.mark.django_db

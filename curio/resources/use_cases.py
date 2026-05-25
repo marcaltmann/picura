@@ -10,7 +10,7 @@ from pathlib import Path
 import mutagen
 from PIL import Image, ImageCms
 
-from .models import MediaFile, Metadata, Resource
+from .models import Metadata, Resource
 
 
 def extract_metadata(file):
@@ -111,15 +111,12 @@ def upload_image_files(files):
         resource = Resource.objects.create(
             resource_type=Resource.Type.IMAGE,
             title=title,
-            produced_at=meta['taken_at'],
-        )
-        MediaFile.objects.create(
-            resource=resource,
             file=f,
             media_type=media_type or '',
             file_size=f.size,
             width=meta['width'],
             height=meta['height'],
+            produced_at=meta['taken_at'],
         )
         exif_data = {
             k: v
@@ -198,12 +195,9 @@ def upload_video_files(files):
         f.seek(0)
         title = Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
         media_type, _ = mimetypes.guess_type(f.name)
-        resource = Resource.objects.create(
+        Resource.objects.create(
             resource_type=Resource.Type.VIDEO,
             title=title,
-        )
-        MediaFile.objects.create(
-            resource=resource,
             file=f,
             media_type=media_type or '',
             file_size=f.size,
@@ -222,12 +216,9 @@ def upload_audio_files(files):
             or Path(f.name).stem.replace('-', ' ').replace('_', ' ').title()
         )
         media_type, _ = mimetypes.guess_type(f.name)
-        resource = Resource.objects.create(
+        Resource.objects.create(
             resource_type=Resource.Type.AUDIO,
             title=title,
-        )
-        MediaFile.objects.create(
-            resource=resource,
             file=f,
             media_type=media_type or '',
             file_size=f.size,
