@@ -32,6 +32,9 @@ class Resource(models.Model):
         max_length=100, blank=True, default='', verbose_name=_('media type')
     )
     file_size = models.PositiveIntegerField(default=0, verbose_name=_('file size'))
+    description = models.TextField(
+        blank=True, default='', verbose_name=_('description')
+    )
     produced_at = models.DateTimeField(
         null=True, blank=True, verbose_name=_('produced at')
     )
