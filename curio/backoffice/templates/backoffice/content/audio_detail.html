@@ -5,7 +5,6 @@
     <div class="container mt-lh">
         <a href="{% url 'backoffice_audio_list' %}">{% trans "Audio" %}</a>
         <h1>{{ audio.title }}</h1>
-        <p><a href="{% url 'resource_detail' audio.pk %}">{% trans "Go to resource" %}</a></p>
         <audio class="audio-player" controls src="{{ audio.primary_file.file.url }}"></audio>
         <dl class="details">
             <dt>{% trans "File" %}</dt>
