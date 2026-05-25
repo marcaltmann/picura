@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-25 20:37+0200\n"
+"POT-Creation-Date: 2026-05-25 21:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,10 @@ msgstr "Bilder"
 #: curio/backoffice/templates/backoffice/dashboard.html:17
 msgid "Videos"
 msgstr "Videos"
+
+#: curio/backoffice/templates/backoffice/_sidebar.html:35
+msgid "Public website"
+msgstr "Öffentliche Website"
 
 #: curio/backoffice/templates/backoffice/content/audio_delete.html:3
 #: curio/backoffice/templates/backoffice/content/audio_delete.html:11
@@ -356,11 +360,11 @@ msgstr "Daten"
 msgid "metadata"
 msgstr "Metadaten"
 
-#: curio/settings.py:150
+#: curio/settings.py:151
 msgid "German"
 msgstr "Deutsch"
 
-#: curio/settings.py:151
+#: curio/settings.py:152
 msgid "English"
 msgstr "Englisch"
 

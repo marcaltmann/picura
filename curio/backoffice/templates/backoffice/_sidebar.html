@@ -29,4 +29,10 @@
             <li><a href="{% url 'backoffice_video_list' %}" {% if 'backoffice_video' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Videos" %}</a></li>
         </ul>
     </section>
+
+    <section class="sidebar__section">
+        <ul class="sidebar__nav" role="list">
+            <li><a href="{% url 'welcome' %}">{% trans "Public website" %}</a></li>
+        </ul>
+    </section>
 </nav>
