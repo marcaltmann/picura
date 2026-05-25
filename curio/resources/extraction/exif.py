@@ -22,17 +22,17 @@ class ExifData:
     camera_model: str | None = None
     lens: str | None = None
     aperture: float | None = None
-    shutter_speed: str | None = None
+    exposure_time: float | None = None
     focal_length: float | None = None
 
-
-def _parse_shutter_speed(value) -> str | None:
-    if value is None:
-        return None
-    frac = Fraction(float(value)).limit_denominator(100000)
-    if frac.denominator == 1:
-        return str(frac.numerator)
-    return f'{frac.numerator}/{frac.denominator}'
+    @property
+    def shutter_speed(self) -> str | None:
+        if self.exposure_time is None:
+            return None
+        frac = Fraction(self.exposure_time).limit_denominator(100000)
+        if frac.denominator == 1:
+            return str(frac.numerator)
+        return f'{frac.numerator}/{frac.denominator}'
 
 
 def extract_exif(img: Image.Image) -> ExifData:
@@ -54,7 +54,9 @@ def extract_exif(img: Image.Image) -> ExifData:
         raw_aperture = ifd.get(_TAG_FNUMBER)
         if raw_aperture is not None:
             result.aperture = float(raw_aperture)
-        result.shutter_speed = _parse_shutter_speed(ifd.get(_TAG_EXPOSURE_TIME))
+        raw_exposure_time = ifd.get(_TAG_EXPOSURE_TIME)
+        if raw_exposure_time is not None:
+            result.exposure_time = float(raw_exposure_time)
         raw_focal = ifd.get(_TAG_FOCAL_LENGTH)
         if raw_focal is not None:
             result.focal_length = float(raw_focal)
