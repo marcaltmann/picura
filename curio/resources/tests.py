@@ -111,7 +111,7 @@ def test_upload_audio_files_creates_resources():
 def test_upload_audio_files_stores_duration():
     f = SimpleUploadedFile('episode.mp3', b'audio data')
     meta = {**EMPTY_META, 'duration': timedelta(seconds=90)}
-    with patch('curio.resources.use_cases.extract_metadata', return_value=meta):
+    with patch('curio.resources.use_cases.extract_audio_metadata', return_value=meta):
         upload_audio_files([f])
     assert Resource.objects.filter(
         resource_type=Resource.Type.AUDIO
@@ -130,7 +130,7 @@ def test_upload_audio_files_stores_none_duration_when_unreadable():
 def test_upload_audio_files_uses_id3_title_when_available():
     f = SimpleUploadedFile('my-podcast.mp3', b'audio data')
     with patch(
-        'curio.resources.use_cases.extract_metadata',
+        'curio.resources.use_cases.extract_audio_metadata',
         return_value={**EMPTY_META, 'title': 'Custom Tag Title'},
     ):
         upload_audio_files([f])
@@ -158,6 +158,8 @@ def test_upload_audio_files_derives_title_from_filename():
 
 
 EMPTY_IMAGE_META = {
+    'title': None,
+    'description': None,
     'width': None,
     'height': None,
     'format': None,
@@ -286,6 +288,38 @@ def test_upload_image_files_derives_title_from_filename():
         )
     )
     assert titles == {'My Photo', 'Beach Sunset', 'Portrait'}
+
+
+@pytest.mark.django_db
+def test_upload_image_files_uses_metadata_title_when_available():
+    f = SimpleUploadedFile('my-photo.jpg', b'image data')
+    meta = {**EMPTY_IMAGE_META, 'title': 'Sunset Over the Lake'}
+    with patch('curio.resources.use_cases.extract_image_metadata', return_value=meta):
+        upload_image_files([f])
+    resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
+    assert resource.title == 'Sunset Over the Lake'
+
+
+@pytest.mark.django_db
+def test_upload_image_files_stores_description_from_metadata():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    meta = {**EMPTY_IMAGE_META, 'description': 'A beautiful landscape at dusk.'}
+    with patch('curio.resources.use_cases.extract_image_metadata', return_value=meta):
+        upload_image_files([f])
+    resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
+    assert resource.description == 'A beautiful landscape at dusk.'
+
+
+@pytest.mark.django_db
+def test_upload_image_files_leaves_description_blank_when_absent():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    with patch(
+        'curio.resources.use_cases.extract_image_metadata',
+        return_value=EMPTY_IMAGE_META,
+    ):
+        upload_image_files([f])
+    resource = Resource.objects.filter(resource_type=Resource.Type.IMAGE).first()
+    assert resource.description == ''
 
 
 EMPTY_VIDEO_META = {
