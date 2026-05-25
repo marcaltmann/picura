@@ -1,7 +1,0 @@
-{% if resource.primary_file %}
-    <video controls src="{{ resource.primary_file.file.url }}"
-           {% if resource.poster %}poster="{{ resource.poster.url }}"{% endif %}>
-    </video>
-{% elif resource.poster %}
-    <img src="{{ resource.poster.url }}" alt="{{ resource.title }}">
-{% endif %}

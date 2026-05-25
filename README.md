@@ -2,13 +2,6 @@
 
 A media library built with Django.
 
-## Tech stack
-
-- [Django](https://www.djangoproject.com/) — backend framework
-- [Alpine.js](https://alpinejs.dev/) — frontend interactivity
-- [Vite](https://vite.dev/) — frontend asset bundling
-- [Lucide](https://lucide.dev/) — icons (inline SVG partials in `curio/core/templates/icons/`)
-
 ## Requirements
 
 - Python 3.14+
