@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from PIL import Image, IptcImagePlugin
 
@@ -36,7 +37,10 @@ def _decode_list(value) -> list[str]:
     return result
 
 
-def extract_iptc(img: Image.Image) -> IptcData:
+def extract_iptc(img: Image.Image | Path) -> IptcData:
+    if isinstance(img, Path):
+        img = Image.open(img)
+        img.load()
     try:
         iptc = IptcImagePlugin.getiptcinfo(img)
     except Exception:

@@ -1,3 +1,4 @@
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -117,6 +118,21 @@ def test_blank_string_becomes_none():
     ):
         result = extract_iptc(make_img())
     assert result.title is None
+
+
+def test_accepts_path_object(tmp_path):
+    from PIL import Image as PilImage
+
+    img = PilImage.new('RGB', (1, 1))
+    path = tmp_path / 'test.jpg'
+    img.save(path)
+    result = extract_iptc(path)
+    assert result == IptcData()
+
+
+def test_raises_when_path_does_not_exist():
+    with pytest.raises(FileNotFoundError):
+        extract_iptc(Path('/nonexistent/image.jpg'))
 
 
 def test_extracts_all_fields_together():

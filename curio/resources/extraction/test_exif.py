@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from fractions import Fraction
+from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -31,6 +32,21 @@ def make_img(exif=None):
     img = MagicMock()
     img.getexif.return_value = exif or FakeExif()
     return img
+
+
+def test_accepts_path_object(tmp_path):
+    from PIL import Image as PilImage
+
+    img = PilImage.new('RGB', (1, 1))
+    path = tmp_path / 'test.jpg'
+    img.save(path)
+    result = extract_exif(path)
+    assert result == ExifData()
+
+
+def test_raises_when_path_does_not_exist():
+    with pytest.raises(FileNotFoundError):
+        extract_exif(Path('/nonexistent/image.jpg'))
 
 
 def test_returns_empty_dataclass_on_getexif_exception():

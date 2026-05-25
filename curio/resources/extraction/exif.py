@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from fractions import Fraction
+from pathlib import Path
 
 from django.utils import timezone
 from PIL import Image
@@ -35,7 +36,10 @@ class ExifData:
         return f'{frac.numerator}/{frac.denominator}'
 
 
-def extract_exif(img: Image.Image) -> ExifData:
+def extract_exif(img: Image.Image | Path) -> ExifData:
+    if isinstance(img, Path):
+        img = Image.open(img)
+        img.load()
     try:
         exif = img.getexif()
     except Exception:
