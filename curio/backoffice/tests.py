@@ -26,6 +26,61 @@ def test_dashboard_returns_200(client):
 
 
 @pytest.mark.django_db
+def test_dashboard_context_counts_by_type(client):
+    Resource.objects.create(
+        resource_type=Resource.Type.IMAGE,
+        title='Img',
+        file='images/a.jpg',
+        file_size=100,
+    )
+    Resource.objects.create(
+        resource_type=Resource.Type.AUDIO,
+        title='Aud',
+        file='audio/a.mp3',
+        file_size=200,
+    )
+    Resource.objects.create(
+        resource_type=Resource.Type.AUDIO,
+        title='Aud2',
+        file='audio/b.mp3',
+        file_size=300,
+    )
+    response = client.get(reverse('backoffice_dashboard'))
+    assert response.context['image_count'] == 1
+    assert response.context['audio_count'] == 2
+    assert response.context['video_count'] == 0
+    assert response.context['document_count'] == 0
+
+
+@pytest.mark.django_db
+def test_dashboard_context_total_file_size(client):
+    Resource.objects.create(
+        resource_type=Resource.Type.IMAGE,
+        title='Img',
+        file='images/a.jpg',
+        file_size=1000,
+    )
+    Resource.objects.create(
+        resource_type=Resource.Type.AUDIO,
+        title='Aud',
+        file='audio/a.mp3',
+        file_size=2000,
+    )
+    response = client.get(reverse('backoffice_dashboard'))
+    assert response.context['total_file_size'] == 3000
+
+
+@pytest.mark.django_db
+def test_dashboard_context_empty_db(client):
+    response = client.get(reverse('backoffice_dashboard'))
+    assert response.context['image_count'] == 0
+    assert response.context['audio_count'] == 0
+    assert response.context['video_count'] == 0
+    assert response.context['document_count'] == 0
+    assert response.context['total_file_size'] == 0
+
+
+@pytest.mark.django_db
 def test_audio_list_returns_200(client):
     response = client.get(reverse('backoffice_audio_list'))
     assert response.status_code == 200

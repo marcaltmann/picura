@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 12:57+0200\n"
+"POT-Creation-Date: 2026-05-25 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,7 @@ msgstr "Inhalte"
 #: curio/backoffice/templates/backoffice/content/audio_detail.html:6
 #: curio/backoffice/templates/backoffice/content/audio_list.html:3
 #: curio/backoffice/templates/backoffice/content/audio_list.html:6
+#: curio/backoffice/templates/backoffice/dashboard.html:13
 #: curio/resources/models.py:22
 msgid "Audio"
 msgstr "Audio"
@@ -42,6 +43,7 @@ msgstr "Audio"
 #: curio/backoffice/templates/backoffice/content/image_detail.html:8
 #: curio/backoffice/templates/backoffice/content/image_list.html:3
 #: curio/backoffice/templates/backoffice/content/image_list.html:6
+#: curio/backoffice/templates/backoffice/dashboard.html:9
 msgid "Images"
 msgstr "Bilder"
 
@@ -49,6 +51,7 @@ msgstr "Bilder"
 #: curio/backoffice/templates/backoffice/content/video_detail.html:6
 #: curio/backoffice/templates/backoffice/content/video_list.html:3
 #: curio/backoffice/templates/backoffice/content/video_list.html:6
+#: curio/backoffice/templates/backoffice/dashboard.html:17
 msgid "Videos"
 msgstr "Videos"
 
@@ -228,6 +231,14 @@ msgstr "Videos hochladen"
 #: curio/backoffice/templates/backoffice/dashboard.html:6
 msgid "Backoffice"
 msgstr "Backoffice"
+
+#: curio/backoffice/templates/backoffice/dashboard.html:21
+msgid "Documents"
+msgstr "Dokumente"
+
+#: curio/backoffice/templates/backoffice/dashboard.html:25
+msgid "Total storage"
+msgstr "Gesamtspeicher"
 
 #: curio/core/apps.py:7
 msgid "Core"

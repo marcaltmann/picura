@@ -1,3 +1,4 @@
+from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 
 from curio.resources.models import Metadata, Resource
@@ -11,7 +12,28 @@ from .forms import ResourceForm
 
 
 def dashboard(request):
-    return render(request, 'backoffice/dashboard.html')
+    counts = Resource.objects.values('resource_type').annotate(
+        count=models.Count('id'), size=models.Sum('file_size')
+    )
+    count_map = {row['resource_type']: row for row in counts}
+
+    def _count(t):
+        return count_map.get(t, {}).get('count', 0)
+
+    def _size(t):
+        return count_map.get(t, {}).get('size', 0) or 0
+
+    return render(
+        request,
+        'backoffice/dashboard.html',
+        {
+            'image_count': _count(Resource.Type.IMAGE),
+            'audio_count': _count(Resource.Type.AUDIO),
+            'video_count': _count(Resource.Type.VIDEO),
+            'document_count': _count(Resource.Type.DOCUMENT),
+            'total_file_size': sum(_size(t) for t in Resource.Type),
+        },
+    )
 
 
 def audio_list(request):

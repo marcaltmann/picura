@@ -4,5 +4,27 @@
 {% block content %}
     <div class="container">
         <h1>{% trans "Backoffice" %}</h1>
+        <div class="cluster mt-lh">
+            <div class="card">
+                <p class="card__label">{% trans "Images" %}</p>
+                <p class="card__value">{{ image_count }}</p>
+            </div>
+            <div class="card">
+                <p class="card__label">{% trans "Audio" %}</p>
+                <p class="card__value">{{ audio_count }}</p>
+            </div>
+            <div class="card">
+                <p class="card__label">{% trans "Videos" %}</p>
+                <p class="card__value">{{ video_count }}</p>
+            </div>
+            <div class="card">
+                <p class="card__label">{% trans "Documents" %}</p>
+                <p class="card__value">{{ document_count }}</p>
+            </div>
+            <div class="card">
+                <p class="card__label">{% trans "Total storage" %}</p>
+                <p class="card__value">{{ total_file_size|filesizeformat }}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}
