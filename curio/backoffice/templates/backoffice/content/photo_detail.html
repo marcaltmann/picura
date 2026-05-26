@@ -1,5 +1,5 @@
 {% extends "backoffice/base.html" %}
-{% load i18n %}
+{% load i18n l10n %}
 {% block title %}{{ photo.title }} – {{ block.super }}{% endblock %}
 {% block content %}
   <div class="container mt-lh mb-lh">
@@ -68,6 +68,14 @@
           {% if exif.data.shutter_speed %}
             <dt>{% trans "Shutter speed" %}</dt>
             <dd>{{ exif.data.shutter_speed }}s</dd>
+          {% endif %}
+          {% if exif.data.latitude and exif.data.longitude %}
+            <dt>{% trans "Location" %}</dt>
+            <dd>
+              <a href="https://www.openstreetmap.org/?mlat={{ exif.data.latitude|unlocalize }}&mlon={{ exif.data.longitude|unlocalize }}&zoom=14" target="_blank">
+                {{ exif.data.latitude|floatformat:5 }}, {{ exif.data.longitude|floatformat:5 }}
+              </a>
+            </dd>
           {% endif %}
         </dl>
 

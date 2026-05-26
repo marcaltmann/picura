@@ -14,6 +14,11 @@ _TAG_EXPOSURE_TIME = 33434
 _TAG_FOCAL_LENGTH = 37386
 _TAG_LENS_MODEL = 42036
 _EXIF_IFD = 0x8769
+_GPS_IFD = 0x8825
+_TAG_GPS_LAT_REF = 1
+_TAG_GPS_LAT = 2
+_TAG_GPS_LON_REF = 3
+_TAG_GPS_LON = 4
 
 
 @dataclass
@@ -25,6 +30,8 @@ class ExifData:
     aperture: float | None = None
     exposure_time: float | None = None
     focal_length: float | None = None
+    latitude: float | None = None
+    longitude: float | None = None
 
     @property
     def shutter_speed(self) -> str | None:
@@ -64,6 +71,22 @@ def extract_exif(img: Image.Image | Path) -> ExifData:
         raw_focal = ifd.get(_TAG_FOCAL_LENGTH)
         if raw_focal is not None:
             result.focal_length = float(raw_focal)
+        gps = exif.get_ifd(_GPS_IFD)
+        lat_dms = gps.get(_TAG_GPS_LAT)
+        lat_ref = gps.get(_TAG_GPS_LAT_REF)
+        lon_dms = gps.get(_TAG_GPS_LON)
+        lon_ref = gps.get(_TAG_GPS_LON_REF)
+        if lat_dms and lat_ref and lon_dms and lon_ref:
+            result.latitude = _dms_to_decimal(lat_dms, lat_ref)
+            result.longitude = _dms_to_decimal(lon_dms, lon_ref)
     except Exception:
         pass
     return result
+
+
+def _dms_to_decimal(dms, ref: str) -> float:
+    degrees, minutes, seconds = dms
+    decimal = float(degrees) + float(minutes) / 60 + float(seconds) / 3600
+    if ref in ('S', 'W'):
+        decimal = -decimal
+    return decimal

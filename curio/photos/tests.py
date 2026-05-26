@@ -66,6 +66,8 @@ EMPTY_IMAGE_META = {
     'aperture': None,
     'shutter_speed': None,
     'focal_length': None,
+    'latitude': None,
+    'longitude': None,
 }
 
 

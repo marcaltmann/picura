@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 21:38+0200\n"
+"POT-Creation-Date: 2026-05-26 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr "Öffentliche Website"
 
 #: curio/backoffice/templates/backoffice/content/photo_delete.html:3
 #: curio/backoffice/templates/backoffice/content/photo_delete.html:12
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:75
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:83
 msgid "Delete"
 msgstr "Löschen"
 
@@ -121,6 +121,10 @@ msgstr "Blende"
 #: curio/backoffice/templates/backoffice/content/photo_detail.html:69
 msgid "Shutter speed"
 msgstr "Belichtungszeit"
+
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:73
+msgid "Location"
+msgstr "Standort"
 
 #: curio/backoffice/templates/backoffice/content/photo_list.html:9
 #: curio/backoffice/templates/backoffice/content/photo_upload.html:11
@@ -261,9 +265,6 @@ msgstr "Englisch"
 
 #~ msgid "Videos"
 #~ msgstr "Videos"
-
-#~ msgid "Duration"
-#~ msgstr "Dauer"
 
 #~ msgid "Upload Audio"
 #~ msgstr "Audio hochladen"

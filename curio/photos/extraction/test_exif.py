@@ -14,18 +14,23 @@ _TAG_FNUMBER = 33437
 _TAG_EXPOSURE_TIME = 33434
 _TAG_FOCAL_LENGTH = 37386
 _TAG_LENS_MODEL = 42036
+_EXIF_IFD_TAG = 0x8769
+_GPS_IFD_TAG = 0x8825
 
 
 class FakeExif:
-    def __init__(self, data=None, ifd=None):
+    def __init__(self, data=None, ifd=None, gps_ifd=None):
         self._data = data or {}
-        self._ifd = ifd or {}
+        self._ifds = {
+            _EXIF_IFD_TAG: ifd or {},
+            _GPS_IFD_TAG: gps_ifd or {},
+        }
 
     def get(self, tag, default=None):
         return self._data.get(tag, default)
 
     def get_ifd(self, tag):
-        return self._ifd
+        return self._ifds.get(tag, {})
 
 
 def make_img(exif=None):
@@ -118,12 +123,54 @@ def test_missing_fields_are_none():
     assert result.shutter_speed is None
     assert result.focal_length is None
     assert result.taken_at is None
+    assert result.latitude is None
+    assert result.longitude is None
 
 
 def test_empty_string_camera_make_becomes_none():
     exif = FakeExif(data={_TAG_MAKE: ''})
     result = extract_exif(make_img(exif))
     assert result.camera_make is None
+
+
+def test_extracts_gps_coordinates():
+    exif = FakeExif(
+        gps_ifd={
+            1: 'N',
+            2: (Fraction(52), Fraction(31), Fraction(0)),
+            3: 'E',
+            4: (Fraction(13), Fraction(24), Fraction(0)),
+        }
+    )
+    result = extract_exif(make_img(exif))
+    assert result.latitude == pytest.approx(52.0 + 31 / 60)
+    assert result.longitude == pytest.approx(13.0 + 24 / 60)
+
+
+def test_gps_south_west_becomes_negative():
+    exif = FakeExif(
+        gps_ifd={
+            1: 'S',
+            2: (Fraction(33), Fraction(52), Fraction(0)),
+            3: 'W',
+            4: (Fraction(70), Fraction(40), Fraction(12)),
+        }
+    )
+    result = extract_exif(make_img(exif))
+    assert result.latitude == pytest.approx(-(33.0 + 52 / 60))
+    assert result.longitude == pytest.approx(-(70.0 + 40 / 60 + 12 / 3600))
+
+
+def test_gps_missing_ref_yields_none():
+    exif = FakeExif(
+        gps_ifd={
+            2: (Fraction(52), Fraction(31), Fraction(0)),
+            4: (Fraction(13), Fraction(24), Fraction(0)),
+        }
+    )
+    result = extract_exif(make_img(exif))
+    assert result.latitude is None
+    assert result.longitude is None
 
 
 def test_extracts_all_fields_together():

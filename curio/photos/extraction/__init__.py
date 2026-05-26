@@ -33,6 +33,8 @@ def extract_image_metadata(file):
         'aperture': None,
         'shutter_speed': None,
         'focal_length': None,
+        'latitude': None,
+        'longitude': None,
     }
     try:
         img = Image.open(file)
@@ -54,4 +56,6 @@ def extract_image_metadata(file):
     result['aperture'] = exif.aperture
     result['shutter_speed'] = exif.shutter_speed
     result['focal_length'] = exif.focal_length
+    result['latitude'] = exif.latitude
+    result['longitude'] = exif.longitude
     return result

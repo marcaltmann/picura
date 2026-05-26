@@ -36,6 +36,8 @@ def upload_photos(files):
                 'aperture': meta['aperture'],
                 'shutter_speed': meta['shutter_speed'],
                 'focal_length': meta['focal_length'],
+                'latitude': meta['latitude'],
+                'longitude': meta['longitude'],
             }.items()
             if v is not None
         }
