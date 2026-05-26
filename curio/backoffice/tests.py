@@ -141,3 +141,32 @@ def test_photo_delete_post_deletes_and_redirects(client):
     assert response.status_code == 302
     assert response['Location'] == reverse('backoffice_photo_list')
     assert not Photo.objects.filter(pk=p.pk).exists()
+
+
+@pytest.mark.django_db
+def test_photo_bulk_delete_post_deletes_and_redirects(client):
+    p1 = Photo.objects.create(title='A', file='photos/a.jpg')
+    p2 = Photo.objects.create(title='B', file='photos/b.jpg')
+    p3 = Photo.objects.create(title='C', file='photos/c.jpg')
+    response = client.post(
+        reverse('backoffice_photo_bulk_delete'),
+        {'photo_ids': [p1.pk, p2.pk]},
+    )
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_photo_list')
+    assert not Photo.objects.filter(pk__in=[p1.pk, p2.pk]).exists()
+    assert Photo.objects.filter(pk=p3.pk).exists()
+
+
+@pytest.mark.django_db
+def test_photo_bulk_delete_post_with_no_ids_redirects(client):
+    Photo.objects.create(title='A', file='photos/a.jpg')
+    response = client.post(reverse('backoffice_photo_bulk_delete'), {})
+    assert response.status_code == 302
+    assert Photo.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_photo_bulk_delete_get_redirects(client):
+    response = client.get(reverse('backoffice_photo_bulk_delete'))
+    assert response.status_code == 302

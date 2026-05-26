@@ -9,39 +9,47 @@
       <a href="{% url 'backoffice_photo_upload' %}">{% trans "Upload" %}</a>
     </div>
 
-    <div class="scroll-x:auto">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>{% trans "Title" %}</th>
-            <th data-align="end">{% trans "Dimensions" %}</th>
-            <th>{% trans "Media type" %}</th>
-            <th>{% trans "Produced" %}</th>
-            <th data-align="end">{% trans "File size" %}</th>
-            <th>{% trans "Created" %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for photo in photo_list %}
+    <form method="POST" action="{% url 'backoffice_photo_bulk_delete' %}" x-data @submit="if (!confirm('{% trans "Delete selected photos?" %}')) $event.preventDefault()">
+      {% csrf_token %}
+      <div class="scroll-x:auto">
+        <table class="data-table">
+          <thead>
             <tr>
-              <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail.url }}" alt=""></a></td>
-              <td><a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a></td>
-              <td data-align="end">
-                {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
-              </td>
-              <td>{{ photo.media_type|default:"–" }}</td>
-              <td>{{ photo.produced_at|default:"–" }}</td>
-              <td data-align="end">{{ photo.file_size|filesizeformat }}</td>
-              <td>{{ photo.created_at }}</td>
+              <th><input type="checkbox" @change="$el.closest('table').querySelectorAll('[name=photo_ids]').forEach(cb => cb.checked = $el.checked)"></th>
+              <th></th>
+              <th>{% trans "Title" %}</th>
+              <th data-align="end">{% trans "Dimensions" %}</th>
+              <th>{% trans "Media type" %}</th>
+              <th>{% trans "Produced" %}</th>
+              <th data-align="end">{% trans "File size" %}</th>
+              <th>{% trans "Created" %}</th>
             </tr>
-          {% empty %}
-            <tr>
-              <td colspan="7">{% trans "No photos found." %}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {% for photo in photo_list %}
+              <tr>
+                <td><input type="checkbox" name="photo_ids" value="{{ photo.pk }}"></td>
+                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail.url }}" alt=""></a></td>
+                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a></td>
+                <td data-align="end">
+                  {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
+                </td>
+                <td>{{ photo.media_type|default:"–" }}</td>
+                <td>{{ photo.produced_at|default:"–" }}</td>
+                <td data-align="end">{{ photo.file_size|filesizeformat }}</td>
+                <td>{{ photo.created_at }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="8">{% trans "No photos found." %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-lh">
+        <button type="submit">{% trans "Delete selected" %}</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 22:46+0200\n"
+"POT-Creation-Date: 2026-05-26 23:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgid "Save"
 msgstr "Speichern"
 
 #: curio/backoffice/templates/backoffice/content/photo_detail.html:30
-#: curio/backoffice/templates/backoffice/content/photo_list.html:17
+#: curio/backoffice/templates/backoffice/content/photo_list.html:20
 msgid "Title"
 msgstr "Titel"
 
@@ -80,17 +80,17 @@ msgid "File"
 msgstr "Datei"
 
 #: curio/backoffice/templates/backoffice/content/photo_detail.html:39
-#: curio/backoffice/templates/backoffice/content/photo_list.html:19
+#: curio/backoffice/templates/backoffice/content/photo_list.html:22
 msgid "Media type"
 msgstr "Medientyp"
 
 #: curio/backoffice/templates/backoffice/content/photo_detail.html:41
-#: curio/backoffice/templates/backoffice/content/photo_list.html:18
+#: curio/backoffice/templates/backoffice/content/photo_list.html:21
 msgid "Dimensions"
 msgstr "Abmessungen"
 
 #: curio/backoffice/templates/backoffice/content/photo_detail.html:45
-#: curio/backoffice/templates/backoffice/content/photo_list.html:21
+#: curio/backoffice/templates/backoffice/content/photo_list.html:24
 msgid "File size"
 msgstr "Dateigröße"
 
@@ -131,17 +131,25 @@ msgstr "Standort"
 msgid "Upload"
 msgstr "Hochladen"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:20
+#: curio/backoffice/templates/backoffice/content/photo_list.html:12
+msgid "Delete selected photos?"
+msgstr "Ausgewählte Fotos löschen?"
+
+#: curio/backoffice/templates/backoffice/content/photo_list.html:23
 msgid "Produced"
 msgstr "Aufgenommen"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:22
+#: curio/backoffice/templates/backoffice/content/photo_list.html:25
 msgid "Created"
 msgstr "Erstellt"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:40
+#: curio/backoffice/templates/backoffice/content/photo_list.html:44
 msgid "No photos found."
 msgstr "Keine Fotos gefunden."
+
+#: curio/backoffice/templates/backoffice/content/photo_list.html:51
+msgid "Delete selected"
+msgstr "Auswahl löschen"
 
 #: curio/backoffice/templates/backoffice/content/photo_upload.html:3
 #: curio/backoffice/templates/backoffice/content/photo_upload.html:6

@@ -10,6 +10,11 @@ urlpatterns = [
     ),
     path('content/photos/upload/', views.photo_upload, name='backoffice_photo_upload'),
     path(
+        'content/photos/bulk-delete/',
+        views.photo_bulk_delete,
+        name='backoffice_photo_bulk_delete',
+    ),
+    path(
         'content/photos/<int:pk>/delete/',
         views.photo_delete,
         name='backoffice_photo_delete',

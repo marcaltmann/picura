@@ -62,3 +62,10 @@ def photo_delete(request, pk):
         photo.delete()
         return redirect('backoffice_photo_list')
     return render(request, 'backoffice/content/photo_delete.html', {'photo': photo})
+
+
+def photo_bulk_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.getlist('photo_ids')
+        Photo.objects.filter(pk__in=ids).delete()
+    return redirect('backoffice_photo_list')
