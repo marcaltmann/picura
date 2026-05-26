@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Metadata, Resource
+from .models import Metadata, Photo
 
 
 class MetadataInline(admin.TabularInline):
@@ -8,6 +8,6 @@ class MetadataInline(admin.TabularInline):
     extra = 0
 
 
-@admin.register(Resource)
-class ResourceAdmin(admin.ModelAdmin):
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
     inlines = [MetadataInline]

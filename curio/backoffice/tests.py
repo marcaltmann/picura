@@ -5,18 +5,16 @@ import pytest
 from django.urls import reverse
 from PIL import Image
 
-from curio.resources.models import Resource
+from curio.photos.models import Photo
 
 
 @pytest.fixture
-def image_resource(settings):
-    img_dir = settings.MEDIA_ROOT / 'images'
+def photo(settings):
+    img_dir = settings.MEDIA_ROOT / 'photos'
     img_dir.mkdir(parents=True, exist_ok=True)
     img = Image.new('RGB', (10, 10), color='red')
     img.save(img_dir / 'test.jpg', 'JPEG')
-    return Resource.objects.create(
-        resource_type=Resource.Type.IMAGE, title='Test Image', file='images/test.jpg'
-    )
+    return Photo.objects.create(title='Test Photo', file='photos/test.jpg')
 
 
 @pytest.mark.django_db
@@ -26,46 +24,17 @@ def test_dashboard_returns_200(client):
 
 
 @pytest.mark.django_db
-def test_dashboard_context_counts_by_type(client):
-    Resource.objects.create(
-        resource_type=Resource.Type.IMAGE,
-        title='Img',
-        file='images/a.jpg',
-        file_size=100,
-    )
-    Resource.objects.create(
-        resource_type=Resource.Type.AUDIO,
-        title='Aud',
-        file='audio/a.mp3',
-        file_size=200,
-    )
-    Resource.objects.create(
-        resource_type=Resource.Type.AUDIO,
-        title='Aud2',
-        file='audio/b.mp3',
-        file_size=300,
-    )
+def test_dashboard_context_photo_count(client):
+    Photo.objects.create(title='A', file='photos/a.jpg', file_size=100)
+    Photo.objects.create(title='B', file='photos/b.jpg', file_size=200)
     response = client.get(reverse('backoffice_dashboard'))
-    assert response.context['image_count'] == 1
-    assert response.context['audio_count'] == 2
-    assert response.context['video_count'] == 0
-    assert response.context['document_count'] == 0
+    assert response.context['photo_count'] == 2
 
 
 @pytest.mark.django_db
 def test_dashboard_context_total_file_size(client):
-    Resource.objects.create(
-        resource_type=Resource.Type.IMAGE,
-        title='Img',
-        file='images/a.jpg',
-        file_size=1000,
-    )
-    Resource.objects.create(
-        resource_type=Resource.Type.AUDIO,
-        title='Aud',
-        file='audio/a.mp3',
-        file_size=2000,
-    )
+    Photo.objects.create(title='A', file='photos/a.jpg', file_size=1000)
+    Photo.objects.create(title='B', file='photos/b.jpg', file_size=2000)
     response = client.get(reverse('backoffice_dashboard'))
     assert response.context['total_file_size'] == 3000
 
@@ -73,160 +42,102 @@ def test_dashboard_context_total_file_size(client):
 @pytest.mark.django_db
 def test_dashboard_context_empty_db(client):
     response = client.get(reverse('backoffice_dashboard'))
-    assert response.context['image_count'] == 0
-    assert response.context['audio_count'] == 0
-    assert response.context['video_count'] == 0
-    assert response.context['document_count'] == 0
+    assert response.context['photo_count'] == 0
     assert response.context['total_file_size'] == 0
 
 
 @pytest.mark.django_db
-def test_audio_list_returns_200(client):
-    response = client.get(reverse('backoffice_audio_list'))
+def test_photo_list_returns_200(client):
+    response = client.get(reverse('backoffice_photo_list'))
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_audio_list_shows_resources(client):
-    Resource.objects.create(
-        resource_type=Resource.Type.AUDIO, title='Test Podcast', file='audio/test.mp3'
-    )
-    response = client.get(reverse('backoffice_audio_list'))
-    assert b'Test Podcast' in response.content
+def test_photo_list_shows_photos(client, photo):
+    response = client.get(reverse('backoffice_photo_list'))
+    assert b'Test Photo' in response.content
 
 
 @pytest.mark.django_db
-def test_audio_upload_get_returns_200(client):
-    response = client.get(reverse('backoffice_audio_upload'))
+def test_photo_upload_get_returns_200(client):
+    response = client.get(reverse('backoffice_photo_upload'))
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_audio_detail_returns_200(client):
-    audio = Resource.objects.create(
-        resource_type=Resource.Type.AUDIO, title='Detail Test', file='audio/test.mp3'
-    )
-    response = client.get(reverse('backoffice_audio_detail', args=[audio.pk]))
+def test_photo_detail_returns_200(client, photo):
+    response = client.get(reverse('backoffice_photo_detail', args=[photo.pk]))
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_audio_detail_shows_title(client):
-    audio = Resource.objects.create(
-        resource_type=Resource.Type.AUDIO, title='Detail Test', file='audio/test.mp3'
-    )
-    response = client.get(reverse('backoffice_audio_detail', args=[audio.pk]))
-    assert b'Detail Test' in response.content
+def test_photo_detail_shows_title(client, photo):
+    response = client.get(reverse('backoffice_photo_detail', args=[photo.pk]))
+    assert b'Test Photo' in response.content
 
 
 @pytest.mark.django_db
-def test_audio_detail_returns_404_for_missing(client):
-    response = client.get(reverse('backoffice_audio_detail', args=[9999]))
+def test_photo_detail_returns_404_for_missing(client):
+    response = client.get(reverse('backoffice_photo_detail', args=[9999]))
     assert response.status_code == 404
 
 
 @pytest.mark.django_db
-def test_audio_upload_post_calls_use_case_and_redirects(client):
-    f = io.BytesIO(b'audio data')
-    f.name = 'my-podcast.mp3'
-    with patch('curio.backoffice.views.upload_audio_files') as mock:
+def test_photo_upload_post_calls_use_case_and_redirects(client):
+    f = io.BytesIO(b'image data')
+    f.name = 'my-photo.jpg'
+    with patch('curio.backoffice.views.upload_photos') as mock:
         response = client.post(
-            reverse('backoffice_audio_upload'),
+            reverse('backoffice_photo_upload'),
             {'files': [f]},
             format='multipart',
         )
     assert mock.called
     assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_audio_list')
+    assert response['Location'] == reverse('backoffice_photo_list')
 
 
 @pytest.mark.django_db
-def test_audio_delete_get_returns_200(client):
-    audio = Resource.objects.create(
-        resource_type=Resource.Type.AUDIO, title='Delete Me', file='audio/test.mp3'
+def test_photo_detail_post_updates_title_and_redirects(client):
+    p = Photo.objects.create(title='Old Title', file='photos/test.jpg')
+    response = client.post(
+        reverse('backoffice_photo_detail', args=[p.pk]),
+        {'title': 'New Title'},
     )
-    response = client.get(reverse('backoffice_audio_delete', args=[audio.pk]))
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_photo_detail', args=[p.pk])
+    p.refresh_from_db()
+    assert p.title == 'New Title'
+
+
+@pytest.mark.django_db
+def test_photo_detail_post_invalid_rerenders_form(client, photo):
+    response = client.post(
+        reverse('backoffice_photo_detail', args=[photo.pk]),
+        {'title': ''},
+    )
+    assert response.status_code == 200
+    photo.refresh_from_db()
+    assert photo.title == 'Test Photo'
+
+
+@pytest.mark.django_db
+def test_photo_delete_get_returns_200(client):
+    p = Photo.objects.create(title='Delete Me', file='photos/test.jpg')
+    response = client.get(reverse('backoffice_photo_delete', args=[p.pk]))
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_audio_delete_get_returns_404_for_missing(client):
-    response = client.get(reverse('backoffice_audio_delete', args=[9999]))
+def test_photo_delete_get_returns_404_for_missing(client):
+    response = client.get(reverse('backoffice_photo_delete', args=[9999]))
     assert response.status_code == 404
 
 
 @pytest.mark.django_db
-def test_audio_delete_post_deletes_and_redirects(client):
-    audio = Resource.objects.create(
-        resource_type=Resource.Type.AUDIO, title='Delete Me', file='audio/test.mp3'
-    )
-    response = client.post(reverse('backoffice_audio_delete', args=[audio.pk]))
+def test_photo_delete_post_deletes_and_redirects(client):
+    p = Photo.objects.create(title='Delete Me', file='photos/test.jpg')
+    response = client.post(reverse('backoffice_photo_delete', args=[p.pk]))
     assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_audio_list')
-    assert not Resource.objects.filter(pk=audio.pk).exists()
-
-
-@pytest.mark.django_db
-def test_image_detail_post_updates_title_and_redirects(client):
-    image = Resource.objects.create(
-        resource_type=Resource.Type.IMAGE, title='Old Title', file='images/test.jpg'
-    )
-    response = client.post(
-        reverse('backoffice_image_detail', args=[image.pk]),
-        {'title': 'New Title'},
-    )
-    assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_image_detail', args=[image.pk])
-    image.refresh_from_db()
-    assert image.title == 'New Title'
-
-
-@pytest.mark.django_db
-def test_image_detail_post_invalid_rerenders_form(client, image_resource):
-    response = client.post(
-        reverse('backoffice_image_detail', args=[image_resource.pk]),
-        {'title': ''},
-    )
-    assert response.status_code == 200
-    image_resource.refresh_from_db()
-    assert image_resource.title == 'Test Image'
-
-
-@pytest.mark.django_db
-def test_image_delete_get_returns_200(client):
-    image = Resource.objects.create(
-        resource_type=Resource.Type.IMAGE, title='Delete Me', file='images/test.jpg'
-    )
-    response = client.get(reverse('backoffice_image_delete', args=[image.pk]))
-    assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_image_delete_post_deletes_and_redirects(client):
-    image = Resource.objects.create(
-        resource_type=Resource.Type.IMAGE, title='Delete Me', file='images/test.jpg'
-    )
-    response = client.post(reverse('backoffice_image_delete', args=[image.pk]))
-    assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_image_list')
-    assert not Resource.objects.filter(pk=image.pk).exists()
-
-
-@pytest.mark.django_db
-def test_video_delete_get_returns_200(client):
-    video = Resource.objects.create(
-        resource_type=Resource.Type.VIDEO, title='Delete Me', file='videos/test.mp4'
-    )
-    response = client.get(reverse('backoffice_video_delete', args=[video.pk]))
-    assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_video_delete_post_deletes_and_redirects(client):
-    video = Resource.objects.create(
-        resource_type=Resource.Type.VIDEO, title='Delete Me', file='videos/test.mp4'
-    )
-    response = client.post(reverse('backoffice_video_delete', args=[video.pk]))
-    assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_video_list')
-    assert not Resource.objects.filter(pk=video.pk).exists()
+    assert response['Location'] == reverse('backoffice_photo_list')
+    assert not Photo.objects.filter(pk=p.pk).exists()

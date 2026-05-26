@@ -1,0 +1,47 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Photos" %} – {{ block.super }}{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>{% trans "Photos" %}</h1>
+
+    <div class="mt-lh">
+      <a href="{% url 'backoffice_photo_upload' %}">{% trans "Upload" %}</a>
+    </div>
+
+    <div class="scroll-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>{% trans "Title" %}</th>
+            <th data-align="end">{% trans "Dimensions" %}</th>
+            <th>{% trans "Media type" %}</th>
+            <th>{% trans "Produced" %}</th>
+            <th data-align="end">{% trans "File size" %}</th>
+            <th>{% trans "Created" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for photo in photo_list %}
+            <tr>
+              <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail.url }}" alt=""></a></td>
+              <td><a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a></td>
+              <td data-align="end">
+                {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
+              </td>
+              <td>{{ photo.media_type|default:"–" }}</td>
+              <td>{{ photo.produced_at|default:"–" }}</td>
+              <td data-align="end">{{ photo.file_size|filesizeformat }}</td>
+              <td>{{ photo.created_at }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7">{% trans "No photos found." %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

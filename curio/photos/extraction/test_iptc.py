@@ -12,7 +12,7 @@ def make_img():
 
 def test_returns_empty_dataclass_when_no_iptc_info():
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=None
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=None
     ):
         result = extract_iptc(make_img())
     assert result == IptcData()
@@ -20,7 +20,7 @@ def test_returns_empty_dataclass_when_no_iptc_info():
 
 def test_returns_empty_dataclass_on_exception():
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo',
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo',
         side_effect=Exception('boom'),
     ):
         result = extract_iptc(make_img())
@@ -30,7 +30,7 @@ def test_returns_empty_dataclass_on_exception():
 def test_extracts_title():
     iptc = {(2, 5): [b'Sunset over the Lake']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.title == 'Sunset over the Lake'
@@ -39,7 +39,7 @@ def test_extracts_title():
 def test_extracts_description():
     iptc = {(2, 120): [b'A beautiful landscape.']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.description == 'A beautiful landscape.'
@@ -48,7 +48,7 @@ def test_extracts_description():
 def test_extracts_copyright():
     iptc = {(2, 116): [b'\xc2\xa9 2024 Jane Smith']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.copyright == '© 2024 Jane Smith'
@@ -57,7 +57,7 @@ def test_extracts_copyright():
 def test_extracts_creator():
     iptc = {(2, 80): [b'Jane Smith']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.creator == 'Jane Smith'
@@ -66,7 +66,7 @@ def test_extracts_creator():
 def test_extracts_keywords_as_list():
     iptc = {(2, 25): [b'nature', b'landscape', b'sunset']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.keywords == ['nature', 'landscape', 'sunset']
@@ -75,7 +75,7 @@ def test_extracts_keywords_as_list():
 def test_extracts_single_keyword():
     iptc = {(2, 25): [b'portrait']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.keywords == ['portrait']
@@ -84,7 +84,7 @@ def test_extracts_single_keyword():
 def test_keywords_empty_list_when_absent():
     iptc = {(2, 5): [b'Title Only']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.keywords == []
@@ -93,7 +93,7 @@ def test_keywords_empty_list_when_absent():
 def test_missing_fields_are_none():
     iptc = {(2, 5): [b'Only Title']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.description is None
@@ -104,7 +104,7 @@ def test_missing_fields_are_none():
 def test_strips_whitespace_from_string_fields():
     iptc = {(2, 5): [b'  Padded Title  '], (2, 80): [b'  Author  ']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.title == 'Padded Title'
@@ -114,7 +114,7 @@ def test_strips_whitespace_from_string_fields():
 def test_blank_string_becomes_none():
     iptc = {(2, 5): [b'   ']}
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result.title is None
@@ -144,7 +144,7 @@ def test_extracts_all_fields_together():
         (2, 80): [b'John Doe'],
     }
     with patch(
-        'curio.resources.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
+        'curio.photos.extraction.iptc.IptcImagePlugin.getiptcinfo', return_value=iptc
     ):
         result = extract_iptc(make_img())
     assert result == IptcData(

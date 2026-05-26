@@ -24,9 +24,7 @@
     <section class="sidebar__section">
         <h2 class="sidebar__section-heading">{% trans "Content" %}</h2>
         <ul class="sidebar__nav" role="list">
-            <li><a href="{% url 'backoffice_audio_list' %}" {% if 'backoffice_audio' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Audio" %}</a></li>
-            <li><a href="{% url 'backoffice_image_list' %}" {% if 'backoffice_image' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Images" %}</a></li>
-            <li><a href="{% url 'backoffice_video_list' %}" {% if 'backoffice_video' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Videos" %}</a></li>
+            <li><a href="{% url 'backoffice_photo_list' %}" {% if 'backoffice_photo' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Photos" %}</a></li>
         </ul>
     </section>
 

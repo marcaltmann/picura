@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-25 21:35+0200\n"
+"POT-Creation-Date: 2026-05-26 21:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,216 +31,129 @@ msgid "Content"
 msgstr "Inhalte"
 
 #: curio/backoffice/templates/backoffice/_sidebar.html:27
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:6
-#: curio/backoffice/templates/backoffice/content/audio_list.html:3
-#: curio/backoffice/templates/backoffice/content/audio_list.html:6
-#: curio/backoffice/templates/backoffice/dashboard.html:13
-#: curio/resources/models.py:22
-msgid "Audio"
-msgstr "Audio"
-
-#: curio/backoffice/templates/backoffice/_sidebar.html:28
-#: curio/backoffice/templates/backoffice/content/image_detail.html:8
-#: curio/backoffice/templates/backoffice/content/image_list.html:3
-#: curio/backoffice/templates/backoffice/content/image_list.html:6
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:8
+#: curio/backoffice/templates/backoffice/content/photo_list.html:3
+#: curio/backoffice/templates/backoffice/content/photo_list.html:6
 #: curio/backoffice/templates/backoffice/dashboard.html:9
-msgid "Images"
-msgstr "Bilder"
+#: curio/photos/apps.py:7
+msgid "Photos"
+msgstr "Fotos"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:29
-#: curio/backoffice/templates/backoffice/content/video_detail.html:6
-#: curio/backoffice/templates/backoffice/content/video_list.html:3
-#: curio/backoffice/templates/backoffice/content/video_list.html:6
-#: curio/backoffice/templates/backoffice/dashboard.html:17
-msgid "Videos"
-msgstr "Videos"
-
-#: curio/backoffice/templates/backoffice/_sidebar.html:35
+#: curio/backoffice/templates/backoffice/_sidebar.html:33
 msgid "Public website"
 msgstr "Öffentliche Website"
 
-#: curio/backoffice/templates/backoffice/content/audio_delete.html:3
-#: curio/backoffice/templates/backoffice/content/audio_delete.html:11
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:19
-#: curio/backoffice/templates/backoffice/content/image_delete.html:3
-#: curio/backoffice/templates/backoffice/content/image_delete.html:12
-#: curio/backoffice/templates/backoffice/content/image_detail.html:75
-#: curio/backoffice/templates/backoffice/content/video_delete.html:3
-#: curio/backoffice/templates/backoffice/content/video_delete.html:11
-#: curio/backoffice/templates/backoffice/content/video_detail.html:33
+#: curio/backoffice/templates/backoffice/content/photo_delete.html:3
+#: curio/backoffice/templates/backoffice/content/photo_delete.html:12
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:75
 msgid "Delete"
 msgstr "Löschen"
 
-#: curio/backoffice/templates/backoffice/content/audio_delete.html:7
-msgid "Delete audio"
-msgstr "Audio löschen"
+#: curio/backoffice/templates/backoffice/content/photo_delete.html:7
+msgid "Delete photo"
+msgstr "Foto löschen"
 
-#: curio/backoffice/templates/backoffice/content/audio_delete.html:8
-#: curio/backoffice/templates/backoffice/content/image_delete.html:9
-#: curio/backoffice/templates/backoffice/content/video_delete.html:8
+#: curio/backoffice/templates/backoffice/content/photo_delete.html:9
 #, python-format
 msgid "Are you sure you want to delete \"%(title)s\"?"
 msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
 
-#: curio/backoffice/templates/backoffice/content/audio_delete.html:12
-#: curio/backoffice/templates/backoffice/content/image_delete.html:13
-#: curio/backoffice/templates/backoffice/content/video_delete.html:12
+#: curio/backoffice/templates/backoffice/content/photo_delete.html:13
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:10
-#: curio/backoffice/templates/backoffice/content/image_detail.html:37
-#: curio/backoffice/templates/backoffice/content/video_detail.html:12
-msgid "File"
-msgstr "Datei"
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:17
+msgid "List"
+msgstr "Liste"
 
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:12
-#: curio/backoffice/templates/backoffice/content/audio_list.html:13
-#: curio/backoffice/templates/backoffice/content/video_detail.html:22
-#: curio/backoffice/templates/backoffice/content/video_list.html:13
-msgid "Duration"
-msgstr "Dauer"
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:18
+msgid "Save"
+msgstr "Speichern"
 
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:14
-#: curio/backoffice/templates/backoffice/content/audio_list.html:14
-#: curio/backoffice/templates/backoffice/content/image_detail.html:45
-#: curio/backoffice/templates/backoffice/content/image_list.html:21
-#: curio/backoffice/templates/backoffice/content/video_detail.html:28
-#: curio/backoffice/templates/backoffice/content/video_list.html:15
-msgid "File size"
-msgstr "Dateigröße"
-
-#: curio/backoffice/templates/backoffice/content/audio_detail.html:16
-#: curio/backoffice/templates/backoffice/content/audio_list.html:15
-#: curio/backoffice/templates/backoffice/content/image_list.html:22
-#: curio/backoffice/templates/backoffice/content/video_detail.html:30
-#: curio/backoffice/templates/backoffice/content/video_list.html:16
-msgid "Created"
-msgstr "Erstellt"
-
-#: curio/backoffice/templates/backoffice/content/audio_list.html:7
-#: curio/backoffice/templates/backoffice/content/audio_upload.html:11
-#: curio/backoffice/templates/backoffice/content/image_list.html:9
-#: curio/backoffice/templates/backoffice/content/image_upload.html:11
-#: curio/backoffice/templates/backoffice/content/video_list.html:7
-#: curio/backoffice/templates/backoffice/content/video_upload.html:11
-msgid "Upload"
-msgstr "Hochladen"
-
-#: curio/backoffice/templates/backoffice/content/audio_list.html:12
-#: curio/backoffice/templates/backoffice/content/image_detail.html:30
-#: curio/backoffice/templates/backoffice/content/image_list.html:17
-#: curio/backoffice/templates/backoffice/content/video_list.html:12
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:30
+#: curio/backoffice/templates/backoffice/content/photo_list.html:17
 msgid "Title"
 msgstr "Titel"
 
-#: curio/backoffice/templates/backoffice/content/audio_list.html:28
-msgid "No audio resources found."
-msgstr "Keine Audio-Ressourcen gefunden."
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:37
+msgid "File"
+msgstr "Datei"
 
-#: curio/backoffice/templates/backoffice/content/audio_upload.html:3
-#: curio/backoffice/templates/backoffice/content/audio_upload.html:6
-msgid "Upload Audio"
-msgstr "Audio hochladen"
-
-#: curio/backoffice/templates/backoffice/content/audio_upload.html:9
-#: curio/backoffice/templates/backoffice/content/image_upload.html:9
-#: curio/backoffice/templates/backoffice/content/video_upload.html:9
-msgid "Files"
-msgstr "Dateien"
-
-#: curio/backoffice/templates/backoffice/content/image_delete.html:7
-msgid "Delete image"
-msgstr "Bild löschen"
-
-#: curio/backoffice/templates/backoffice/content/image_detail.html:17
-msgid "List"
-msgstr ""
-
-#: curio/backoffice/templates/backoffice/content/image_detail.html:18
-msgid "Save"
-msgstr ""
-
-#: curio/backoffice/templates/backoffice/content/image_detail.html:39
-#: curio/backoffice/templates/backoffice/content/image_list.html:19
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:39
+#: curio/backoffice/templates/backoffice/content/photo_list.html:19
 msgid "Media type"
 msgstr "Medientyp"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:41
-#: curio/backoffice/templates/backoffice/content/image_list.html:18
-#: curio/backoffice/templates/backoffice/content/video_detail.html:24
-#: curio/backoffice/templates/backoffice/content/video_list.html:14
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:41
+#: curio/backoffice/templates/backoffice/content/photo_list.html:18
 msgid "Dimensions"
 msgstr "Abmessungen"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:47
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:45
+#: curio/backoffice/templates/backoffice/content/photo_list.html:21
+msgid "File size"
+msgstr "Dateigröße"
+
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:47
 msgid "Uploaded at"
 msgstr "Hochgeladen am"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:49
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:49
 msgid "Produced at"
 msgstr "Aufgenommen am"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:53
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:53
 msgid "Camera"
 msgstr "Kamera"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:57
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:57
 msgid "Lens"
 msgstr "Objektiv"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:61
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:61
 msgid "Focal length"
 msgstr "Brennweite"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:65
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:65
 msgid "Aperture"
 msgstr "Blende"
 
-#: curio/backoffice/templates/backoffice/content/image_detail.html:69
+#: curio/backoffice/templates/backoffice/content/photo_detail.html:69
 msgid "Shutter speed"
 msgstr "Belichtungszeit"
 
-#: curio/backoffice/templates/backoffice/content/image_list.html:20
+#: curio/backoffice/templates/backoffice/content/photo_list.html:9
+#: curio/backoffice/templates/backoffice/content/photo_upload.html:11
+msgid "Upload"
+msgstr "Hochladen"
+
+#: curio/backoffice/templates/backoffice/content/photo_list.html:20
 msgid "Produced"
 msgstr "Aufgenommen"
 
-#: curio/backoffice/templates/backoffice/content/image_list.html:40
-msgid "No image resources found."
-msgstr "Keine Bild-Ressourcen gefunden."
+#: curio/backoffice/templates/backoffice/content/photo_list.html:22
+msgid "Created"
+msgstr "Erstellt"
 
-#: curio/backoffice/templates/backoffice/content/image_upload.html:3
-#: curio/backoffice/templates/backoffice/content/image_upload.html:6
-msgid "Upload Images"
-msgstr "Bilder hochladen"
+#: curio/backoffice/templates/backoffice/content/photo_list.html:40
+msgid "No photos found."
+msgstr "Keine Fotos gefunden."
 
-#: curio/backoffice/templates/backoffice/content/video_delete.html:7
-msgid "Delete video"
-msgstr "Video löschen"
+#: curio/backoffice/templates/backoffice/content/photo_upload.html:3
+#: curio/backoffice/templates/backoffice/content/photo_upload.html:6
+msgid "Upload Photos"
+msgstr "Fotos hochladen"
 
-#: curio/backoffice/templates/backoffice/content/video_detail.html:14
-msgid "Poster"
-msgstr "Vorschaubild"
-
-#: curio/backoffice/templates/backoffice/content/video_list.html:32
-msgid "No video resources found."
-msgstr "Keine Video-Ressourcen gefunden."
-
-#: curio/backoffice/templates/backoffice/content/video_upload.html:3
-#: curio/backoffice/templates/backoffice/content/video_upload.html:6
-msgid "Upload Videos"
-msgstr "Videos hochladen"
+#: curio/backoffice/templates/backoffice/content/photo_upload.html:9
+msgid "Files"
+msgstr "Dateien"
 
 #: curio/backoffice/templates/backoffice/dashboard.html:3
 #: curio/backoffice/templates/backoffice/dashboard.html:6
 msgid "Backoffice"
 msgstr "Backoffice"
 
-#: curio/backoffice/templates/backoffice/dashboard.html:21
-msgid "Documents"
-msgstr "Dokumente"
-
-#: curio/backoffice/templates/backoffice/dashboard.html:25
+#: curio/backoffice/templates/backoffice/dashboard.html:13
 msgid "Total storage"
 msgstr "Gesamtspeicher"
 
@@ -260,107 +173,75 @@ msgstr "Stereo"
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: curio/resources/apps.py:7
-msgid "Resources"
-msgstr "Ressourcen"
-
-#: curio/resources/models.py:21
-#, fuzzy
-#| msgid "Images"
-msgid "Image"
-msgstr "Bilder"
-
-#: curio/resources/models.py:23
-#, fuzzy
-#| msgid "Videos"
-msgid "Video"
-msgstr "Videos"
-
-#: curio/resources/models.py:24
-msgid "Document"
-msgstr "Dokument"
-
-#: curio/resources/models.py:27 curio/resources/models.py:95
-msgid "type"
-msgstr "Typ"
-
-#: curio/resources/models.py:29
+#: curio/photos/models.py:14
 msgid "title"
 msgstr "Titel"
 
-#: curio/resources/models.py:30
+#: curio/photos/models.py:15
 msgid "file"
 msgstr "Datei"
 
-#: curio/resources/models.py:32
+#: curio/photos/models.py:17
 msgid "media type"
 msgstr "Medientyp"
 
-#: curio/resources/models.py:34
+#: curio/photos/models.py:19
 msgid "file size"
 msgstr "Dateigröße"
 
-#: curio/resources/models.py:35
+#: curio/photos/models.py:21
 msgid "description"
 msgstr "Beschreibung"
 
-#: curio/resources/models.py:37
+#: curio/photos/models.py:24
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: curio/resources/models.py:41
-msgid "poster"
-msgstr "Vorschaubild"
-
-#: curio/resources/models.py:43
-msgid "duration"
-msgstr "Dauer"
-
-#: curio/resources/models.py:46
-msgid "page count"
-msgstr "Seitenanzahl"
-
-#: curio/resources/models.py:49
+#: curio/photos/models.py:26
 msgid "width"
 msgstr "Breite"
 
-#: curio/resources/models.py:51
+#: curio/photos/models.py:28
 msgid "height"
 msgstr "Höhe"
 
-#: curio/resources/models.py:53 curio/resources/models.py:97
+#: curio/photos/models.py:30 curio/photos/models.py:62
 msgid "created at"
 msgstr "Erstellt am"
 
-#: curio/resources/models.py:54 curio/resources/models.py:98
+#: curio/photos/models.py:31 curio/photos/models.py:63
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: curio/resources/models.py:76 curio/resources/models.py:93
-msgid "resource"
-msgstr "Ressource"
+#: curio/photos/models.py:41 curio/photos/models.py:58
+msgid "photo"
+msgstr "Foto"
 
-#: curio/resources/models.py:77
-msgid "resources"
-msgstr "Ressourcen"
+#: curio/photos/models.py:42
+msgid "photos"
+msgstr "Fotos"
 
-#: curio/resources/models.py:85
+#: curio/photos/models.py:50
 msgid "EXIF"
 msgstr "EXIF"
 
-#: curio/resources/models.py:86
+#: curio/photos/models.py:51
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: curio/resources/models.py:87
+#: curio/photos/models.py:52
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: curio/resources/models.py:96
+#: curio/photos/models.py:60
+msgid "type"
+msgstr "Typ"
+
+#: curio/photos/models.py:61
 msgid "data"
 msgstr "Daten"
 
-#: curio/resources/models.py:101 curio/resources/models.py:102
+#: curio/photos/models.py:66 curio/photos/models.py:67
 msgid "metadata"
 msgstr "Metadaten"
 
@@ -371,6 +252,73 @@ msgstr "Deutsch"
 #: curio/settings.py:152
 msgid "English"
 msgstr "Englisch"
+
+#~ msgid "Audio"
+#~ msgstr "Audio"
+
+#~ msgid "Images"
+#~ msgstr "Bilder"
+
+#~ msgid "Videos"
+#~ msgstr "Videos"
+
+#~ msgid "Duration"
+#~ msgstr "Dauer"
+
+#~ msgid "Upload Audio"
+#~ msgstr "Audio hochladen"
+
+#~ msgid "Delete image"
+#~ msgstr "Bild löschen"
+
+#~ msgid "No image resources found."
+#~ msgstr "Keine Bild-Ressourcen gefunden."
+
+#~ msgid "Upload Images"
+#~ msgstr "Bilder hochladen"
+
+#~ msgid "Delete video"
+#~ msgstr "Video löschen"
+
+#~ msgid "Poster"
+#~ msgstr "Vorschaubild"
+
+#~ msgid "No video resources found."
+#~ msgstr "Keine Video-Ressourcen gefunden."
+
+#~ msgid "Documents"
+#~ msgstr "Dokumente"
+
+#~ msgid "Resources"
+#~ msgstr "Ressourcen"
+
+#, fuzzy
+#~| msgid "Images"
+#~ msgid "Image"
+#~ msgstr "Bilder"
+
+#, fuzzy
+#~| msgid "Videos"
+#~ msgid "Video"
+#~ msgstr "Videos"
+
+#~ msgid "Document"
+#~ msgstr "Dokument"
+
+#~ msgid "poster"
+#~ msgstr "Vorschaubild"
+
+#~ msgid "duration"
+#~ msgstr "Dauer"
+
+#~ msgid "page count"
+#~ msgstr "Seitenanzahl"
+
+#~ msgid "resource"
+#~ msgstr "Ressource"
+
+#~ msgid "resources"
+#~ msgstr "Ressourcen"
 
 #~ msgid "EXIF Metadata"
 #~ msgstr "EXIF-Metadaten"

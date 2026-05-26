@@ -1,9 +1,9 @@
 from django import forms
 
-from curio.resources.models import Resource
+from curio.photos.models import Photo
 
 
-class ResourceForm(forms.ModelForm):
+class PhotoForm(forms.ModelForm):
     class Meta:
-        model = Resource
+        model = Photo
         fields = ['title']

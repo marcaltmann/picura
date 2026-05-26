@@ -1,20 +1,20 @@
 {% extends "backoffice/base.html" %}
 {% load i18n %}
-{% block title %}{{ image.title }} – {{ block.super }}{% endblock %}
+{% block title %}{{ photo.title }} – {{ block.super }}{% endblock %}
 {% block content %}
   <div class="container mt-lh mb-lh">
     <header class="header">
       <div class="header__breadcrumbs">
-        <a href="{% url 'backoffice_image_list' %}">{% trans "Images" %}</a> /
-        {{ image.title }}
+        <a href="{% url 'backoffice_photo_list' %}">{% trans "Photos" %}</a> /
+        {{ photo.title }}
       </div>
 
       <div class="header__main">
         <h1 class="header__title">
-          {{ image.title }}
+          {{ photo.title }}
         </h1>
         <div class="header__actions">
-          <a class="button" data-variant="secondary" href="{% url 'backoffice_image_list' %}">{% trans "List" %}</a>
+          <a class="button" data-variant="secondary" href="{% url 'backoffice_photo_list' %}">{% trans "List" %}</a>
           <button class="button" type="submit" form="main-form">{% trans "Save" %}</button>
         </div>
       </div>
@@ -22,7 +22,7 @@
 
     <div class="halves mt-lh">
       <div class="image-preview">
-        <img class="image-thumbnail" src="{{ image.thumbnail.url }}" alt="{{ image.title }}">
+        <img class="image-thumbnail" src="{{ photo.thumbnail.url }}" alt="{{ photo.title }}">
       </div>
 
       <div>
@@ -35,19 +35,19 @@
             </form>
           </dd>
           <dt>{% trans "File" %}</dt>
-          <dd><a href="{{ image.file.url }}">{{ image.file.name }}</a></dd>
+          <dd><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></dd>
           <dt>{% trans "Media type" %}</dt>
-          <dd>{{ image.media_type|default:"–" }}</dd>
+          <dd>{{ photo.media_type|default:"–" }}</dd>
           <dt>{% trans "Dimensions" %}</dt>
           <dd>
-            {% if image.width and image.height %}{{ image.width }}×{{ image.height }}{% else %}–{% endif %}
+            {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
           </dd>
           <dt>{% trans "File size" %}</dt>
-          <dd>{{ image.file_size|filesizeformat }}</dd>
+          <dd>{{ photo.file_size|filesizeformat }}</dd>
           <dt>{% trans "Uploaded at" %}</dt>
-          <dd>{{ image.created_at }}</dd>
+          <dd>{{ photo.created_at }}</dd>
           <dt>{% trans "Produced at" %}</dt>
-          <dd>{{ image.produced_at|default:"–" }}</dd>
+          <dd>{{ photo.produced_at|default:"–" }}</dd>
 
           {% if exif.data.camera_make or exif.data.camera_model %}
             <dt>{% trans "Camera" %}</dt>
@@ -72,7 +72,7 @@
         </dl>
 
         <div class="mt-lh">
-          <a class="button" data-variant="secondary" href="{% url 'backoffice_image_delete' image.pk %}">{% trans "Delete" %}</a>
+          <a class="button" data-variant="secondary" href="{% url 'backoffice_photo_delete' photo.pk %}">{% trans "Delete" %}</a>
         </div>
       </div>
     </div>
