@@ -33,10 +33,10 @@ ALLOWED_HOSTS = (
 INSTALLED_APPS = [
     'allauth.account',
     'allauth',
-    'curio.backoffice',
-    'curio.core',
-    'curio.my_account',
-    'curio.photos',
+    'picura.backoffice',
+    'picura.core',
+    'picura.my_account',
+    'picura.photos',
     'imagekit',
     'django_vite',
     'django.contrib.admin',
@@ -69,7 +69,7 @@ if DJANGO_ENV == 'development':
     MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 
-ROOT_URLCONF = 'curio.urls'
+ROOT_URLCONF = 'picura.urls'
 
 TEMPLATES = [
     {
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'curio.wsgi.application'
+WSGI_APPLICATION = 'picura.wsgi.application'
 
 
 # Database
@@ -95,8 +95,8 @@ WSGI_APPLICATION = 'curio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'curio'),
-        'USER': os.environ.get('DB_USER', 'curio'),
+        'NAME': os.environ.get('DB_NAME', 'picura'),
+        'USER': os.environ.get('DB_USER', 'picura'),
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
@@ -120,7 +120,7 @@ ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = ['username', 'email']
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = 'address'
-ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Curio] '
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Picura] '
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 

@@ -1,8 +1,8 @@
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 
-from curio.photos.models import Metadata, Photo
-from curio.photos.use_cases import upload_photos
+from picura.photos.models import Metadata, Photo
+from picura.photos.use_cases import upload_photos
 
 from .forms import PhotoForm
 

@@ -1,6 +1,6 @@
 from django import forms
 
-from curio.photos.models import Photo
+from picura.photos.models import Photo
 
 
 class PhotoForm(forms.ModelForm):

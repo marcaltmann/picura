@@ -3,11 +3,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 
-import curio.core.views as core_views
+import picura.core.views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('backoffice/', include('curio.backoffice.urls')),
+    path('backoffice/', include('picura.backoffice.urls')),
     path('accounts/', include('allauth.urls')),
     path('', core_views.welcome, name='welcome'),
 ]

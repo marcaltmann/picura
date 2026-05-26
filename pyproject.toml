@@ -1,7 +1,7 @@
 [project]
-name = "curio"
+name = "picura"
 version = "0.1.0"
-description = "Curio media library"
+description = "Picura media library"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -19,7 +19,7 @@ dependencies = [
 quote-style = "single"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "curio.settings"
+DJANGO_SETTINGS_MODULE = "picura.settings"
 python_files = ["tests.py", "test_*.py"]
 
 [tool.djlint]

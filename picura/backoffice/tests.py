@@ -5,7 +5,7 @@ import pytest
 from django.urls import reverse
 from PIL import Image
 
-from curio.photos.models import Photo
+from picura.photos.models import Photo
 
 
 @pytest.fixture
@@ -86,7 +86,7 @@ def test_photo_detail_returns_404_for_missing(client):
 def test_photo_upload_post_calls_use_case_and_redirects(client):
     f = io.BytesIO(b'image data')
     f.name = 'my-photo.jpg'
-    with patch('curio.backoffice.views.upload_photos') as mock:
+    with patch('picura.backoffice.views.upload_photos') as mock:
         response = client.post(
             reverse('backoffice_photo_upload'),
             {'files': [f]},

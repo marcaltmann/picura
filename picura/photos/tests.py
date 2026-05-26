@@ -75,7 +75,7 @@ EMPTY_IMAGE_META = {
 def test_upload_photos_creates_photo():
     f = SimpleUploadedFile('my-photo.jpg', b'image data')
     with patch(
-        'curio.photos.use_cases.extract_image_metadata',
+        'picura.photos.use_cases.extract_image_metadata',
         return_value=EMPTY_IMAGE_META,
     ):
         upload_photos([f])
@@ -90,7 +90,7 @@ def test_upload_photos_creates_photo():
 def test_upload_photos_stores_dimensions():
     f = SimpleUploadedFile('photo.jpg', b'image data')
     meta = {**EMPTY_IMAGE_META, 'width': 1920, 'height': 1080}
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     photo = Photo.objects.first()
     assert photo.width == 1920
@@ -106,7 +106,7 @@ def test_upload_photos_stores_technical_metadata():
         'color_mode': 'RGB',
         'icc_profile': 'sRGB',
     }
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     photo = Photo.objects.first()
     exif = photo.metadata.get(type=Metadata.Type.EXIF)
@@ -125,7 +125,7 @@ def test_upload_photos_stores_exif_metadata():
         'camera_make': 'Canon',
         'camera_model': 'EOS R5',
     }
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     photo = Photo.objects.first()
     assert photo.produced_at == taken
@@ -144,7 +144,7 @@ def test_upload_photos_stores_lens_and_exposure_metadata():
         'shutter_speed': '1/250',
         'focal_length': 50.0,
     }
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     photo = Photo.objects.first()
     exif = photo.metadata.get(type=Metadata.Type.EXIF)
@@ -174,7 +174,7 @@ def test_upload_photos_derives_title_from_filename():
     ]
     for filename, _ in cases:
         with patch(
-            'curio.photos.use_cases.extract_image_metadata',
+            'picura.photos.use_cases.extract_image_metadata',
             return_value=EMPTY_IMAGE_META,
         ):
             upload_photos([SimpleUploadedFile(filename, b'data')])
@@ -186,7 +186,7 @@ def test_upload_photos_derives_title_from_filename():
 def test_upload_photos_uses_metadata_title_when_available():
     f = SimpleUploadedFile('my-photo.jpg', b'image data')
     meta = {**EMPTY_IMAGE_META, 'title': 'Sunset Over the Lake'}
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     assert Photo.objects.first().title == 'Sunset Over the Lake'
 
@@ -195,7 +195,7 @@ def test_upload_photos_uses_metadata_title_when_available():
 def test_upload_photos_stores_description_from_metadata():
     f = SimpleUploadedFile('photo.jpg', b'image data')
     meta = {**EMPTY_IMAGE_META, 'description': 'A beautiful landscape at dusk.'}
-    with patch('curio.photos.use_cases.extract_image_metadata', return_value=meta):
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
     assert Photo.objects.first().description == 'A beautiful landscape at dusk.'
 
@@ -204,7 +204,7 @@ def test_upload_photos_stores_description_from_metadata():
 def test_upload_photos_leaves_description_blank_when_absent():
     f = SimpleUploadedFile('photo.jpg', b'image data')
     with patch(
-        'curio.photos.use_cases.extract_image_metadata',
+        'picura.photos.use_cases.extract_image_metadata',
         return_value=EMPTY_IMAGE_META,
     ):
         upload_photos([f])

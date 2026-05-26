@@ -18,250 +18,250 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:18
+#: picura/backoffice/templates/backoffice/_sidebar.html:18
 msgid "Overview"
 msgstr "Übersicht"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:20
+#: picura/backoffice/templates/backoffice/_sidebar.html:20
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:25
+#: picura/backoffice/templates/backoffice/_sidebar.html:25
 msgid "Content"
 msgstr "Inhalte"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:27
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:8
-#: curio/backoffice/templates/backoffice/content/photo_list.html:3
-#: curio/backoffice/templates/backoffice/content/photo_list.html:6
-#: curio/backoffice/templates/backoffice/dashboard.html:9
-#: curio/photos/apps.py:7
+#: picura/backoffice/templates/backoffice/_sidebar.html:27
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:8
+#: picura/backoffice/templates/backoffice/content/photo_list.html:3
+#: picura/backoffice/templates/backoffice/content/photo_list.html:6
+#: picura/backoffice/templates/backoffice/dashboard.html:9
+#: picura/photos/apps.py:7
 msgid "Photos"
 msgstr "Fotos"
 
-#: curio/backoffice/templates/backoffice/_sidebar.html:33
+#: picura/backoffice/templates/backoffice/_sidebar.html:33
 msgid "Public website"
 msgstr "Öffentliche Website"
 
-#: curio/backoffice/templates/backoffice/content/photo_delete.html:3
-#: curio/backoffice/templates/backoffice/content/photo_delete.html:12
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:83
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:3
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:12
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:83
 msgid "Delete"
 msgstr "Löschen"
 
-#: curio/backoffice/templates/backoffice/content/photo_delete.html:7
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:7
 msgid "Delete photo"
 msgstr "Foto löschen"
 
-#: curio/backoffice/templates/backoffice/content/photo_delete.html:9
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:9
 #, python-format
 msgid "Are you sure you want to delete \"%(title)s\"?"
 msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
 
-#: curio/backoffice/templates/backoffice/content/photo_delete.html:13
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:13
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:17
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:17
 msgid "List"
 msgstr "Liste"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:18
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:18
 msgid "Save"
 msgstr "Speichern"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:30
-#: curio/backoffice/templates/backoffice/content/photo_list.html:20
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:30
+#: picura/backoffice/templates/backoffice/content/photo_list.html:20
 msgid "Title"
 msgstr "Titel"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:37
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:37
 msgid "File"
 msgstr "Datei"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:39
-#: curio/backoffice/templates/backoffice/content/photo_list.html:22
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:39
+#: picura/backoffice/templates/backoffice/content/photo_list.html:22
 msgid "Media type"
 msgstr "Medientyp"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:41
-#: curio/backoffice/templates/backoffice/content/photo_list.html:21
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:41
+#: picura/backoffice/templates/backoffice/content/photo_list.html:21
 msgid "Dimensions"
 msgstr "Abmessungen"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:45
-#: curio/backoffice/templates/backoffice/content/photo_list.html:24
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:45
+#: picura/backoffice/templates/backoffice/content/photo_list.html:24
 msgid "File size"
 msgstr "Dateigröße"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:47
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:47
 msgid "Uploaded at"
 msgstr "Hochgeladen am"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:49
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:49
 msgid "Produced at"
 msgstr "Aufgenommen am"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:53
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:53
 msgid "Camera"
 msgstr "Kamera"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:57
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:57
 msgid "Lens"
 msgstr "Objektiv"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:61
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:61
 msgid "Focal length"
 msgstr "Brennweite"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:65
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:65
 msgid "Aperture"
 msgstr "Blende"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:69
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:69
 msgid "Shutter speed"
 msgstr "Belichtungszeit"
 
-#: curio/backoffice/templates/backoffice/content/photo_detail.html:73
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:73
 msgid "Location"
 msgstr "Standort"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:9
-#: curio/backoffice/templates/backoffice/content/photo_upload.html:11
+#: picura/backoffice/templates/backoffice/content/photo_list.html:9
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:11
 msgid "Upload"
 msgstr "Hochladen"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:12
+#: picura/backoffice/templates/backoffice/content/photo_list.html:12
 msgid "Delete selected photos?"
 msgstr "Ausgewählte Fotos löschen?"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:23
+#: picura/backoffice/templates/backoffice/content/photo_list.html:23
 msgid "Produced"
 msgstr "Aufgenommen"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:25
+#: picura/backoffice/templates/backoffice/content/photo_list.html:25
 msgid "Created"
 msgstr "Erstellt"
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:44
+#: picura/backoffice/templates/backoffice/content/photo_list.html:44
 msgid "No photos found."
 msgstr "Keine Fotos gefunden."
 
-#: curio/backoffice/templates/backoffice/content/photo_list.html:51
+#: picura/backoffice/templates/backoffice/content/photo_list.html:51
 msgid "Delete selected"
 msgstr "Auswahl löschen"
 
-#: curio/backoffice/templates/backoffice/content/photo_upload.html:3
-#: curio/backoffice/templates/backoffice/content/photo_upload.html:6
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:3
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:6
 msgid "Upload Photos"
 msgstr "Fotos hochladen"
 
-#: curio/backoffice/templates/backoffice/content/photo_upload.html:9
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:9
 msgid "Files"
 msgstr "Dateien"
 
-#: curio/backoffice/templates/backoffice/dashboard.html:3
-#: curio/backoffice/templates/backoffice/dashboard.html:6
+#: picura/backoffice/templates/backoffice/dashboard.html:3
+#: picura/backoffice/templates/backoffice/dashboard.html:6
 msgid "Backoffice"
 msgstr "Backoffice"
 
-#: curio/backoffice/templates/backoffice/dashboard.html:13
+#: picura/backoffice/templates/backoffice/dashboard.html:13
 msgid "Total storage"
 msgstr "Gesamtspeicher"
 
-#: curio/core/apps.py:7
+#: picura/core/apps.py:7
 msgid "Core"
 msgstr "Core"
 
-#: curio/core/templatetags/curio_tags.py:34
+#: picura/core/templatetags/picura_tags.py:34
 msgid "Mono"
 msgstr "Mono"
 
-#: curio/core/templatetags/curio_tags.py:34
+#: picura/core/templatetags/picura_tags.py:34
 msgid "Stereo"
 msgstr "Stereo"
 
-#: curio/my_account/apps.py:7
+#: picura/my_account/apps.py:7
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: curio/photos/models.py:14
+#: picura/photos/models.py:14
 msgid "title"
 msgstr "Titel"
 
-#: curio/photos/models.py:15
+#: picura/photos/models.py:15
 msgid "file"
 msgstr "Datei"
 
-#: curio/photos/models.py:17
+#: picura/photos/models.py:17
 msgid "media type"
 msgstr "Medientyp"
 
-#: curio/photos/models.py:19
+#: picura/photos/models.py:19
 msgid "file size"
 msgstr "Dateigröße"
 
-#: curio/photos/models.py:21
+#: picura/photos/models.py:21
 msgid "description"
 msgstr "Beschreibung"
 
-#: curio/photos/models.py:24
+#: picura/photos/models.py:24
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: curio/photos/models.py:26
+#: picura/photos/models.py:26
 msgid "width"
 msgstr "Breite"
 
-#: curio/photos/models.py:28
+#: picura/photos/models.py:28
 msgid "height"
 msgstr "Höhe"
 
-#: curio/photos/models.py:30 curio/photos/models.py:62
+#: picura/photos/models.py:30 picura/photos/models.py:62
 msgid "created at"
 msgstr "Erstellt am"
 
-#: curio/photos/models.py:31 curio/photos/models.py:63
+#: picura/photos/models.py:31 picura/photos/models.py:63
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: curio/photos/models.py:41 curio/photos/models.py:58
+#: picura/photos/models.py:41 picura/photos/models.py:58
 msgid "photo"
 msgstr "Foto"
 
-#: curio/photos/models.py:42
+#: picura/photos/models.py:42
 msgid "photos"
 msgstr "Fotos"
 
-#: curio/photos/models.py:50
+#: picura/photos/models.py:50
 msgid "EXIF"
 msgstr "EXIF"
 
-#: curio/photos/models.py:51
+#: picura/photos/models.py:51
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: curio/photos/models.py:52
+#: picura/photos/models.py:52
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: curio/photos/models.py:60
+#: picura/photos/models.py:60
 msgid "type"
 msgstr "Typ"
 
-#: curio/photos/models.py:61
+#: picura/photos/models.py:61
 msgid "data"
 msgstr "Daten"
 
-#: curio/photos/models.py:66 curio/photos/models.py:67
+#: picura/photos/models.py:66 picura/photos/models.py:67
 msgid "metadata"
 msgstr "Metadaten"
 
-#: curio/settings.py:151
+#: picura/settings.py:151
 msgid "German"
 msgstr "Deutsch"
 
-#: curio/settings.py:152
+#: picura/settings.py:152
 msgid "English"
 msgstr "Englisch"
 

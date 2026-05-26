@@ -7,23 +7,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Curio media library">
-        <meta name="keywords"
-              content="video, audio, transcription, named entity recognition">
         <title>
-            {% block title %}Curio{% endblock %}
+            {% block title %}Picura Backoffice{% endblock %}
         </title>
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
         {% vite_hmr_client %}
-        {% vite_asset 'assets/js/public.js' %}
+        {% vite_asset 'assets/js/backoffice.js' %}
     </head>
-    <body class="site-frame">
+    <body>
         {% include "_messages.html" %}
-        {% include "_header.html" %}
-        <main>
-            {% block content %}{% endblock content %}
-        </main>
-        {% include "_footer.html" %}
+        <div class="with-sidebar">
+            {% include "backoffice/_sidebar.html" %}
+            <main>
+                {% block content %}{% endblock content %}
+            </main>
+        </div>
         {% block javascript %}{% endblock %}
     </body>
 </html>

@@ -2,6 +2,6 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class PhotosConfig(AppConfig):
-    name = 'curio.photos'
-    verbose_name = _('Photos')
+class CoreConfig(AppConfig):
+    name = 'picura.core'
+    verbose_name = _('Core')

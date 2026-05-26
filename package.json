@@ -1,14 +1,14 @@
 {
-  "name": "curio",
+  "name": "picura",
   "version": "0.1.0",
   "description": "",
-  "homepage": "https://github.com/marcaltmann/curio#readme",
+  "homepage": "https://github.com/marcaltmann/picura#readme",
   "bugs": {
-    "url": "https://github.com/marcaltmann/curio/issues"
+    "url": "https://github.com/marcaltmann/picura/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcaltmann/curio.git"
+    "url": "git+https://github.com/marcaltmann/picura.git"
   },
   "engines": {
     "node": ">=24",

@@ -1,4 +1,4 @@
-# Curio
+# Picura
 
 A media library built with Django.
 
@@ -15,9 +15,9 @@ A media library built with Django.
 Create a PostgreSQL user and database:
 
 ```bash
-sudo -u postgres psql -c "CREATE USER curio WITH PASSWORD 'curio';"
-sudo -u postgres psql -c "ALTER ROLE curio CREATEDB;"
-sudo -u postgres psql -c "CREATE DATABASE curio OWNER curio;"
+sudo -u postgres psql -c "CREATE USER picura WITH PASSWORD 'picura';"
+sudo -u postgres psql -c "ALTER ROLE picura CREATEDB;"
+sudo -u postgres psql -c "CREATE DATABASE picura OWNER picura;"
 ```
 
 Then copy `.env.example` to `.env` and fill in your credentials (the defaults match the commands above).
@@ -25,8 +25,8 @@ Then copy `.env.example` to `.env` and fill in your credentials (the defaults ma
 For resetting the database:
 
 ```bash
-sudo -u postgres psql -c "DROP DATABASE curio;"
-sudo -u postgres psql -c "CREATE DATABASE curio OWNER curio;"
+sudo -u postgres psql -c "DROP DATABASE picura;"
+sudo -u postgres psql -c "CREATE DATABASE picura OWNER picura;"
 ```
 
 ### Application
