@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${DB_NAME:-picura}
+      POSTGRES_USER: ${DB_USER:-picura}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-picura}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
