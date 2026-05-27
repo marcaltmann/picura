@@ -1,9 +1,15 @@
 :root {
-    --color-ink: #1b1a17;
-    --color-ink-faded: gray;
-    --color-paper: #f4f1ea;
-    --color-creme: #ece7dc;
-    --color-accent: #b4471f;  /* Terracotta */
+    --color-bg: #f4f4f4;
+    --color-surface: #eaeaea;
+    --color-ink: #1a1a1a;
+    --color-ink-faded: #767676;
+
+    --color-paper: var(--color-bg);
+    --color-creme: var(--color-surface);
+
+
+    --color-accent: #6b2e6b;  /* Aubergine */
+    --color-danger: #9b3a3a;  /* Brick */
 
     --color-video: #6e6a5d;
     --color-audio: #5b8a92;
