@@ -33,7 +33,7 @@ class Photo(models.Model):
     thumbnail = ImageSpecField(
         source='file',
         processors=[ResizeToFit(300, 300)],
-        format='JPEG',
+        format='WEBP',
         options={'quality': 80},
     )
 
