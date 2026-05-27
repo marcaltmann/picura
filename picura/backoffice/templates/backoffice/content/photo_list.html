@@ -15,7 +15,7 @@
         <table class="data-table">
           <thead>
             <tr>
-              <th><input type="checkbox" @change="$el.closest('table').querySelectorAll('[name=photo_ids]').forEach(cb => cb.checked = $el.checked)"></th>
+              <th>{% if photo_list %}<input type="checkbox" @change="$el.closest('table').querySelectorAll('[name=photo_ids]').forEach(cb => cb.checked = $el.checked)">{% endif %}</th>
               <th></th>
               <th>{% trans "Title" %}</th>
               <th data-align="end">{% trans "Dimensions" %}</th>
@@ -47,9 +47,11 @@
           </tbody>
         </table>
       </div>
-      <div class="mt-lh">
-        <button type="submit">{% trans "Delete selected" %}</button>
-      </div>
+      {% if photo_list %}
+        <div class="mt-lh">
+          <button type="submit">{% trans "Delete selected" %}</button>
+        </div>
+      {% endif %}
     </form>
   </div>
 {% endblock %}
