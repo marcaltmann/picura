@@ -1,0 +1,18 @@
+.primary-nav {
+    display: flex;
+    align-items: center;
+}
+
+.primary-nav ul {
+    align-items: center;
+    display: flex;
+    gap: 0.5rlh;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.primary-nav a:link {
+    color: var(--color-ink);
+    text-decoration: none;
+}
