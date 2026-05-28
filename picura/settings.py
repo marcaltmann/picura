@@ -48,10 +48,12 @@ INSTALLED_APPS = [
 ]
 
 if DJANGO_ENV == 'development':
+    os.environ['DJANGO_RUNSERVER_HIDE_WARNING'] = 'true'
     INSTALLED_APPS += [
         'debug_toolbar',
     ]
     INTERNAL_IPS = ['127.0.0.1']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
