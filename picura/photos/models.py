@@ -33,9 +33,9 @@ class Photo(models.Model):
 
     thumbnail = ImageSpecField(
         source='file',
-        processors=[ResizeToFit(300, 300)],
+        processors=[ResizeToFit(500, 500)],
         format='WEBP',
-        options={'quality': 80},
+        options={'quality': 60},
     )
 
     class Meta:
