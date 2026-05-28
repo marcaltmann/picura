@@ -13,6 +13,7 @@
 @import "./public/blocks/header.css" layer(blocks);
 @import "./public/blocks/hero.css" layer(blocks);
 @import "./public/blocks/photo-card.css" layer(blocks);
+@import "./public/blocks/photo-detail.css" layer(blocks);
 @import "./public/blocks/photo-list.css" layer(blocks);
 @import "./public/blocks/pricing.css" layer(blocks);
 @import "./public/blocks/primary_nav.css" layer(blocks);

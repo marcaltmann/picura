@@ -5,8 +5,12 @@
 
 {% block content %}
 <div class="container container-lg">
-  <h1>{{ photo.title }}</h1>
+  <div class="photo-detail mt-lh">
+    <img class="photo-detail__img" src="{{ photo.thumbnail_2000.url }}" alt="" />
+  </div>
 
-  <img src="{{ photo.thumbnail_2000.url }}" alt="" />
+  <section class="mt-lh">
+    <h1>{{ photo.title }}</h1>
+  </section>
 </div>
 {% endblock %}

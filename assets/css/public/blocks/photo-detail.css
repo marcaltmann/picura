@@ -1,0 +1,16 @@
+.photo-detail {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-detail__img {
+  border-style: solid;
+  border-color: white;
+  border-inline-width: min(7.5vh, 7.5vw);
+  border-top-width: min(7vh, 7vw);
+  border-bottom-width: min(8vh, 8vw);
+  max-inline-size: min(85vh, 100%);
+  max-block-size: 85vh;
+  width: auto;
+  height: auto;
+}
