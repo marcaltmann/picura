@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ photo.title }} – Picura{% endblock %}
+
+{% block content %}
+<div class="container container-lg">
+  <h1>{{ photo.title }}</h1>
+
+  <img src="{{ photo.thumbnail_2000.url }}" alt="" />
+</div>
+{% endblock %}

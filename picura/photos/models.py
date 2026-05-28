@@ -37,19 +37,35 @@ class Photo(models.Model):
         format='WEBP',
         options={'quality': 60},
     )
-
     thumbnail_500 = ImageSpecField(
         source='file',
         processors=[ResizeToFit(500, 500)],
         format='WEBP',
         options={'quality': 60},
     )
-
     thumbnail_800 = ImageSpecField(
         source='file',
         processors=[ResizeToFit(800, 800)],
         format='WEBP',
         options={'quality': 60},
+    )
+    detail_1000 = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(1000, 1000)],
+        format='WEBP',
+        options={'quality': 80},
+    )
+    thumbnail_2000 = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(2000, 2000)],
+        format='WEBP',
+        options={'quality': 80},
+    )
+    thumbnail_3000 = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(3000, 3000)],
+        format='WEBP',
+        options={'quality': 80},
     )
 
     class Meta:
