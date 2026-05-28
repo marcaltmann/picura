@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 23:13+0200\n"
+"POT-Creation-Date: 2026-05-28 08:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,9 @@ msgstr "Inhalte"
 #: picura/backoffice/templates/backoffice/content/photo_list.html:3
 #: picura/backoffice/templates/backoffice/content/photo_list.html:6
 #: picura/backoffice/templates/backoffice/dashboard.html:9
-#: picura/photos/apps.py:7
+#: picura/core/templates/_navigation.html:5 picura/photos/apps.py:7
+#: picura/photos/templates/photos/photo_list.html:4
+#: picura/photos/templates/photos/photo_list.html:8
 msgid "Photos"
 msgstr "Fotos"
 
@@ -147,7 +149,7 @@ msgstr "Erstellt"
 msgid "No photos found."
 msgstr "Keine Fotos gefunden."
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:51
+#: picura/backoffice/templates/backoffice/content/photo_list.html:52
 msgid "Delete selected"
 msgstr "Auswahl löschen"
 
@@ -173,6 +175,16 @@ msgstr "Gesamtspeicher"
 msgid "Core"
 msgstr "Core"
 
+#: picura/core/templates/_navigation.html:8
+#, fuzzy
+#| msgid "Location"
+msgid "Collections"
+msgstr "Standort"
+
+#: picura/core/templates/_navigation.html:11
+msgid "Sign in"
+msgstr ""
+
 #: picura/core/templatetags/picura_tags.py:34
 msgid "Mono"
 msgstr "Mono"
@@ -185,83 +197,99 @@ msgstr "Stereo"
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: picura/photos/models.py:14
+#: picura/photos/models.py:15
 msgid "title"
 msgstr "Titel"
 
-#: picura/photos/models.py:15
+#: picura/photos/models.py:16
 msgid "file"
 msgstr "Datei"
 
-#: picura/photos/models.py:17
+#: picura/photos/models.py:18
 msgid "media type"
 msgstr "Medientyp"
 
-#: picura/photos/models.py:19
+#: picura/photos/models.py:20
 msgid "file size"
 msgstr "Dateigröße"
 
-#: picura/photos/models.py:21
+#: picura/photos/models.py:22
 msgid "description"
 msgstr "Beschreibung"
 
-#: picura/photos/models.py:24
+#: picura/photos/models.py:25
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: picura/photos/models.py:26
+#: picura/photos/models.py:27
 msgid "width"
 msgstr "Breite"
 
-#: picura/photos/models.py:28
+#: picura/photos/models.py:29
 msgid "height"
 msgstr "Höhe"
 
-#: picura/photos/models.py:30 picura/photos/models.py:62
+#: picura/photos/models.py:31 picura/photos/models.py:66
 msgid "created at"
 msgstr "Erstellt am"
 
-#: picura/photos/models.py:31 picura/photos/models.py:63
+#: picura/photos/models.py:32 picura/photos/models.py:67
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: picura/photos/models.py:41 picura/photos/models.py:58
+#: picura/photos/models.py:42 picura/photos/models.py:62
 msgid "photo"
 msgstr "Foto"
 
-#: picura/photos/models.py:42
+#: picura/photos/models.py:43
 msgid "photos"
 msgstr "Fotos"
 
-#: picura/photos/models.py:50
+#: picura/photos/models.py:54
 msgid "EXIF"
 msgstr "EXIF"
 
-#: picura/photos/models.py:51
+#: picura/photos/models.py:55
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: picura/photos/models.py:52
+#: picura/photos/models.py:56
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: picura/photos/models.py:60
+#: picura/photos/models.py:64
 msgid "type"
 msgstr "Typ"
 
-#: picura/photos/models.py:61
+#: picura/photos/models.py:65
 msgid "data"
 msgstr "Daten"
 
-#: picura/photos/models.py:66 picura/photos/models.py:67
+#: picura/photos/models.py:70 picura/photos/models.py:71
 msgid "metadata"
 msgstr "Metadaten"
 
-#: picura/settings.py:151
+#: picura/photos/templates/photos/photo_list.html:18
+msgid "Pagination"
+msgstr "Seitennavigation"
+
+#: picura/photos/templates/photos/photo_list.html:20
+msgid "Previous"
+msgstr "Zurück"
+
+#: picura/photos/templates/photos/photo_list.html:24
+msgid "Next"
+msgstr "Weiter"
+
+#: picura/photos/templates/photos/photo_list.html:29
+msgid "No photos yet."
+msgstr "Noch keine Fotos vorhanden."
+
+#: picura/settings.py:153
 msgid "German"
 msgstr "Deutsch"
 
-#: picura/settings.py:152
+#: picura/settings.py:154
 msgid "English"
 msgstr "Englisch"
 

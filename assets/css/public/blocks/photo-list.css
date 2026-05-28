@@ -1,0 +1,63 @@
+/* =========================================================================
+ * .photo-list  —  Public photo gallery page  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * Full-page wrapper for the public photo gallery. Contains:
+ *   - a page heading (h1)
+ *   - .photo-list__grid: responsive auto-fill grid of .c-photo-card tiles
+ *   - .pagination: prev / page-counter / next navigation
+ *   - .photo-list__empty: shown when no photos exist
+ *
+ * Grid column count scales with viewport width; the minimum tile width of
+ * 14rem prevents cards from becoming too narrow on small screens.
+ * ========================================================================= */
+
+
+/* ---------- Block ---------- */
+
+.photo-list {
+  padding-block: 1.5rlh;
+}
+
+
+/* ---------- Elements ---------- */
+
+.photo-list__grid {
+  list-style: none;
+  padding: 0;
+  margin-block: 1rlh 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: 1rlh;
+}
+
+.photo-list__empty {
+  margin-block: 2rlh;
+  color: var(--color-ink-faded);
+  font-style: italic;
+}
+
+
+/* ---------- Pagination ---------- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rlh;
+  margin-block: 1.5rlh 0;
+  font-size: 0.875rem;
+  color: var(--color-ink-faded);
+}
+
+.pagination a {
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+}
+
+.pagination a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}

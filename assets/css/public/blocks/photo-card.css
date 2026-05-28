@@ -1,0 +1,113 @@
+/* =========================================================================
+ * .c-photo-card  —  Public site photo tile  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * Square uniform frame on the surface backplate; the photo is contained
+ * (never cropped) at its native aspect ratio — portraits stay tall,
+ * landscapes stay wide. Title is hidden by default; on hover/focus a
+ * translucent ink wash fades in over the bottom of the frame with the
+ * title in serif italic (museum-plate typography for the archival voice).
+ *
+ * Motion: opacity-only, 140 ms ease-out — per the house rule that motion,
+ * when used, never animates position. On touch / no-hover devices the
+ * caption is shown statically so it remains discoverable.
+ *
+ * Expected markup:
+ *
+ *   <a class="c-photo-card" href="…" aria-label="Coast at dusk">
+ *     <div class="c-photo-card__frame">
+ *       <img src="…" alt="" width="800" height="600">
+ *       <div class="c-photo-card__caption">
+ *         <p class="c-photo-card__title">Coast at dusk</p>
+ *       </div>
+ *     </div>
+ *   </a>
+ *
+ * Lives inside a `.photo-grid` (3-up by default, see public.css).
+ * ========================================================================= */
+
+
+/* ---------- Block ---------- */
+
+.c-photo-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.c-photo-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Elements ---------- */
+
+/* Frame: the photo's home. 1:1 surface backplate that contains the photo
+   without cropping. Acts as the positioning context for the caption. */
+.c-photo-card__frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.c-photo-card__frame > img,
+.c-photo-card__frame > svg {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Caption: sits inside the frame, glued to the bottom edge. Hidden until
+   the card is hovered or keyboard-focused. */
+.c-photo-card__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.5rlh 0.75rlh;
+  background-color: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  color: var(--color-bg);
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+
+.c-photo-card__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1rlh;
+  color: inherit;
+}
+
+
+/* ---------- States ---------- */
+
+.c-photo-card:hover .c-photo-card__caption,
+.c-photo-card:focus-visible .c-photo-card__caption {
+  opacity: 1;
+}
+
+
+/* ---------- Exceptions ---------- */
+
+/* Touch / no-hover devices: show the caption statically so the title
+   remains discoverable without a hover affordance. */
+@media (hover: none) {
+  .c-photo-card__caption {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: skip the fade — caption snaps on hover/focus. */
+@media (prefers-reduced-motion: reduce) {
+  .c-photo-card__caption {
+    transition: none;
+  }
+}

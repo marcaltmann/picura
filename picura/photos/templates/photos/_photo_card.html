@@ -1,0 +1,8 @@
+<a class="c-photo-card" href="{{ photo.get_absolute_url }}" aria-label="{{ photo.title }}">
+  <div class="c-photo-card__frame">
+    <img src="{{ photo.thumbnail.url }}" alt="" loading="lazy">
+    <div class="c-photo-card__caption">
+      <p class="c-photo-card__title">{{ photo.title }}</p>
+    </div>
+  </div>
+</a>
