@@ -7,6 +7,7 @@ import picura.core.views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('albums/', include('picura.albums.urls')),
     path('photos/', include('picura.photos.urls')),
     path('backoffice/', include('picura.backoffice.urls')),
     path('accounts/', include('allauth.urls')),

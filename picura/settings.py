@@ -33,11 +33,6 @@ ALLOWED_HOSTS = (
 INSTALLED_APPS = [
     'allauth.account',
     'allauth',
-    'picura.backoffice',
-    'picura.core',
-    'picura.my_account',
-    'picura.photos',
-    'imagekit',
     'django_vite',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'imagekit',
+    'picura.albums',
+    'picura.backoffice',
+    'picura.core',
+    'picura.my_account',
+    'picura.photos',
 ]
 
 if DJANGO_ENV == 'development':

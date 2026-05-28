@@ -27,7 +27,8 @@ class Migration(migrations.Migration):
                 (
                     'file',
                     models.FileField(
-                        upload_to=picura.photos.models._photo_upload, verbose_name='file'
+                        upload_to=picura.photos.models._photo_upload,
+                        verbose_name='file',
                     ),
                 ),
                 (
