@@ -29,7 +29,7 @@
             {% for photo in photo_list %}
               <tr>
                 <td><input type="checkbox" name="photo_ids" value="{{ photo.pk }}"></td>
-                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail.url }}" alt=""></a></td>
+                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt=""></a></td>
                 <td><a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a></td>
                 <td data-align="end">
                   {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}

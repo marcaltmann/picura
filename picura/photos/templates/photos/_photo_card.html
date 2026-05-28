@@ -1,6 +1,10 @@
 <a class="c-photo-card" href="{{ photo.get_absolute_url }}" aria-label="{{ photo.title }}">
   <div class="c-photo-card__frame">
-    <img src="{{ photo.thumbnail.url }}" alt="" loading="lazy">
+    <img
+      src="{{ photo.thumbnail_500.url }}"
+      srcset="{{ photo.thumbnail_300.url }} 300w, {{ photo.thumbnail_500.url }} 500w, {{ photo.thumbnail_800.url }} 800w"
+      sizes="250px"
+      alt="" loading="lazy">
     <div class="c-photo-card__caption">
       <p class="c-photo-card__title">{{ photo.title }}</p>
     </div>

@@ -31,9 +31,23 @@ class Photo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
-    thumbnail = ImageSpecField(
+    thumbnail_300 = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(300, 300)],
+        format='WEBP',
+        options={'quality': 60},
+    )
+
+    thumbnail_500 = ImageSpecField(
         source='file',
         processors=[ResizeToFit(500, 500)],
+        format='WEBP',
+        options={'quality': 60},
+    )
+
+    thumbnail_800 = ImageSpecField(
+        source='file',
+        processors=[ResizeToFit(800, 800)],
         format='WEBP',
         options={'quality': 60},
     )
