@@ -1,12 +1,13 @@
+{% load i18n %}
 <div class="c-photo-detail__map-row">
   <div>
     <div class="c-photo-detail__map">
-      <img src="{{ photo.map_tile_url }}" alt="Map of {{ photo.place }}">
+      <img src="{{ photo.map_tile_url }}" alt="{% blocktrans with place=photo.place %}Map of {{ place }}{% endblocktrans %}">
     </div>
     <p class="c-photo-detail__coords">{{ photo.lat }}°, {{ photo.lng }}° — {{ photo.place }}</p>
   </div>
   <div>
-    <p class="c-photo-detail__label">Tags</p>
+    <p class="c-photo-detail__label">{% trans "Tags" %}</p>
     <ul class="c-photo-detail__tags">
       {% for tag in photo.tags %}
         <li>

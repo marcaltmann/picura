@@ -12,7 +12,7 @@
     {% if album.description %}
       <p class="album-detail__description">{{ album.description }}</p>
     {% endif %}
-    <p class="album-detail__meta">{{ photos|length }} {% trans "photos" %}</p>
+    <p class="album-detail__meta">{% blocktrans count count=photos.count %}{{ count }} photo{% plural %}{{ count }} photos{% endblocktrans %}</p>
     {% if photos %}
       <ul class="album-detail__grid" role="list">
         {% for photo in photos %}

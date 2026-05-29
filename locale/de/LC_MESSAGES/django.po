@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-28 08:45+0200\n"
+"POT-Creation-Date: 2026-05-30 01:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,156 +18,251 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:18
+#: picura/albums/apps.py:7 picura/albums/templates/albums/album_detail.html:7
+#: picura/albums/templates/albums/album_list.html:4
+#: picura/albums/templates/albums/album_list.html:8
+#: picura/core/templates/_header.html:19
+#: picura/photos/templates/photos/photo_detail.html:17
+msgid "Albums"
+msgstr "Alben"
+
+#: picura/albums/models.py:22
+msgid "name"
+msgstr "Name"
+
+#: picura/albums/models.py:24 picura/photos/models.py:23
+msgid "description"
+msgstr "Beschreibung"
+
+#: picura/albums/models.py:27 picura/photos/models.py:74
+msgid "photos"
+msgstr "Fotos"
+
+#: picura/albums/models.py:29 picura/albums/models.py:79
+#: picura/photos/models.py:32 picura/photos/models.py:108
+msgid "created at"
+msgstr "Erstellt am"
+
+#: picura/albums/models.py:30 picura/albums/models.py:80
+#: picura/photos/models.py:33 picura/photos/models.py:109
+msgid "updated at"
+msgstr "Aktualisiert am"
+
+#: picura/albums/models.py:34 picura/albums/models.py:76
+msgid "album"
+msgstr "Album"
+
+#: picura/albums/models.py:35
+msgid "albums"
+msgstr "Alben"
+
+#: picura/albums/models.py:70 picura/photos/models.py:73
+#: picura/photos/models.py:104
+msgid "photo"
+msgstr "Foto"
+
+#: picura/albums/models.py:78
+msgid "position"
+msgstr "Position"
+
+#: picura/albums/models.py:84
+msgid "album photo"
+msgstr "Albumfoto"
+
+#: picura/albums/models.py:85
+msgid "album photos"
+msgstr "Albumfotos"
+
+#: picura/albums/templates/albums/_album_card.html:13
+#: picura/albums/templates/albums/album_detail.html:15
+#, python-format
+msgid "%(count)s photo"
+msgid_plural "%(count)s photos"
+msgstr[0] "%(count)s Foto"
+msgstr[1] "%(count)s Fotos"
+
+#: picura/albums/templates/albums/album_detail.html:6
+msgid "Breadcrumb"
+msgstr "Navigationspfad"
+
+#: picura/albums/templates/albums/album_detail.html:23
+msgid "No photos in this album yet."
+msgstr "Noch keine Fotos in diesem Album vorhanden."
+
+#: picura/albums/templates/albums/album_list.html:16
+#: picura/photos/templates/photos/photo_list.html:16
+msgid "Pagination"
+msgstr "Seitennavigation"
+
+#: picura/albums/templates/albums/album_list.html:18
+#: picura/photos/templates/photos/photo_list.html:18
+msgid "Previous"
+msgstr "Zurück"
+
+#: picura/albums/templates/albums/album_list.html:22
+#: picura/photos/templates/photos/photo_list.html:22
+msgid "Next"
+msgstr "Weiter"
+
+#: picura/albums/templates/albums/album_list.html:27
+msgid "No albums yet."
+msgstr "Noch keine Alben vorhanden."
+
+#: picura/backoffice/templates/backoffice/_sidebar.html:22
 msgid "Overview"
 msgstr "Übersicht"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:20
+#: picura/backoffice/templates/backoffice/_sidebar.html:26
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:25
+#: picura/backoffice/templates/backoffice/_sidebar.html:31
 msgid "Content"
 msgstr "Inhalte"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:27
+#: picura/backoffice/templates/backoffice/_sidebar.html:35
 #: picura/backoffice/templates/backoffice/content/photo_detail.html:8
-#: picura/backoffice/templates/backoffice/content/photo_list.html:3
-#: picura/backoffice/templates/backoffice/content/photo_list.html:6
-#: picura/backoffice/templates/backoffice/dashboard.html:9
-#: picura/core/templates/_navigation.html:5 picura/photos/apps.py:7
-#: picura/photos/templates/photos/photo_list.html:4
+#: picura/backoffice/templates/backoffice/content/photo_list.html:4
+#: picura/backoffice/templates/backoffice/content/photo_list.html:8
+#: picura/backoffice/templates/backoffice/dashboard.html:11
+#: picura/photos/apps.py:7 picura/photos/templates/photos/photo_list.html:4
 #: picura/photos/templates/photos/photo_list.html:8
 msgid "Photos"
 msgstr "Fotos"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:33
+#: picura/backoffice/templates/backoffice/_sidebar.html:42
 msgid "Public website"
 msgstr "Öffentliche Website"
 
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:3
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:12
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:83
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:4
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:18
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:105
 msgid "Delete"
 msgstr "Löschen"
 
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:7
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:9
 msgid "Delete photo"
 msgstr "Foto löschen"
 
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:9
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:15
 #, python-format
 msgid "Are you sure you want to delete \"%(title)s\"?"
 msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
 
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:13
+#: picura/backoffice/templates/backoffice/content/photo_delete.html:21
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:17
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:16
 msgid "List"
 msgstr "Liste"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:18
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:17
 msgid "Save"
 msgstr "Speichern"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:30
-#: picura/backoffice/templates/backoffice/content/photo_list.html:20
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:29
+#: picura/backoffice/templates/backoffice/content/photo_list.html:28
 msgid "Title"
 msgstr "Titel"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:37
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:36
+#: picura/photos/templates/photos/_metadata.html:37
 msgid "File"
 msgstr "Datei"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:39
-#: picura/backoffice/templates/backoffice/content/photo_list.html:22
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:40
+#: picura/backoffice/templates/backoffice/content/photo_list.html:30
 msgid "Media type"
 msgstr "Medientyp"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:41
-#: picura/backoffice/templates/backoffice/content/photo_list.html:21
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:44
+#: picura/backoffice/templates/backoffice/content/photo_list.html:29
+#: picura/photos/templates/photos/_metadata.html:30
 msgid "Dimensions"
 msgstr "Abmessungen"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:45
-#: picura/backoffice/templates/backoffice/content/photo_list.html:24
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:52
+#: picura/backoffice/templates/backoffice/content/photo_list.html:32
+#: picura/photos/templates/photos/_metadata.html:43
 msgid "File size"
 msgstr "Dateigröße"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:47
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:56
 msgid "Uploaded at"
 msgstr "Hochgeladen am"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:49
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:60
 msgid "Produced at"
 msgstr "Aufgenommen am"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:53
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:65
 msgid "Camera"
 msgstr "Kamera"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:57
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:71
+#: picura/photos/templates/photos/_metadata.html:10
 msgid "Lens"
 msgstr "Objektiv"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:61
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:77
+#: picura/photos/templates/photos/_metadata.html:14
 msgid "Focal length"
 msgstr "Brennweite"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:65
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:83
+#: picura/photos/templates/photos/_metadata.html:18
 msgid "Aperture"
 msgstr "Blende"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:69
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:89
 msgid "Shutter speed"
 msgstr "Belichtungszeit"
 
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:73
+#: picura/backoffice/templates/backoffice/content/photo_detail.html:95
 msgid "Location"
 msgstr "Standort"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:9
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:11
+#: picura/backoffice/templates/backoffice/content/photo_list.html:10
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:18
 msgid "Upload"
 msgstr "Hochladen"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:12
+#: picura/backoffice/templates/backoffice/content/photo_list.html:15
 msgid "Delete selected photos?"
 msgstr "Ausgewählte Fotos löschen?"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:23
+#: picura/backoffice/templates/backoffice/content/photo_list.html:31
 msgid "Produced"
 msgstr "Aufgenommen"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:25
+#: picura/backoffice/templates/backoffice/content/photo_list.html:33
 msgid "Created"
 msgstr "Erstellt"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:44
+#: picura/backoffice/templates/backoffice/content/photo_list.html:64
 msgid "No photos found."
 msgstr "Keine Fotos gefunden."
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:52
+#: picura/backoffice/templates/backoffice/content/photo_list.html:72
 msgid "Delete selected"
 msgstr "Auswahl löschen"
 
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:3
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:6
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:4
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:8
 msgid "Upload Photos"
 msgstr "Fotos hochladen"
 
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:9
+#: picura/backoffice/templates/backoffice/content/photo_upload.html:11
 msgid "Files"
 msgstr "Dateien"
 
-#: picura/backoffice/templates/backoffice/dashboard.html:3
-#: picura/backoffice/templates/backoffice/dashboard.html:6
+#: picura/backoffice/templates/backoffice/dashboard.html:4
+#: picura/backoffice/templates/backoffice/dashboard.html:8
 msgid "Backoffice"
 msgstr "Backoffice"
 
-#: picura/backoffice/templates/backoffice/dashboard.html:13
+#: picura/backoffice/templates/backoffice/dashboard.html:15
 msgid "Total storage"
 msgstr "Gesamtspeicher"
 
@@ -175,15 +270,9 @@ msgstr "Gesamtspeicher"
 msgid "Core"
 msgstr "Core"
 
-#: picura/core/templates/_navigation.html:8
-#, fuzzy
-#| msgid "Location"
-msgid "Collections"
-msgstr "Standort"
-
-#: picura/core/templates/_navigation.html:11
+#: picura/core/templates/_header.html:22
 msgid "Sign in"
-msgstr ""
+msgstr "Anmelden"
 
 #: picura/core/templatetags/picura_tags.py:34
 msgid "Mono"
@@ -197,101 +286,111 @@ msgstr "Stereo"
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: picura/photos/models.py:15
+#: picura/photos/models.py:16
 msgid "title"
 msgstr "Titel"
 
-#: picura/photos/models.py:16
+#: picura/photos/models.py:17
 msgid "file"
 msgstr "Datei"
 
-#: picura/photos/models.py:18
+#: picura/photos/models.py:19
 msgid "media type"
 msgstr "Medientyp"
 
-#: picura/photos/models.py:20
+#: picura/photos/models.py:21
 msgid "file size"
 msgstr "Dateigröße"
 
-#: picura/photos/models.py:22
-msgid "description"
-msgstr "Beschreibung"
-
-#: picura/photos/models.py:25
+#: picura/photos/models.py:26
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: picura/photos/models.py:27
+#: picura/photos/models.py:28
 msgid "width"
 msgstr "Breite"
 
-#: picura/photos/models.py:29
+#: picura/photos/models.py:30
 msgid "height"
 msgstr "Höhe"
 
-#: picura/photos/models.py:31 picura/photos/models.py:66
-msgid "created at"
-msgstr "Erstellt am"
-
-#: picura/photos/models.py:32 picura/photos/models.py:67
-msgid "updated at"
-msgstr "Aktualisiert am"
-
-#: picura/photos/models.py:42 picura/photos/models.py:62
-msgid "photo"
-msgstr "Foto"
-
-#: picura/photos/models.py:43
-msgid "photos"
-msgstr "Fotos"
-
-#: picura/photos/models.py:54
+#: picura/photos/models.py:96
 msgid "EXIF"
 msgstr "EXIF"
 
-#: picura/photos/models.py:55
+#: picura/photos/models.py:97
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: picura/photos/models.py:56
+#: picura/photos/models.py:98
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: picura/photos/models.py:64
+#: picura/photos/models.py:106
 msgid "type"
 msgstr "Typ"
 
-#: picura/photos/models.py:65
+#: picura/photos/models.py:107
 msgid "data"
 msgstr "Daten"
 
-#: picura/photos/models.py:70 picura/photos/models.py:71
+#: picura/photos/models.py:112 picura/photos/models.py:113
 msgid "metadata"
 msgstr "Metadaten"
 
-#: picura/photos/templates/photos/photo_list.html:18
-msgid "Pagination"
-msgstr "Seitennavigation"
+#: picura/photos/templates/photos/_map_tags.html:5
+#, python-format
+msgid "Map of %(place)s"
+msgstr "Karte von %(place)s"
 
-#: picura/photos/templates/photos/photo_list.html:20
-msgid "Previous"
-msgstr "Zurück"
+#: picura/photos/templates/photos/_map_tags.html:10
+msgid "Tags"
+msgstr "Tags"
 
-#: picura/photos/templates/photos/photo_list.html:24
-msgid "Next"
-msgstr "Weiter"
+#: picura/photos/templates/photos/_metadata.html:4
+msgid "Description"
+msgstr "Beschreibung"
 
-#: picura/photos/templates/photos/photo_list.html:29
+#: picura/photos/templates/photos/_metadata.html:8
+msgid "Capture"
+msgstr "Aufnahme"
+
+#: picura/photos/templates/photos/_metadata.html:22
+msgid "Shutter"
+msgstr "Belichtungszeit"
+
+#: picura/photos/templates/photos/_metadata.html:26
+msgid "ISO"
+msgstr "ISO"
+
+#: picura/photos/templates/photos/_metadata.html:39
+msgid "Filename"
+msgstr "Dateiname"
+
+#: picura/photos/templates/photos/_metadata.html:47
+msgid "Uploaded by"
+msgstr "Hochgeladen von"
+
+#: picura/photos/templates/photos/_metadata.html:51
+msgid "License"
+msgstr "Lizenz"
+
+#: picura/photos/templates/photos/photo_list.html:27
 msgid "No photos yet."
 msgstr "Noch keine Fotos vorhanden."
 
-#: picura/settings.py:153
+#: picura/settings.py:154
 msgid "German"
 msgstr "Deutsch"
 
-#: picura/settings.py:154
+#: picura/settings.py:155
 msgid "English"
 msgstr "Englisch"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Collections"
+#~ msgstr "Standort"
 
 #~ msgid "Audio"
 #~ msgstr "Audio"

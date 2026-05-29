@@ -1,53 +1,54 @@
+{% load i18n %}
 <div class="c-photo-detail__spread">
   <section>
-    <p class="c-photo-detail__label">Description</p>
+    <p class="c-photo-detail__label">{% trans "Description" %}</p>
     <p class="c-photo-detail__desc">{{ photo.description }}</p>
   </section>
   <section>
-    <p class="c-photo-detail__label">Capture</p>
+    <p class="c-photo-detail__label">{% trans "Capture" %}</p>
     <dl class="c-photo-detail__specs">
-      <dt>Lens</dt>
+      <dt>{% trans "Lens" %}</dt>
       <dd>
         {{ photo.lens }}
       </dd>
-      <dt>Focal length</dt>
+      <dt>{% trans "Focal length" %}</dt>
       <dd>
         {{ photo.focal_length }}mm
       </dd>
-      <dt>Aperture</dt>
+      <dt>{% trans "Aperture" %}</dt>
       <dd>
         f/{{ photo.aperture }}
       </dd>
-      <dt>Shutter</dt>
+      <dt>{% trans "Shutter" %}</dt>
       <dd>
         {{ photo.shutter }}s
       </dd>
-      <dt>ISO</dt>
+      <dt>{% trans "ISO" %}</dt>
       <dd>
         {{ photo.iso }}
       </dd>
-      <dt>Dimensions</dt>
+      <dt>{% trans "Dimensions" %}</dt>
       <dd data-mono>
         {{ photo.image.width }}×{{ photo.image.height }}
       </dd>
     </dl>
   </section>
   <section>
-    <p class="c-photo-detail__label">File</p>
+    <p class="c-photo-detail__label">{% trans "File" %}</p>
     <dl class="c-photo-detail__specs">
-      <dt>Filename</dt>
+      <dt>{% trans "Filename" %}</dt>
       <dd data-mono>
         {{ photo.filename }}
       </dd>
-      <dt>File size</dt>
+      <dt>{% trans "File size" %}</dt>
       <dd>
         {{ photo.filesize }}
       </dd>
-      <dt>Uploaded by</dt>
+      <dt>{% trans "Uploaded by" %}</dt>
       <dd>
         {{ photo.uploader }}
       </dd>
-      <dt>License</dt>
+      <dt>{% trans "License" %}</dt>
       <dd>
         {{ photo.license }}
       </dd>

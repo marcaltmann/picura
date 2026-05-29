@@ -1,3 +1,4 @@
+{% load i18n %}
 <a class="c-album-card" href="{{ album.get_absolute_url }}" aria-label="{{ album.name }}">
   <div class="c-album-card__cover">
     <img src="{{ album.photos.first.thumbnail_500.url }}" alt=""
@@ -9,6 +10,6 @@
     {% if album.description %}
       <p class="c-album-card__desc">{{ album.description }}</p>
     {% endif %}
-    <p class="c-album-card__meta">{{ album.date_label }} · {{ album.photos.count }} photos</p>
+    <p class="c-album-card__meta">{{ album.date_label }} · {% blocktrans count count=album.photos.count %}{{ count }} photo{% plural %}{{ count }} photos{% endblocktrans %}</p>
   </div>
 </a>
