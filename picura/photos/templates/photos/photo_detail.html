@@ -2,9 +2,8 @@
 {% load i18n l10n %}
 {% block title %}{{ photo.title }} – Picura{% endblock %}
 {% block head %}
-  {# TODO: replace dummy URLs once photos belong to albums #}
-  <link rel="prev" href="/photos/dummy-prev/">
-  <link rel="next" href="/photos/dummy-next/">
+  {% if prev_url %}<link rel="prev" href="{{ prev_url }}">{% endif %}
+  {% if next_url %}<link rel="next" href="{{ next_url }}">{% endif %}
 {% endblock %}
 {% block content %}
   <div class="container container-lg">
@@ -15,7 +14,9 @@
       {# --- header: breadcrumb + keyboard hint --- #}
       <div class="c-photo-detail__header">
         <nav class="c-breadcrumb" aria-label="Breadcrumb">
-          <a href="{% url 'photos_photo_list' %}">Photos</a>
+          <a href="{% url 'albums_album_list' %}">{% trans "Albums" %}</a>
+          <span class="c-breadcrumb__sep">/</span>
+          <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
           <span class="c-breadcrumb__sep">/</span>
           <span class="c-breadcrumb__current">{{ photo.title }}</span>
         </nav>

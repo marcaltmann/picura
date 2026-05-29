@@ -16,7 +16,7 @@
     {% if photos %}
       <ul class="album-detail__grid" role="list">
         {% for photo in photos %}
-          <li>{% include "photos/_photo_card.html" %}</li>
+          <li>{% include "photos/_photo_card.html" with album=album %}</li>
         {% endfor %}
       </ul>
     {% else %}

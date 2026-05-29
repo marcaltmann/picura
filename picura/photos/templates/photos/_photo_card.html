@@ -1,5 +1,5 @@
 <a class="c-photo-card"
-   href="{{ photo.get_absolute_url }}"
+   href="{% url 'albums_photo_detail' album.pk photo.pk %}"
    aria-label="{{ photo.title }}">
   <div class="c-photo-card__frame">
     <img src="{{ photo.thumbnail_500.url }}"

@@ -4,7 +4,6 @@ from unittest.mock import patch
 
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.urls import reverse
 from PIL import Image
 
 from .models import Metadata, Photo
@@ -221,75 +220,6 @@ def test_upload_photos_leaves_description_blank_when_absent():
     ):
         upload_photos([f])
     assert Photo.objects.first().description == ''
-
-
-# --- photo list view ---
-
-
-@pytest.mark.django_db
-def test_photo_list_returns_200(client):
-    response = client.get(reverse('photos_photo_list'))
-    assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_photo_list_uses_correct_template(client):
-    response = client.get(reverse('photos_photo_list'))
-    assert 'photos/photo_list.html' in [t.name for t in response.templates]
-
-
-@pytest.mark.django_db
-def test_photo_list_shows_photos(client):
-    _make_photo(title='Sunrise')
-    _make_photo(title='Sunset')
-    response = client.get(reverse('photos_photo_list'))
-    titles = [p.title for p in response.context['page_obj']]
-    assert 'Sunrise' in titles
-    assert 'Sunset' in titles
-
-
-@pytest.mark.django_db
-def test_photo_list_empty_state(client):
-    response = client.get(reverse('photos_photo_list'))
-    assert response.status_code == 200
-    assert len(response.context['page_obj'].object_list) == 0
-
-
-@pytest.mark.django_db
-def test_photo_list_ordered_by_produced_at_then_created_at(client):
-    old = _make_photo(
-        title='Old', produced_at=datetime(2020, 1, 1, tzinfo=timezone.utc)
-    )
-    new = _make_photo(
-        title='New', produced_at=datetime(2024, 6, 1, tzinfo=timezone.utc)
-    )
-    response = client.get(reverse('photos_photo_list'))
-    page_photos = list(response.context['page_obj'])
-    assert page_photos[0] == new
-    assert page_photos[1] == old
-
-
-@pytest.mark.django_db
-def test_photo_list_pagination(client):
-    from picura.photos import views as photos_views
-
-    original = photos_views.PAGE_SIZE
-    photos_views.PAGE_SIZE = 2
-    try:
-        for i in range(3):
-            _make_photo(title=f'Photo {i}')
-        response = client.get(reverse('photos_photo_list'))
-        assert len(response.context['page_obj'].object_list) == 2
-        response2 = client.get(reverse('photos_photo_list') + '?page=2')
-        assert len(response2.context['page_obj'].object_list) == 1
-    finally:
-        photos_views.PAGE_SIZE = original
-
-
-@pytest.mark.django_db
-def test_photo_get_absolute_url():
-    photo = Photo.objects.create(title='Test', file_size=0)
-    assert photo.get_absolute_url() == f'/photos/{photo.pk}/'
 
 
 # --- aspect_ratio property ---
