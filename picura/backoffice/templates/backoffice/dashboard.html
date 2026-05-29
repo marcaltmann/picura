@@ -1,18 +1,20 @@
 {% extends "backoffice/base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Backoffice" %} – {{ block.super }}{% endblock %}
+{% block title %}
+  {% trans "Backoffice" %} – {{ block.super }}
+{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>{% trans "Backoffice" %}</h1>
-        <div class="cluster mt-lh">
-            <div class="card">
-                <p class="card__label">{% trans "Photos" %}</p>
-                <p class="card__value">{{ photo_count }}</p>
-            </div>
-            <div class="card">
-                <p class="card__label">{% trans "Total storage" %}</p>
-                <p class="card__value">{{ total_file_size|filesizeformat }}</p>
-            </div>
-        </div>
+  <div class="container">
+    <h1>{% trans "Backoffice" %}</h1>
+    <div class="cluster mt-lh">
+      <div class="card">
+        <p class="card__label">{% trans "Photos" %}</p>
+        <p class="card__value">{{ photo_count }}</p>
+      </div>
+      <div class="card">
+        <p class="card__label">{% trans "Total storage" %}</p>
+        <p class="card__value">{{ total_file_size|filesizeformat }}</p>
+      </div>
     </div>
+  </div>
 {% endblock %}

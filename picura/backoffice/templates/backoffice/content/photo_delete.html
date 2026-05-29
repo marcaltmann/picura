@@ -1,16 +1,24 @@
 {% extends "backoffice/base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Delete" %} {{ photo.title }} – {{ block.super }}{% endblock %}
+{% block title %}
+  {% trans "Delete" %} {{ photo.title }} – {{ block.super }}
+{% endblock %}
 {% block content %}
   <div class="container mt-lh">
     <a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a>
     <h1>{% trans "Delete photo" %}</h1>
-    <div class="mt-lh"><img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}"></div>
+    <div class="mt-lh">
+      <img class="image-thumbnail"
+           src="{{ photo.thumbnail_300.url }}"
+           alt="{{ photo.title }}">
+    </div>
     <p>{% blocktrans with title=photo.title %}Are you sure you want to delete "{{ title }}"?{% endblocktrans %}</p>
     <form method="post">
       {% csrf_token %}
       <button class="button" type="submit">{% trans "Delete" %}</button>
-      <a class="button" data-variant="secondary" href="{% url 'backoffice_photo_detail' photo.pk %}">{% trans "Cancel" %}</a>
+      <a class="button"
+         data-variant="secondary"
+         href="{% url 'backoffice_photo_detail' photo.pk %}">{% trans "Cancel" %}</a>
     </form>
   </div>
 {% endblock %}

@@ -1,21 +1,29 @@
 {% extends "backoffice/base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Photos" %} – {{ block.super }}{% endblock %}
+{% block title %}
+  {% trans "Photos" %} – {{ block.super }}
+{% endblock %}
 {% block content %}
   <div class="container">
     <h1>{% trans "Photos" %}</h1>
-
     <div class="mt-lh">
       <a href="{% url 'backoffice_photo_upload' %}">{% trans "Upload" %}</a>
     </div>
-
-    <form method="POST" action="{% url 'backoffice_photo_bulk_delete' %}" x-data @submit="if (!confirm('{% trans "Delete selected photos?" %}')) $event.preventDefault()">
+    <form method="POST"
+          action="{% url 'backoffice_photo_bulk_delete' %}"
+          x-data
+          @submit="if (!confirm('{% trans "Delete selected photos?" %}')) $event.preventDefault()">
       {% csrf_token %}
       <div class="scroll-x:auto">
         <table class="data-table">
           <thead>
             <tr>
-              <th>{% if photo_list %}<input type="checkbox" @change="$el.closest('table').querySelectorAll('[name=photo_ids]').forEach(cb => cb.checked = $el.checked)">{% endif %}</th>
+              <th>
+                {% if photo_list %}
+                  <input type="checkbox"
+                         @change="$el.closest('table').querySelectorAll('[name=photo_ids]').forEach(cb => cb.checked = $el.checked)">
+                {% endif %}
+              </th>
               <th></th>
               <th>{% trans "Title" %}</th>
               <th data-align="end">{% trans "Dimensions" %}</th>
@@ -28,11 +36,23 @@
           <tbody>
             {% for photo in photo_list %}
               <tr>
-                <td><input type="checkbox" name="photo_ids" value="{{ photo.pk }}"></td>
-                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}"><img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt=""></a></td>
-                <td><a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a></td>
+                <td>
+                  <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
+                </td>
+                <td>
+                  <a href="{% url 'backoffice_photo_detail' photo.pk %}">
+                    <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="">
+                  </a>
+                </td>
+                <td>
+                  <a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a>
+                </td>
                 <td data-align="end">
-                  {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
+                  {% if photo.width and photo.height %}
+                    {{ photo.width }}×{{ photo.height }}
+                  {% else %}
+                    –
+                  {% endif %}
                 </td>
                 <td>{{ photo.media_type|default:"–" }}</td>
                 <td>{{ photo.produced_at|default:"–" }}</td>

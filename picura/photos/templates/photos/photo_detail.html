@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% load i18n l10n %}
 {% block title %}{{ photo.title }} – Picura{% endblock %}
+{% block head %}
+  {# TODO: replace dummy URLs once photos belong to albums #}
+  <link rel="prev" href="/photos/dummy-prev/">
+  <link rel="next" href="/photos/dummy-next/">
+{% endblock %}
 {% block content %}
   <div class="container container-lg">
-    <article class="c-photo-detail">
+    <article class="c-photo-detail"
+             x-data="photoNav"
+             @keydown.arrow-left.window="go('prev', $event)"
+             @keydown.arrow-right.window="go('next', $event)">
       {# --- header: breadcrumb + keyboard hint --- #}
       <div class="c-photo-detail__header">
         <nav class="c-breadcrumb" aria-label="Breadcrumb">

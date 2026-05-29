@@ -4,26 +4,31 @@
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Picura media library">
-        <meta name="keywords"
-              content="video, audio, transcription, named entity recognition">
-        <title>
-            {% block title %}Picura{% endblock %}
-        </title>
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
-        {% vite_hmr_client %}
-        {% vite_asset 'assets/js/public.js' %}
-    </head>
-    <body class="site-frame">
-        {% include "_messages.html" %}
-        {% include "_header.html" %}
-        <main>
-            {% block content %}{% endblock content %}
-        </main>
-        {% include "_footer.html" %}
-        {% block javascript %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Picura media library">
+    <meta name="keywords"
+          content="video, audio, transcription, named entity recognition">
+    <title>
+      {% block title %}Picura{% endblock %}
+    </title>
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="{% static 'favicon.png' %}">
+    {% block head %}{% endblock %}
+    {% vite_hmr_client %}
+    {% vite_asset 'assets/js/public.js' %}
+  </head>
+  <body class="site-frame">
+    {% include "_messages.html" %}
+    {% include "_header.html" %}
+    <main>
+      {% block content %}
+      {% endblock content %}
+    </main>
+    {% include "_footer.html" %}
+    {% block javascript %}{% endblock %}
+  </body>
 </html>

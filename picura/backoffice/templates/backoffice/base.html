@@ -4,24 +4,28 @@
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            {% block title %}Picura Backoffice{% endblock %}
-        </title>
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
-        {% vite_hmr_client %}
-        {% vite_asset 'assets/js/backoffice.js' %}
-    </head>
-    <body>
-        {% include "_messages.html" %}
-        <div class="with-sidebar">
-            {% include "backoffice/_sidebar.html" %}
-            <main>
-                {% block content %}{% endblock content %}
-            </main>
-        </div>
-        {% block javascript %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}Picura Backoffice{% endblock %}
+    </title>
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="{% static 'favicon.png' %}">
+    {% vite_hmr_client %}
+    {% vite_asset 'assets/js/backoffice.js' %}
+  </head>
+  <body>
+    {% include "_messages.html" %}
+    <div class="with-sidebar">
+      {% include "backoffice/_sidebar.html" %}
+      <main>
+        {% block content %}
+        {% endblock content %}
+      </main>
+    </div>
+    {% block javascript %}{% endblock %}
+  </body>
 </html>

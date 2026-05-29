@@ -8,23 +8,22 @@
         <a href="{% url 'backoffice_photo_list' %}">{% trans "Photos" %}</a> /
         {{ photo.title }}
       </div>
-
       <div class="header__main">
-        <h1 class="header__title">
-          {{ photo.title }}
-        </h1>
+        <h1 class="header__title">{{ photo.title }}</h1>
         <div class="header__actions">
-          <a class="button" data-variant="secondary" href="{% url 'backoffice_photo_list' %}">{% trans "List" %}</a>
+          <a class="button"
+             data-variant="secondary"
+             href="{% url 'backoffice_photo_list' %}">{% trans "List" %}</a>
           <button class="button" type="submit" form="main-form">{% trans "Save" %}</button>
         </div>
       </div>
     </header>
-
     <div class="halves mt-lh">
       <div class="image-preview">
-        <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+        <img class="image-thumbnail"
+             src="{{ photo.thumbnail_300.url }}"
+             alt="{{ photo.title }}">
       </div>
-
       <div>
         <dl class="details">
           <dt>{% trans "Title" %}</dt>
@@ -35,53 +34,76 @@
             </form>
           </dd>
           <dt>{% trans "File" %}</dt>
-          <dd><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></dd>
+          <dd>
+            <a href="{{ photo.file.url }}">{{ photo.file.name }}</a>
+          </dd>
           <dt>{% trans "Media type" %}</dt>
-          <dd>{{ photo.media_type|default:"–" }}</dd>
+          <dd>
+            {{ photo.media_type|default:"–" }}
+          </dd>
           <dt>{% trans "Dimensions" %}</dt>
           <dd>
-            {% if photo.width and photo.height %}{{ photo.width }}×{{ photo.height }}{% else %}–{% endif %}
+            {% if photo.width and photo.height %}
+              {{ photo.width }}×{{ photo.height }}
+            {% else %}
+              –
+            {% endif %}
           </dd>
           <dt>{% trans "File size" %}</dt>
-          <dd>{{ photo.file_size|filesizeformat }}</dd>
+          <dd>
+            {{ photo.file_size|filesizeformat }}
+          </dd>
           <dt>{% trans "Uploaded at" %}</dt>
-          <dd>{{ photo.created_at }}</dd>
+          <dd>
+            {{ photo.created_at }}
+          </dd>
           <dt>{% trans "Produced at" %}</dt>
-          <dd>{{ photo.produced_at|default:"–" }}</dd>
-
+          <dd>
+            {{ photo.produced_at|default:"–" }}
+          </dd>
           {% if exif.data.camera_make or exif.data.camera_model %}
             <dt>{% trans "Camera" %}</dt>
-            <dd>{{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}</dd>
+            <dd>
+              {{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}
+            </dd>
           {% endif %}
           {% if exif.data.lens %}
             <dt>{% trans "Lens" %}</dt>
-            <dd>{{ exif.data.lens }}</dd>
+            <dd>
+              {{ exif.data.lens }}
+            </dd>
           {% endif %}
           {% if exif.data.focal_length %}
             <dt>{% trans "Focal length" %}</dt>
-            <dd>{{ exif.data.focal_length }}mm</dd>
+            <dd>
+              {{ exif.data.focal_length }}mm
+            </dd>
           {% endif %}
           {% if exif.data.aperture %}
             <dt>{% trans "Aperture" %}</dt>
-            <dd>f/{{ exif.data.aperture }}</dd>
+            <dd>
+              f/{{ exif.data.aperture }}
+            </dd>
           {% endif %}
           {% if exif.data.shutter_speed %}
             <dt>{% trans "Shutter speed" %}</dt>
-            <dd>{{ exif.data.shutter_speed }}s</dd>
+            <dd>
+              {{ exif.data.shutter_speed }}s
+            </dd>
           {% endif %}
           {% if exif.data.latitude and exif.data.longitude %}
             <dt>{% trans "Location" %}</dt>
             <dd>
-              <a href="https://www.openstreetmap.org/?mlat={{ exif.data.latitude|unlocalize }}&mlon={{ exif.data.longitude|unlocalize }}&zoom=14" target="_blank">
-                {{ exif.data.latitude|floatformat:5 }}, {{ exif.data.longitude|floatformat:5 }}
-              </a>
+              <a href="https://www.openstreetmap.org/?mlat={{ exif.data.latitude|unlocalize }}&mlon={{ exif.data.longitude|unlocalize }}&zoom=14"
+                 target="_blank">{{ exif.data.latitude|floatformat:5 }}, {{ exif.data.longitude|floatformat:5 }}</a>
             </dd>
           {% endif %}
         </dl>
-
         <div class="mt-lh">
-          <a class="button" data-variant="secondary" href="{% url 'backoffice_photo_delete' photo.pk %}">{% trans "Delete" %}</a>
+          <a class="button"
+             data-variant="secondary"
+             href="{% url 'backoffice_photo_delete' photo.pk %}">{% trans "Delete" %}</a>
         </div>
       </div>
     </div>
-{% endblock %}
+  {% endblock %}

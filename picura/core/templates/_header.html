@@ -1,26 +1,30 @@
 {% load i18n %}
 <header class="header">
-    <div class="header__inner container container--wide">
-        <a class="header__title" href="{% url 'welcome' %}">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Picura" width="48" height="48">
-                <path d="M 30 60 A 20 20 0 0 1 70 60 Z" fill="#6b2e6b"></path>
-                <line x1="8" y1="62" x2="92" y2="62" stroke="#1a1a1a" stroke-width="6" stroke-linecap="square"></line>
-            </svg>
-            <span>Picura</span>
-        </a>
-
-        <nav class="primary-nav">
-            <ul>
-                <li>
-                    <a href="{% url 'photos_photo_list' %}">{% trans "Photos" %}</a>
-                </li>
-                <li>
-                    <a href="">{% trans "Collections" %}</a>
-                </li>
-                <li>
-                    <a href="">{% trans "Sign in" %}</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+  <div class="header__inner container container--wide">
+    <a class="header__title" href="{% url 'welcome' %}">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 100 100"
+           role="img"
+           aria-label="Picura"
+           width="48"
+           height="48">
+        <path d="M 30 60 A 20 20 0 0 1 70 60 Z" fill="#6b2e6b"></path>
+        <line x1="8" y1="62" x2="92" y2="62" stroke="#1a1a1a" stroke-width="6" stroke-linecap="square"></line>
+      </svg>
+      <span>Picura</span>
+    </a>
+    <nav class="primary-nav">
+      <ul>
+        <li>
+          <a href="{% url 'photos_photo_list' %}">{% trans "Photos" %}</a>
+        </li>
+        <li>
+          <a href="">{% trans "Collections" %}</a>
+        </li>
+        <li>
+          <a href="">{% trans "Sign in" %}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>

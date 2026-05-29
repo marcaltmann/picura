@@ -1,13 +1,20 @@
 {% extends "backoffice/base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Upload Photos" %} – {{ block.super }}{% endblock %}
+{% block title %}
+  {% trans "Upload Photos" %} – {{ block.super }}
+{% endblock %}
 {% block content %}
   <div class="container">
     <h1>{% trans "Upload Photos" %}</h1>
     <form class="mt-lh" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="id_files">{% trans "Files" %}</label>
-      <input type="file" id="id_files" name="files" accept="image/*" multiple required>
+      <input type="file"
+             id="id_files"
+             name="files"
+             accept="image/*"
+             multiple
+             required>
       <button type="submit">{% trans "Upload" %}</button>
     </form>
   </div>
