@@ -1,0 +1,52 @@
+/* =========================================================================
+ * .album-detail  —  Album detail page  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * Full-page wrapper for a single album. Contains:
+ *   - .c-breadcrumb navigation
+ *   - .album-detail__title: album name (h1)
+ *   - .album-detail__description: optional prose description
+ *   - .album-detail__meta: photo count and other metadata
+ *   - .album-detail__grid: responsive auto-fill grid of .c-photo-card tiles
+ *   - .album-detail__empty: shown when album has no photos
+ * ========================================================================= */
+
+
+/* ---------- Block ---------- */
+
+.album-detail {
+  padding-block: 1.5rlh;
+}
+
+
+/* ---------- Elements ---------- */
+
+.album-detail__title {
+  margin-block: 0.5rlh 0;
+}
+
+.album-detail__description {
+  margin-block: 0.5rlh 0;
+  color: var(--fg-2);
+  max-width: 60ch;
+}
+
+.album-detail__meta {
+  margin-block: 0.25rlh 0;
+  font-size: 0.875rem;
+  color: var(--fg-3);
+}
+
+.album-detail__grid {
+  list-style: none;
+  padding: 0;
+  margin-block: 1rlh 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: 1rlh;
+}
+
+.album-detail__empty {
+  margin-block: 2rlh;
+  color: var(--color-ink-faded);
+  font-style: italic;
+}

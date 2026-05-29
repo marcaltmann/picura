@@ -11,6 +11,9 @@
 @import "./public/tokens.css" layer(base);       /* overrides */
 @import "./public/compositions/site-frame.css" layer(compositions);
 @import "./public/blocks/action-bar.css" layer(blocks);
+@import "./public/blocks/album-card.css" layer(blocks);
+@import "./public/blocks/album-detail.css" layer(blocks);
+@import "./public/blocks/album-list.css" layer(blocks);
 @import "./public/blocks/breadcrumb.css" layer(blocks);
 @import "./public/blocks/header.css" layer(blocks);
 @import "./public/blocks/hero.css" layer(blocks);

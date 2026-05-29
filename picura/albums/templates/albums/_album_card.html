@@ -1,0 +1,14 @@
+<a class="c-album-card" href="{{ album.get_absolute_url }}" aria-label="{{ album.name }}">
+  <div class="c-album-card__cover">
+    <img src="{{ album.photos.first.thumbnail_500.url }}" alt=""
+         width="300"
+         height="200">
+  </div>
+  <div class="c-album-card__body">
+    <p class="c-album-card__title">{{ album.name }}</p>
+    {% if album.description %}
+      <p class="c-album-card__desc">{{ album.description }}</p>
+    {% endif %}
+    <p class="c-album-card__meta">{{ album.date_label }} · {{ album.photos.count }} photos</p>
+  </div>
+</a>

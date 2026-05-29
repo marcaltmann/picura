@@ -15,4 +15,7 @@ def album_list(request):
 
 def album_detail(request, pk):
     album = get_object_or_404(Album, pk=pk)
-    return render(request, 'albums/album_detail.html', {'album': album})
+    photos = album.photos.order_by('album_links__position')
+    return render(
+        request, 'albums/album_detail.html', {'album': album, 'photos': photos}
+    )

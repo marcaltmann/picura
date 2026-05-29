@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ album.name }} – Picura{% endblock %}
+{% block content %}
+  <div class="album-detail container container-lg">
+    <nav class="c-breadcrumb" aria-label="{% trans "Breadcrumb" %}">
+      <a href="{% url 'albums_album_list' %}">{% trans "Albums" %}</a>
+      <span class="c-breadcrumb__sep">/</span>
+      <span class="c-breadcrumb__current">{{ album.name }}</span>
+    </nav>
+    <h1 class="album-detail__title">{{ album.name }}</h1>
+    {% if album.description %}
+      <p class="album-detail__description">{{ album.description }}</p>
+    {% endif %}
+    <p class="album-detail__meta">{{ photos|length }} {% trans "photos" %}</p>
+    {% if photos %}
+      <ul class="album-detail__grid" role="list">
+        {% for photo in photos %}
+          <li>{% include "photos/_photo_card.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="album-detail__empty">{% trans "No photos in this album yet." %}</p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+/* ---------- Block ---------- */
+
+.album-list {
+  padding-block: 1.5rlh;
+}
+
+
+/* ---------- Elements ---------- */
+
+.album-list__grid {
+  list-style: none;
+  padding: 0;
+  margin-block: 1rlh 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: 1rlh;
+}
+
+.album-list__empty {
+  margin-block: 2rlh;
+  color: var(--color-ink-faded);
+  font-style: italic;
+}
+
+
+/* ---------- Pagination ---------- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rlh;
+  margin-block: 1.5rlh 0;
+  font-size: 0.875rem;
+  color: var(--color-ink-faded);
+}
+
+.pagination a {
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+}
+
+.pagination a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
