@@ -11,3 +11,4 @@ class MetadataInline(admin.TabularInline):
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
     inlines = [MetadataInline]
+    search_fields = ['title']
