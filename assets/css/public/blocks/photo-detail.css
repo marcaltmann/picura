@@ -1,16 +1,276 @@
-.photo-detail {
-  display: flex;
-  justify-content: center;
+/* =========================================================================
+ * .c-photo-detail  —  Public photo detail page  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * The photo is the page. Layout, top to bottom:
+ *
+ *   breadcrumb + keyboard hint        (__header)
+ *   ┌─ white passepartout mat ─┐      (__mat)
+ *   │     the photograph        │     (__frame > img)
+ *   └───────────────────────────┘
+ *   museum plate: title · date·place  (__plate)
+ *   actions row  (.c-action-bar)
+ *   ── 3-column spread ──             (__spread)
+ *     Description · Capture · File
+ *   ── map + tags row ──             (__map-row)
+ *
+ * EQUAL-SIZE PHOTOS (the core constraint)
+ * ---------------------------------------
+ * Landscape and portrait photos render at the *same pixel area*, so neither
+ * orientation dominates. The area math is done where the dimensions are
+ * known — server-side — and handed to CSS as two custom properties on
+ * .c-photo-detail__frame:
+ *
+ *     --ar : aspect ratio  (width / height, e.g. 1.3333)
+ *     --w  : equal-area display width in px
+ *
+ *   Given a constant TARGET_AREA (e.g. 720*480 = 345600):
+ *     --w = round( sqrt(TARGET_AREA * ar) )
+ *   (height follows from aspect-ratio, so it never needs setting.)
+ *
+ * CSS then clamps the WIDTH three ways and lets aspect-ratio derive the
+ * height — so the photo is never squashed and never overflows:
+ *     min( --w , 100% , (max viewport height) * --ar )
+ * The third term caps a tall portrait by height without an explicit
+ * max-height (which would fight the inline width). Pure CSS, no JS.
+ * ========================================================================= */
+
+
+/* ---------- Block ---------- */
+
+.c-photo-detail {
+  --c-photo-max-h: 150vh;   /* tallest a photo may get; tune per layout */
+
+  max-width: 60rlh;
+  margin-inline: auto;
+  padding-inline: 1.5rlh;
 }
 
-.photo-detail__img {
-  border-style: solid;
-  border-color: white;
-  border-inline-width: min(7.5vh, 7.5vw);
-  border-top-width: min(7vh, 7vw);
-  border-bottom-width: min(8vh, 8vw);
-  max-inline-size: min(85vh, 100%);
-  max-block-size: 85vh;
-  width: auto;
-  height: auto;
+
+/* ---------- Elements ---------- */
+
+/* Header — breadcrumb on the left, a quiet keyboard hint on the right. */
+.c-photo-detail__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rlh;
+  margin-block-end: 1rlh;
+}
+
+.c-photo-detail__hint {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--fg-3);
+}
+
+.c-photo-detail__hint kbd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0 0.3rem;
+  border: 1px solid var(--border-faint);
+  border-radius: 2px;
+  color: var(--fg-2);
+}
+
+/* Photo — centered. */
+.c-photo-detail__photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block-end: 1.5rlh;
+}
+
+/* Passepartout — the white archival mat. Pure white reads as the brightest
+   object on the gray page, the way a museum mat does against a wall. */
+.c-photo-detail__mat {
+  display: inline-block;
+  max-width: 100%;
+  padding: 1.5rlh;
+  background-color: #ffffff;
+  border: 1px solid var(--border-faint);
+}
+
+/* Frame — the sized box that holds the photo. width/aspect come from the
+   --w / --ar custom properties set inline by the server (see header note). */
+.c-photo-detail__frame {
+  display: block;
+  width: min(var(--w, 720px), 100%, calc(var(--c-photo-max-h) * var(--ar, 1)));
+  aspect-ratio: var(--ar, 1);
+  background-color: var(--bg-surface);
+}
+
+.c-photo-detail__frame > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Plate — the museum wall label under the photo. Shares its centered
+   column with the action bar so both sit in the same gutter. */
+.c-photo-detail__plate {
+  max-width: 40rlh;
+  margin-inline: auto;
+  display: grid;
+  gap: 0.5rlh;
+}
+
+.c-photo-detail__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.5rlh;
+  letter-spacing: -0.005em;
+}
+
+.c-photo-detail__meta {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--fg-2);
+}
+
+/* dot separator between date and place */
+.c-photo-detail__meta-sep {
+  display: inline-block;
+  width: 0.25em;
+  height: 0.25em;
+  margin-inline: 0.5em;
+  vertical-align: 0.2em;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Spread — three metadata columns under the plate. */
+.c-photo-detail__spread {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr;
+  gap: 2rlh;
+  margin-block-start: 2rlh;
+  padding-block-start: 1.5rlh;
+  border-top: 1px solid var(--border-faint);
+}
+
+.c-photo-detail__label {
+  margin: 0 0 0.5rlh;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.c-photo-detail__desc {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.5rlh;
+  color: var(--fg-1);
+  text-wrap: pretty;
+}
+
+/* Specs — definition list for EXIF / archival data. Italic serif terms,
+   sans values; numeric/identifier values get mono. */
+.c-photo-detail__specs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1rlh;
+  row-gap: 0.125rlh;
+  font-size: 0.875rem;
+  line-height: 1rlh;
+}
+
+.c-photo-detail__specs dt {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fg-2);
+}
+
+.c-photo-detail__specs dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+}
+
+.c-photo-detail__specs dd[data-mono] {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+/* Map row — small grayscale map tile beside the tags. */
+.c-photo-detail__map-row {
+  display: grid;
+  grid-template-columns: 10rlh 1fr;
+  gap: 1.5rlh;
+  align-items: start;
+  margin-block-start: 1.5rlh;
+  padding-block-start: 1.5rlh;
+  border-top: 1px solid var(--border-faint);
+}
+
+.c-photo-detail__map {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-faint);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+}
+
+.c-photo-detail__map > img,
+.c-photo-detail__map > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.c-photo-detail__coords {
+  margin-block-start: 0.25rlh;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--fg-3);
+}
+
+/* Tags — hairline chips. */
+.c-photo-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rlh 0.4rlh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-photo-detail__tags a {
+  padding: 0 0.4rlh;
+  border: 1px solid var(--border-faint);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1rlh;
+  color: var(--fg-2);
+  text-decoration: none;
+}
+
+.c-photo-detail__tags a:hover {
+  color: var(--fg-link);
+  border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+
+/* ---------- Exceptions ---------- */
+
+/* Narrow viewports: header, spread and map-row all collapse to one column. */
+@media (max-width: 720px) {
+  .c-photo-detail__header,
+  .c-photo-detail__spread,
+  .c-photo-detail__map-row {
+    grid-template-columns: 1fr;
+  }
 }

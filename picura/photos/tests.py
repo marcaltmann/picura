@@ -290,3 +290,71 @@ def test_photo_list_pagination(client):
 def test_photo_get_absolute_url():
     photo = Photo.objects.create(title='Test', file_size=0)
     assert photo.get_absolute_url() == f'/photos/{photo.pk}/'
+
+
+# --- aspect_ratio property ---
+
+
+def test_aspect_ratio_landscape():
+    photo = Photo(title='Test', width=1920, height=1080)
+    assert photo.aspect_ratio == pytest.approx(1920 / 1080)
+
+
+def test_aspect_ratio_portrait():
+    photo = Photo(title='Test', width=1080, height=1920)
+    assert photo.aspect_ratio == pytest.approx(1080 / 1920)
+
+
+def test_aspect_ratio_square():
+    photo = Photo(title='Test', width=100, height=100)
+    assert photo.aspect_ratio == pytest.approx(1.0)
+
+
+def test_aspect_ratio_none_when_width_missing():
+    photo = Photo(title='Test', width=None, height=1080)
+    assert photo.aspect_ratio is None
+
+
+def test_aspect_ratio_none_when_height_missing():
+    photo = Photo(title='Test', width=1920, height=None)
+    assert photo.aspect_ratio is None
+
+
+def test_aspect_ratio_none_when_both_missing():
+    photo = Photo(title='Test', width=None, height=None)
+    assert photo.aspect_ratio is None
+
+
+# --- display_width property ---
+
+
+def test_display_width_landscape():
+    # 1920x1080 → aspect 16/9 → sqrt(345600 * 16/9) ≈ 784
+    photo = Photo(title='Test', width=1920, height=1080)
+    import math
+
+    expected = round(math.sqrt(345600 * (1920 / 1080)))
+    assert photo.display_width == expected
+
+
+def test_display_width_portrait():
+    # 1080x1920 → aspect 9/16 → sqrt(345600 * 9/16) ≈ 441
+    photo = Photo(title='Test', width=1080, height=1920)
+    import math
+
+    expected = round(math.sqrt(345600 * (1080 / 1920)))
+    assert photo.display_width == expected
+
+
+def test_display_width_square():
+    # 100x100 → aspect 1.0 → sqrt(345600) ≈ 588
+    photo = Photo(title='Test', width=100, height=100)
+    import math
+
+    expected = round(math.sqrt(345600))
+    assert photo.display_width == expected
+
+
+def test_display_width_none_when_dimensions_missing():
+    photo = Photo(title='Test', width=None, height=None)
+    assert photo.display_width is None

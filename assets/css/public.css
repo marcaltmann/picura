@@ -10,10 +10,13 @@
 @import "./utilities/margin-lh.css" layer(utilities);
 @import "./public/tokens.css" layer(base);       /* overrides */
 @import "./public/compositions/site-frame.css" layer(compositions);
+@import "./public/blocks/action-bar.css" layer(blocks);
+@import "./public/blocks/breadcrumb.css" layer(blocks);
 @import "./public/blocks/header.css" layer(blocks);
 @import "./public/blocks/hero.css" layer(blocks);
 @import "./public/blocks/photo-card.css" layer(blocks);
 @import "./public/blocks/photo-detail.css" layer(blocks);
+@import "./public/blocks/photo-frame.css" layer(blocks);
 @import "./public/blocks/photo-list.css" layer(blocks);
 @import "./public/blocks/pricing.css" layer(blocks);
 @import "./public/blocks/primary_nav.css" layer(blocks);

@@ -1,0 +1,84 @@
+/* =========================================================================
+ * .c-action-bar  —  Inline action chips  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * A horizontal row of low-emphasis actions (Star, Download, Copy link, Add
+ * to collection). Sentence-case verbs, hairline-bordered chips, icon + label.
+ * Reusable wherever a small cluster of object actions is needed.
+ *
+ * The Star chip is a toggle: it carries aria-pressed and turns aubergine
+ * with a filled star when pressed. Toggle/persist behaviour is wired in JS.
+ *
+ * Expected markup:
+ *
+ *   <div class="c-action-bar">
+ *     <button class="c-action-bar__item c-action-bar__item--star"
+ *             type="button" aria-pressed="false">
+ *       <svg class="c-action-bar__icon" …></svg><span>Star</span>
+ *     </button>
+ *     <a class="c-action-bar__item" href="…/download/">
+ *       <svg class="c-action-bar__icon" …></svg><span>Download</span>
+ *     </a>
+ *     …
+ *   </div>
+ * ========================================================================= */
+
+
+/* ---------- Block ---------- */
+
+.c-action-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rlh;
+}
+
+
+/* ---------- Elements ---------- */
+
+.c-action-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rlh;
+  padding: 0.125rlh 0.5rlh;
+  border: 1px solid var(--border-faint);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1rlh;
+  color: var(--fg-1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.c-action-bar__icon {
+  width: 0.9em;
+  height: 0.9em;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+
+/* ---------- States ---------- */
+
+.c-action-bar__item:hover {
+  background-color: var(--bg-card);
+}
+
+.c-action-bar__item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+/* Star — pressed (saved). Aubergine chip with a filled star. */
+.c-action-bar__item--star[aria-pressed="true"] {
+  color: var(--color-accent);
+  border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.c-action-bar__item--star[aria-pressed="true"] .c-action-bar__icon {
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
+}

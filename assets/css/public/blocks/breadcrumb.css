@@ -1,0 +1,39 @@
+/* =========================================================================
+ * .c-breadcrumb  —  Path trail  (Picura / Public)
+ * -------------------------------------------------------------------------
+ * Minimal navigation trail: linked ancestors, a slash separator, and the
+ * current page as plain (unlinked) text.
+ *
+ *   <nav class="c-breadcrumb" aria-label="Breadcrumb">
+ *     <a href="…">Photos</a>
+ *     <span class="c-breadcrumb__sep">/</span>
+ *     <span class="c-breadcrumb__current">Coast at dusk</span>
+ *   </nav>
+ * ========================================================================= */
+
+.c-breadcrumb {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1rlh;
+  color: var(--fg-2);
+}
+
+.c-breadcrumb a {
+  color: var(--fg-2);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.c-breadcrumb a:hover {
+  color: var(--fg-link-hover);
+}
+
+.c-breadcrumb__sep {
+  display: inline-block;
+  margin-inline: 0.4em;
+  color: var(--fg-3);
+}
+
+.c-breadcrumb__current {
+  color: var(--fg-1);
+}

@@ -1,3 +1,5 @@
+import math
+
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -55,13 +57,13 @@ class Photo(models.Model):
         format='WEBP',
         options={'quality': 80},
     )
-    thumbnail_2000 = ImageSpecField(
+    detail_2000 = ImageSpecField(
         source='file',
         processors=[ResizeToFit(2000, 2000)],
         format='WEBP',
         options={'quality': 80},
     )
-    thumbnail_3000 = ImageSpecField(
+    detail_3000 = ImageSpecField(
         source='file',
         processors=[ResizeToFit(3000, 3000)],
         format='WEBP',
@@ -74,6 +76,20 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+
+    _DISPLAY_AREA = 720 * 480
+
+    @property
+    def aspect_ratio(self):
+        if self.width is None or self.height is None:
+            return None
+        return self.width / self.height
+
+    @property
+    def display_width(self):
+        if self.aspect_ratio is None:
+            return None
+        return round(math.sqrt(self._DISPLAY_AREA * self.aspect_ratio))
 
     def get_absolute_url(self):
         return reverse('photos_photo_detail', args=[self.pk])
