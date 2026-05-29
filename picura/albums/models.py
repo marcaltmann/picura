@@ -38,7 +38,7 @@ class AlbumPhoto(models.Model):
     album = models.ForeignKey(
         Album,
         on_delete=models.CASCADE,
-        related_name='album_links',
+        related_name='photo_links',
         verbose_name=_('album'),
     )
     position = models.PositiveIntegerField(verbose_name=_('position'))
@@ -57,12 +57,9 @@ class AlbumPhoto(models.Model):
             models.UniqueConstraint(
                 fields=['album', 'position'],
                 name='unique_album_position',
+                deferrable=models.Deferrable.DEFERRED,
             ),
         ]
 
-        indexes = [
-            models.Index(fields=['album', 'position']),
-        ]
-
     def __str__(self):
-        return f'{self.album} → {self.position} → {self.photo}'
+        return f'{self.album} #{self.position}'
