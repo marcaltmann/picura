@@ -1,0 +1,56 @@
+<div class="c-photo-detail__spread">
+  <section>
+    <p class="c-photo-detail__label">Description</p>
+    <p class="c-photo-detail__desc">{{ photo.description }}</p>
+  </section>
+  <section>
+    <p class="c-photo-detail__label">Capture</p>
+    <dl class="c-photo-detail__specs">
+      <dt>Lens</dt>
+      <dd>
+        {{ photo.lens }}
+      </dd>
+      <dt>Focal length</dt>
+      <dd>
+        {{ photo.focal_length }}mm
+      </dd>
+      <dt>Aperture</dt>
+      <dd>
+        f/{{ photo.aperture }}
+      </dd>
+      <dt>Shutter</dt>
+      <dd>
+        {{ photo.shutter }}s
+      </dd>
+      <dt>ISO</dt>
+      <dd>
+        {{ photo.iso }}
+      </dd>
+      <dt>Dimensions</dt>
+      <dd data-mono>
+        {{ photo.image.width }}×{{ photo.image.height }}
+      </dd>
+    </dl>
+  </section>
+  <section>
+    <p class="c-photo-detail__label">File</p>
+    <dl class="c-photo-detail__specs">
+      <dt>Filename</dt>
+      <dd data-mono>
+        {{ photo.filename }}
+      </dd>
+      <dt>File size</dt>
+      <dd>
+        {{ photo.filesize }}
+      </dd>
+      <dt>Uploaded by</dt>
+      <dd>
+        {{ photo.uploader }}
+      </dd>
+      <dt>License</dt>
+      <dd>
+        {{ photo.license }}
+      </dd>
+    </dl>
+  </section>
+</div>

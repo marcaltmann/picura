@@ -1,100 +1,45 @@
 {% extends "base.html" %}
 {% load i18n l10n %}
-
 {% block title %}{{ photo.title }} – Picura{% endblock %}
-
 {% block content %}
-<div class="container container-lg">
-
-
-<article class="c-photo-detail">
-
-  {# --- header: breadcrumb + keyboard hint --- #}
-  <div class="c-photo-detail__header">
-    <nav class="c-breadcrumb" aria-label="Breadcrumb">
-      <a href="{% url 'photos_photo_list' %}">Photos</a>
-      <span class="c-breadcrumb__sep">/</span>
-      <span class="c-breadcrumb__current">{{ photo.title }}</span>
-    </nav>
-    <span class="c-photo-detail__hint"><kbd>←</kbd> <kbd>→</kbd> to navigate</span>
-  </div>
-
-  {# --- the photograph, in its white passepartout --- #}
-  <!--
+  <div class="container container-lg">
+    <article class="c-photo-detail">
+      {# --- header: breadcrumb + keyboard hint --- #}
+      <div class="c-photo-detail__header">
+        <nav class="c-breadcrumb" aria-label="Breadcrumb">
+          <a href="{% url 'photos_photo_list' %}">Photos</a>
+          <span class="c-breadcrumb__sep">/</span>
+          <span class="c-breadcrumb__current">{{ photo.title }}</span>
+        </nav>
+        <span class="c-photo-detail__hint"><kbd>←</kbd> <kbd>→</kbd> to navigate</span>
+      </div>
+      {# --- the photograph, in its white passepartout --- #}
+      <!--
   <div class="c-photo-detail__photo">
     <div class="c-photo-detail__mat">
-      <div class="c-photo-detail__frame"
-           style="--ar: {{ photo.aspect_ratio|unlocalize }}; --w: {{ photo.display_width }}px;">
-        <img src="{{ photo.detail_2000.url }}" alt="{{ photo.title }}"
-             width="{{ photo.image.width }}" height="{{ photo.image.height }}">
+      <div class="c-photo-detail__frame" style="--ar: {{ photo.aspect_ratio|unlocalize }}; --w: {{ photo.display_width }}px;">
+        <img src="{{ photo.detail_2000.url }}" alt="{{ photo.title }}" width="{{ photo.image.width }}" height="{{ photo.image.height }}">
       </div>
     </div>
   </div>
-  -->
-
-  <div class="photo-frame" style="--ar: {{ photo.aspect_ratio|unlocalize }}">
-    <img class="photo-frame__image" src="{{ photo.detail_2000.url }}" alt="{{ photo.title }}"
-          width="" height="">
-  </div>
-
-
-
-  {# --- museum plate: title + date·place, then the actions --- #}
-  <div class="c-photo-detail__plate">
-    <h1 class="c-photo-detail__title">{{ photo.title }}</h1>
-    <p class="c-photo-detail__meta">
-      {{ photo.date_display }}<span class="c-photo-detail__meta-sep"></span>{{ photo.place }}
-    </p>
-
-    {% include "photos/_action_bar.html" %}
-  </div>
-
-  {# --- three-column metadata spread --- #}
-  <div class="c-photo-detail__spread">
-    <section>
-      <p class="c-photo-detail__label">Description</p>
-      <p class="c-photo-detail__desc">{{ photo.description }}</p>
-    </section>
-    <section>
-      <p class="c-photo-detail__label">Capture</p>
-      <dl class="c-photo-detail__specs">
-        <dt>Lens</dt><dd>{{ photo.lens }}</dd>
-        <dt>Focal length</dt><dd>{{ photo.focal_length }}mm</dd>
-        <dt>Aperture</dt><dd>f/{{ photo.aperture }}</dd>
-        <dt>Shutter</dt><dd>{{ photo.shutter }}s</dd>
-        <dt>ISO</dt><dd>{{ photo.iso }}</dd>
-        <dt>Dimensions</dt><dd data-mono>{{ photo.image.width }}×{{ photo.image.height }}</dd>
-      </dl>
-    </section>
-    <section>
-      <p class="c-photo-detail__label">File</p>
-      <dl class="c-photo-detail__specs">
-        <dt>Filename</dt><dd data-mono>{{ photo.filename }}</dd>
-        <dt>File size</dt><dd>{{ photo.filesize }}</dd>
-        <dt>Uploaded by</dt><dd>{{ photo.uploader }}</dd>
-        <dt>License</dt><dd>{{ photo.license }}</dd>
-      </dl>
-    </section>
-  </div>
-
-  {# --- map + tags --- #}
-  <div class="c-photo-detail__map-row">
-    <div>
-      <div class="c-photo-detail__map">
-        <img src="{{ photo.map_tile_url }}" alt="Map of {{ photo.place }}">
+-->
+      <div class="photo-frame" style="--ar: {{ photo.aspect_ratio|unlocalize }}">
+        <img class="photo-frame__image"
+             src="{{ photo.detail_2000.url }}"
+             alt="{{ photo.title }}"
+             width=""
+             height="">
       </div>
-      <p class="c-photo-detail__coords">{{ photo.lat }}°, {{ photo.lng }}° — {{ photo.place }}</p>
-    </div>
-    <div>
-      <p class="c-photo-detail__label">Tags</p>
-      <ul class="c-photo-detail__tags">
-        {% for tag in photo.tags %}
-          <li><a href="{{ tag.url }}">{{ tag.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
+      {# --- museum plate: title + date·place, then the actions --- #}
+      <div class="c-photo-detail__plate mt-lh">
+        <h1 class="c-photo-detail__title">{{ photo.title }}</h1>
+        <p class="c-photo-detail__meta">
+          {{ photo.date_display }}<span class="c-photo-detail__meta-sep"></span>{{ photo.place }}
+        </p>
+        {% include "photos/_action_bar.html" %}
+      </div>
+      {% include "photos/_metadata.html" %}
+      {% include "photos/_map_tags.html" %}
+    </article>
   </div>
-
-</article>
-</div>
 {% endblock %}
