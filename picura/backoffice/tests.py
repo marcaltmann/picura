@@ -255,6 +255,86 @@ def test_batch_detail_context_contains_batch(client):
     assert response.context['batch'] == batch
 
 
+@pytest.mark.django_db
+def test_batch_detail_context_contains_albums(client):
+    batch = Batch.objects.create()
+    album = Album.objects.create(name='Summer 2024')
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert album in response.context['albums']
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_post_appends_photos(client, make_photo):
+    batch = Batch.objects.create()
+    p1 = make_photo(batch=batch)
+    p2 = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [p1.pk, p2.pk], 'album_id': album.pk},
+    )
+    assert album.photos.count() == 2
+    assert p1 in album.photos.all()
+    assert p2 in album.photos.all()
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_post_redirects_to_batch_detail(client, make_photo):
+    batch = Batch.objects.create()
+    p = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    response = client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [p.pk], 'album_id': album.pk},
+    )
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_batch_detail', args=[batch.pk])
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_post_skips_already_assigned(client, make_photo):
+    batch = Batch.objects.create()
+    p = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    album.append_photos(p)
+    response = client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [p.pk], 'album_id': album.pk},
+    )
+    assert response.status_code == 302
+    assert album.photos.count() == 1
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_post_with_no_ids_redirects(client):
+    batch = Batch.objects.create()
+    album = Album.objects.create(name='Summer 2024')
+    response = client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'album_id': album.pk},
+    )
+    assert response.status_code == 302
+    assert album.photos.count() == 0
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_post_invalid_album_returns_404(client, make_photo):
+    batch = Batch.objects.create()
+    p = make_photo(batch=batch)
+    response = client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [p.pk], 'album_id': 9999},
+    )
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_batch_assign_to_album_get_redirects(client):
+    batch = Batch.objects.create()
+    response = client.get(reverse('backoffice_batch_assign_to_album', args=[batch.pk]))
+    assert response.status_code == 302
+
+
 # Album views
 
 

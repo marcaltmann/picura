@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 23:51+0200\n"
+"POT-Creation-Date: 2026-05-31 00:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,12 @@ msgstr ""
 #: picura/albums/apps.py:7 picura/albums/templates/albums/album_detail.html:7
 #: picura/albums/templates/albums/album_list.html:4
 #: picura/albums/templates/albums/album_list.html:8
+#: picura/backoffice/templates/backoffice/_sidebar.html:39
+#: picura/backoffice/templates/backoffice/album_create.html:10
+#: picura/backoffice/templates/backoffice/album_delete.html:10
+#: picura/backoffice/templates/backoffice/album_detail.html:8
+#: picura/backoffice/templates/backoffice/album_list.html:4
+#: picura/backoffice/templates/backoffice/album_list.html:10
 #: picura/core/templates/_header.html:19
 #: picura/photos/templates/photos/photo_detail.html:17
 msgid "Albums"
@@ -107,6 +113,7 @@ msgid "Next"
 msgstr "Weiter"
 
 #: picura/albums/templates/albums/album_list.html:27
+#: picura/backoffice/templates/backoffice/album_list.html:36
 msgid "No albums yet."
 msgstr "Noch keine Alben vorhanden."
 
@@ -123,183 +130,123 @@ msgid "Content"
 msgstr "Inhalte"
 
 #: picura/backoffice/templates/backoffice/_sidebar.html:35
-#: picura/backoffice/templates/backoffice/content/batch_detail.html:10
-#: picura/backoffice/templates/backoffice/content/batch_list.html:4
-#: picura/backoffice/templates/backoffice/content/batch_list.html:10
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:8
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:24
+#: picura/backoffice/templates/backoffice/batch_detail.html:10
+#: picura/backoffice/templates/backoffice/batch_list.html:4
+#: picura/backoffice/templates/backoffice/batch_list.html:10
+#: picura/backoffice/templates/backoffice/photo_detail.html:8
+#: picura/backoffice/templates/backoffice/photo_detail.html:24
 msgid "Batches"
 msgstr "Batches"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:42
+#: picura/backoffice/templates/backoffice/_sidebar.html:46
 msgid "Public website"
 msgstr "Öffentliche Website"
 
-#: picura/backoffice/templates/backoffice/content/batch_detail.html:4
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:20
-msgid "Batch"
-msgstr "Batch"
+#: picura/backoffice/templates/backoffice/album_create.html:4
+#: picura/backoffice/templates/backoffice/album_create.html:11
+#: picura/backoffice/templates/backoffice/album_create.html:14
+#: picura/backoffice/templates/backoffice/album_list.html:12
+msgid "New album"
+msgstr "Neues Album"
 
-#: picura/backoffice/templates/backoffice/content/batch_detail.html:23
-msgid "No photos in this batch."
-msgstr "Noch keine Fotos in diesem Batch vorhanden."
+#: picura/backoffice/templates/backoffice/album_create.html:16
+#: picura/backoffice/templates/backoffice/album_detail.html:14
+#: picura/backoffice/templates/backoffice/photo_detail.html:26
+msgid "Save"
+msgstr "Speichern"
 
-#: picura/backoffice/templates/backoffice/content/batch_list.html:12
-#: picura/backoffice/templates/backoffice/content/photo_list.html:10
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:18
-msgid "Upload"
-msgstr "Hochladen"
+#: picura/backoffice/templates/backoffice/album_delete.html:4
+#: picura/backoffice/templates/backoffice/album_delete.html:20
+#: picura/backoffice/templates/backoffice/album_detail.html:31
+#: picura/backoffice/templates/backoffice/photo_delete.html:4
+#: picura/backoffice/templates/backoffice/photo_delete.html:18
+#: picura/backoffice/templates/backoffice/photo_detail.html:114
+msgid "Delete"
+msgstr "Löschen"
 
-#: picura/backoffice/templates/backoffice/content/batch_list.html:20
-msgid "Preview"
-msgstr "Vorschau"
+#: picura/backoffice/templates/backoffice/album_delete.html:14
+msgid "Delete album"
+msgstr "Album löschen"
 
-#: picura/backoffice/templates/backoffice/content/batch_list.html:21
-msgid "Uploaded"
-msgstr "Hochgeladen"
+#: picura/backoffice/templates/backoffice/album_delete.html:17
+#, python-format
+msgid "Are you sure you want to delete \"%(name)s\"?"
+msgstr "Möchten Sie \"%(name)s\" wirklich löschen?"
 
-#: picura/backoffice/templates/backoffice/content/batch_list.html:22
-#: picura/backoffice/templates/backoffice/content/photo_list.html:4
-#: picura/backoffice/templates/backoffice/content/photo_list.html:8
+#: picura/backoffice/templates/backoffice/album_delete.html:23
+#: picura/backoffice/templates/backoffice/photo_delete.html:21
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: picura/backoffice/templates/backoffice/album_list.html:20
+msgid "Name"
+msgstr "Name"
+
+#: picura/backoffice/templates/backoffice/album_list.html:21
+#: picura/backoffice/templates/backoffice/batch_list.html:22
 #: picura/backoffice/templates/backoffice/dashboard.html:11
+#: picura/backoffice/templates/backoffice/photo_list.html:4
+#: picura/backoffice/templates/backoffice/photo_list.html:8
 #: picura/photos/apps.py:7 picura/photos/templates/photos/photo_list.html:4
 #: picura/photos/templates/photos/photo_list.html:8
 msgid "Photos"
 msgstr "Fotos"
 
-#: picura/backoffice/templates/backoffice/content/batch_list.html:23
-msgid "Status"
-msgstr "Status"
-
-#: picura/backoffice/templates/backoffice/content/batch_list.html:46
-msgid "New"
-msgstr "Neu"
-
-#: picura/backoffice/templates/backoffice/content/batch_list.html:48
-msgid "Done"
-msgstr "Fertig"
-
-#: picura/backoffice/templates/backoffice/content/batch_list.html:50
-msgid "In progress"
-msgstr "In Bearbeitung"
-
-#: picura/backoffice/templates/backoffice/content/batch_list.html:56
-msgid "No batches yet."
-msgstr "Noch keine Batches vorhanden."
-
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:4
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:18
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:114
-msgid "Delete"
-msgstr "Löschen"
-
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:9
-msgid "Delete photo"
-msgstr "Foto löschen"
-
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:15
-#, python-format
-msgid "Are you sure you want to delete \"%(title)s\"?"
-msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
-
-#: picura/backoffice/templates/backoffice/content/photo_delete.html:21
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:26
-msgid "Save"
-msgstr "Speichern"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:38
-#: picura/backoffice/templates/backoffice/content/photo_list.html:28
-msgid "Title"
-msgstr "Titel"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:45
-#: picura/photos/templates/photos/_metadata.html:37
-msgid "File"
-msgstr "Datei"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:49
-#: picura/backoffice/templates/backoffice/content/photo_list.html:30
-msgid "Media type"
-msgstr "Medientyp"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:53
-#: picura/backoffice/templates/backoffice/content/photo_list.html:29
-#: picura/photos/templates/photos/_metadata.html:30
-msgid "Dimensions"
-msgstr "Abmessungen"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:61
-#: picura/backoffice/templates/backoffice/content/photo_list.html:32
-#: picura/photos/templates/photos/_metadata.html:43
-msgid "File size"
-msgstr "Dateigröße"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:65
-msgid "Uploaded at"
-msgstr "Hochgeladen am"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:69
-msgid "Produced at"
-msgstr "Aufgenommen am"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:74
-msgid "Camera"
-msgstr "Kamera"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:80
-#: picura/photos/templates/photos/_metadata.html:10
-msgid "Lens"
-msgstr "Objektiv"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:86
-#: picura/photos/templates/photos/_metadata.html:14
-msgid "Focal length"
-msgstr "Brennweite"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:92
-#: picura/photos/templates/photos/_metadata.html:18
-msgid "Aperture"
-msgstr "Blende"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:98
-msgid "Shutter speed"
-msgstr "Belichtungszeit"
-
-#: picura/backoffice/templates/backoffice/content/photo_detail.html:104
-msgid "Location"
-msgstr "Standort"
-
-#: picura/backoffice/templates/backoffice/content/photo_list.html:15
-msgid "Delete selected photos?"
-msgstr "Ausgewählte Fotos löschen?"
-
-#: picura/backoffice/templates/backoffice/content/photo_list.html:31
-msgid "Produced"
-msgstr "Aufgenommen"
-
-#: picura/backoffice/templates/backoffice/content/photo_list.html:33
+#: picura/backoffice/templates/backoffice/album_list.html:22
+#: picura/backoffice/templates/backoffice/photo_list.html:33
 msgid "Created"
 msgstr "Erstellt"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:64
-msgid "No photos found."
-msgstr "Keine Fotos gefunden."
+#: picura/backoffice/templates/backoffice/batch_detail.html:4
+#: picura/backoffice/templates/backoffice/photo_detail.html:20
+msgid "Batch"
+msgstr "Batch"
 
-#: picura/backoffice/templates/backoffice/content/photo_list.html:72
-msgid "Delete selected"
-msgstr "Auswahl löschen"
+#: picura/backoffice/templates/backoffice/batch_detail.html:26
+msgid "No photos in this batch."
+msgstr "Noch keine Fotos in diesem Batch vorhanden."
 
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:4
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:8
-msgid "Upload Photos"
-msgstr "Fotos hochladen"
+#: picura/backoffice/templates/backoffice/batch_detail.html:35
+msgid "No albums"
+msgstr "Keine Alben"
 
-#: picura/backoffice/templates/backoffice/content/photo_upload.html:11
-msgid "Files"
-msgstr "Dateien"
+#: picura/backoffice/templates/backoffice/batch_detail.html:38
+msgid "Add to album"
+msgstr "Zum Album hinzufügen"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:12
+#: picura/backoffice/templates/backoffice/photo_list.html:10
+#: picura/backoffice/templates/backoffice/photo_upload.html:18
+msgid "Upload"
+msgstr "Hochladen"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:20
+msgid "Preview"
+msgstr "Vorschau"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:21
+msgid "Uploaded"
+msgstr "Hochgeladen"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:23
+msgid "Status"
+msgstr "Status"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:46
+msgid "New"
+msgstr "Neu"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:48
+msgid "Done"
+msgstr "Fertig"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:50
+msgid "In progress"
+msgstr "In Bearbeitung"
+
+#: picura/backoffice/templates/backoffice/batch_list.html:56
+msgid "No batches yet."
+msgstr "Noch keine Batches vorhanden."
 
 #: picura/backoffice/templates/backoffice/dashboard.html:4
 #: picura/backoffice/templates/backoffice/dashboard.html:8
@@ -309,6 +256,102 @@ msgstr "Backoffice"
 #: picura/backoffice/templates/backoffice/dashboard.html:15
 msgid "Total storage"
 msgstr "Gesamtspeicher"
+
+#: picura/backoffice/templates/backoffice/photo_delete.html:9
+msgid "Delete photo"
+msgstr "Foto löschen"
+
+#: picura/backoffice/templates/backoffice/photo_delete.html:15
+#, python-format
+msgid "Are you sure you want to delete \"%(title)s\"?"
+msgstr "Möchten Sie \"%(title)s\" wirklich löschen?"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:38
+#: picura/backoffice/templates/backoffice/photo_list.html:28
+msgid "Title"
+msgstr "Titel"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:45
+#: picura/photos/templates/photos/_metadata.html:37
+msgid "File"
+msgstr "Datei"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:49
+#: picura/backoffice/templates/backoffice/photo_list.html:30
+msgid "Media type"
+msgstr "Medientyp"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:53
+#: picura/backoffice/templates/backoffice/photo_list.html:29
+#: picura/photos/templates/photos/_metadata.html:30
+msgid "Dimensions"
+msgstr "Abmessungen"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:61
+#: picura/backoffice/templates/backoffice/photo_list.html:32
+#: picura/photos/templates/photos/_metadata.html:43
+msgid "File size"
+msgstr "Dateigröße"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:65
+msgid "Uploaded at"
+msgstr "Hochgeladen am"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:69
+msgid "Produced at"
+msgstr "Aufgenommen am"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:74
+msgid "Camera"
+msgstr "Kamera"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:80
+#: picura/photos/templates/photos/_metadata.html:10
+msgid "Lens"
+msgstr "Objektiv"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:86
+#: picura/photos/templates/photos/_metadata.html:14
+msgid "Focal length"
+msgstr "Brennweite"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:92
+#: picura/photos/templates/photos/_metadata.html:18
+msgid "Aperture"
+msgstr "Blende"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:98
+msgid "Shutter speed"
+msgstr "Belichtungszeit"
+
+#: picura/backoffice/templates/backoffice/photo_detail.html:104
+msgid "Location"
+msgstr "Standort"
+
+#: picura/backoffice/templates/backoffice/photo_list.html:15
+msgid "Delete selected photos?"
+msgstr "Ausgewählte Fotos löschen?"
+
+#: picura/backoffice/templates/backoffice/photo_list.html:31
+msgid "Produced"
+msgstr "Aufgenommen"
+
+#: picura/backoffice/templates/backoffice/photo_list.html:64
+msgid "No photos found."
+msgstr "Keine Fotos gefunden."
+
+#: picura/backoffice/templates/backoffice/photo_list.html:72
+msgid "Delete selected"
+msgstr "Auswahl löschen"
+
+#: picura/backoffice/templates/backoffice/photo_upload.html:4
+#: picura/backoffice/templates/backoffice/photo_upload.html:8
+msgid "Upload Photos"
+msgstr "Fotos hochladen"
+
+#: picura/backoffice/templates/backoffice/photo_upload.html:11
+msgid "Files"
+msgstr "Dateien"
 
 #: picura/core/apps.py:7
 msgid "Core"
@@ -464,9 +507,6 @@ msgstr "Englisch"
 
 #~ msgid "Upload Audio"
 #~ msgstr "Audio hochladen"
-
-#~ msgid "Delete image"
-#~ msgstr "Bild löschen"
 
 #~ msgid "No image resources found."
 #~ msgstr "Keine Bild-Ressourcen gefunden."

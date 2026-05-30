@@ -42,7 +42,25 @@ def batch_list(request):
 
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
-    return render(request, 'backoffice/batch_detail.html', {'batch': batch})
+    albums = Album.objects.all()
+    return render(
+        request, 'backoffice/batch_detail.html', {'batch': batch, 'albums': albums}
+    )
+
+
+def batch_assign_to_album(request, pk):
+    batch = get_object_or_404(Batch, pk=pk)
+    if request.method == 'POST':
+        photo_ids = request.POST.getlist('photo_ids')
+        album_id = request.POST.get('album_id')
+        if photo_ids and album_id:
+            album = get_object_or_404(Album, pk=album_id)
+            photos = Photo.objects.filter(pk__in=photo_ids, batch=batch).exclude(
+                albums=album
+            )
+            if photos.exists():
+                album.append_photos(photos)
+    return redirect('backoffice_batch_detail', pk=pk)
 
 
 def photo_list(request):

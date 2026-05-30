@@ -14,14 +14,30 @@
         <h1 class="header__title">{{ batch.created_at|date:"j N Y, H:i" }}</h1>
       </div>
     </header>
-    <div class="cluster mt-lh">
-      {% for photo in batch.photos.all %}
-        <a href="{% url 'backoffice_photo_detail' photo.pk %}">
-          <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
-        </a>
-      {% empty %}
-        <p>{% trans "No photos in this batch." %}</p>
-      {% endfor %}
-    </div>
+    <form method="post" action="{% url 'backoffice_batch_assign_to_album' batch.pk %}">
+      {% csrf_token %}
+      <div class="cluster mt-lh">
+        {% for photo in batch.photos.all %}
+          <label class="photo-select">
+            <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
+            <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+          </label>
+        {% empty %}
+          <p>{% trans "No photos in this batch." %}</p>
+        {% endfor %}
+      </div>
+      {% if batch.photos.exists %}
+        <div class="cluster mt-lh">
+          <select name="album_id">
+            {% for album in albums %}
+              <option value="{{ album.pk }}">{{ album.name }}</option>
+            {% empty %}
+              <option disabled>{% trans "No albums" %}</option>
+            {% endfor %}
+          </select>
+          <button class="button" type="submit">{% trans "Add to album" %}</button>
+        </div>
+      {% endif %}
+    </form>
   </div>
 {% endblock %}

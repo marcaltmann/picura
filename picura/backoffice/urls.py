@@ -6,6 +6,11 @@ urlpatterns = [
     path('', views.dashboard, name='backoffice_dashboard'),
     path('batches/', views.batch_list, name='backoffice_batch_list'),
     path('batches/<int:pk>/', views.batch_detail, name='backoffice_batch_detail'),
+    path(
+        'batches/<int:pk>/assign-to-album/',
+        views.batch_assign_to_album,
+        name='backoffice_batch_assign_to_album',
+    ),
     path('photos/', views.photo_list, name='backoffice_photo_list'),
     path('photos/<int:pk>/', views.photo_detail, name='backoffice_photo_detail'),
     path('photos/upload/', views.photo_upload, name='backoffice_photo_upload'),
