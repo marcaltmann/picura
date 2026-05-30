@@ -27,6 +27,8 @@ class Batch(models.Model):
 class Photo(models.Model):
     batch = models.ForeignKey(
         Batch,
+        null=True,
+        blank=True,
         on_delete=models.PROTECT,
         related_name='photos',
         verbose_name=_('batch'),
