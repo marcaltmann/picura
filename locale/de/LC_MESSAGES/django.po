@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 01:34+0200\n"
+"POT-Creation-Date: 2026-05-30 02:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,21 +30,23 @@ msgstr "Alben"
 msgid "name"
 msgstr "Name"
 
-#: picura/albums/models.py:24 picura/photos/models.py:23
+#: picura/albums/models.py:24 picura/photos/models.py:41
 msgid "description"
 msgstr "Beschreibung"
 
-#: picura/albums/models.py:27 picura/photos/models.py:74
+#: picura/albums/models.py:27 picura/photos/models.py:92
 msgid "photos"
 msgstr "Fotos"
 
 #: picura/albums/models.py:29 picura/albums/models.py:79
-#: picura/photos/models.py:32 picura/photos/models.py:108
+#: picura/photos/models.py:16 picura/photos/models.py:50
+#: picura/photos/models.py:126
 msgid "created at"
 msgstr "Erstellt am"
 
 #: picura/albums/models.py:30 picura/albums/models.py:80
-#: picura/photos/models.py:33 picura/photos/models.py:109
+#: picura/photos/models.py:17 picura/photos/models.py:51
+#: picura/photos/models.py:127
 msgid "updated at"
 msgstr "Aktualisiert am"
 
@@ -56,8 +58,8 @@ msgstr "Album"
 msgid "albums"
 msgstr "Alben"
 
-#: picura/albums/models.py:70 picura/photos/models.py:73
-#: picura/photos/models.py:104
+#: picura/albums/models.py:70 picura/photos/models.py:91
+#: picura/photos/models.py:122
 msgid "photo"
 msgstr "Foto"
 
@@ -286,55 +288,63 @@ msgstr "Stereo"
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: picura/photos/models.py:16
+#: picura/photos/models.py:20 picura/photos/models.py:32
+msgid "batch"
+msgstr "Batch"
+
+#: picura/photos/models.py:21
+msgid "batches"
+msgstr "Batches"
+
+#: picura/photos/models.py:34
 msgid "title"
 msgstr "Titel"
 
-#: picura/photos/models.py:17
+#: picura/photos/models.py:35
 msgid "file"
 msgstr "Datei"
 
-#: picura/photos/models.py:19
+#: picura/photos/models.py:37
 msgid "media type"
 msgstr "Medientyp"
 
-#: picura/photos/models.py:21
+#: picura/photos/models.py:39
 msgid "file size"
 msgstr "Dateigröße"
 
-#: picura/photos/models.py:26
+#: picura/photos/models.py:44
 msgid "produced at"
 msgstr "Hergestellt am"
 
-#: picura/photos/models.py:28
+#: picura/photos/models.py:46
 msgid "width"
 msgstr "Breite"
 
-#: picura/photos/models.py:30
+#: picura/photos/models.py:48
 msgid "height"
 msgstr "Höhe"
 
-#: picura/photos/models.py:96
+#: picura/photos/models.py:114
 msgid "EXIF"
 msgstr "EXIF"
 
-#: picura/photos/models.py:97
+#: picura/photos/models.py:115
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: picura/photos/models.py:98
+#: picura/photos/models.py:116
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: picura/photos/models.py:106
+#: picura/photos/models.py:124
 msgid "type"
 msgstr "Typ"
 
-#: picura/photos/models.py:107
+#: picura/photos/models.py:125
 msgid "data"
 msgstr "Daten"
 
-#: picura/photos/models.py:112 picura/photos/models.py:113
+#: picura/photos/models.py:130 picura/photos/models.py:131
 msgid "metadata"
 msgstr "Metadaten"
 
@@ -386,6 +396,12 @@ msgstr "Deutsch"
 #: picura/settings.py:155
 msgid "English"
 msgstr "Englisch"
+
+#~ msgid "upload"
+#~ msgstr "Upload"
+
+#~ msgid "uploads"
+#~ msgstr "Uploads"
 
 #, fuzzy
 #~| msgid "Location"

@@ -24,7 +24,10 @@ Use single-quote string literals in Python.
 
 ## Testing
 
-TDD is preferred. Write tests before or alongside implementation. Use `uv run pytest` — not `manage.py test`.
+TDD is preferred. Write tests before or alongside new code.
+When modifying existing behavior, update the affected tests in the same step.
+Always run `uv run pytest` before considering a task complete — never leave tests failing.
+Use `uv run pytest` — not `manage.py test`.
 
 ## Git
 

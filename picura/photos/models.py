@@ -12,7 +12,25 @@ def _photo_upload(instance, filename):
     return f'photos/{filename}'
 
 
+class Batch(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    class Meta:
+        verbose_name = _('batch')
+        verbose_name_plural = _('batches')
+
+    def __str__(self):
+        return str(self.created_at)
+
+
 class Photo(models.Model):
+    batch = models.ForeignKey(
+        Batch,
+        on_delete=models.PROTECT,
+        related_name='photos',
+        verbose_name=_('batch'),
+    )
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to=_photo_upload, verbose_name=_('file'))
     media_type = models.CharField(

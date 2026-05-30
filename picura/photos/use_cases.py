@@ -2,7 +2,7 @@ import mimetypes
 from pathlib import Path
 
 from .extraction import extract_image_metadata
-from .models import Metadata, Photo
+from .models import Metadata, Photo, Batch
 
 
 def _title_from_filename(name):
@@ -10,11 +10,13 @@ def _title_from_filename(name):
 
 
 def upload_photos(files):
+    batch = Batch.objects.create()
     for f in files:
         meta = extract_image_metadata(f)
         f.seek(0)
         media_type, _ = mimetypes.guess_type(f.name)
         photo = Photo.objects.create(
+            batch=batch,
             title=meta['title'] or _title_from_filename(f.name),
             description=meta['description'] or '',
             file=f,

@@ -6,8 +6,12 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 
-from .models import Metadata, Photo
+from .models import Metadata, Photo, Batch
 from .use_cases import upload_photos
+
+
+def _make_batch():
+    return Batch.objects.create()
 
 
 def _make_photo(**kwargs):
@@ -16,12 +20,13 @@ def _make_photo(**kwargs):
     img.save(buf, format='JPEG')
     buf.seek(0)
     f = SimpleUploadedFile('photo.jpg', buf.read(), content_type='image/jpeg')
-    return Photo.objects.create(file=f, **{'title': 'Photo', **kwargs})
+    batch = kwargs.pop('batch', None) or _make_batch()
+    return Photo.objects.create(file=f, **{'title': 'Photo', 'batch': batch, **kwargs})
 
 
 @pytest.mark.django_db
 def test_metadata_can_be_attached_to_photo():
-    photo = Photo.objects.create(title='Photo', file_size=0)
+    photo = Photo.objects.create(title='Photo', file_size=0, batch=_make_batch())
     meta = Metadata.objects.create(
         photo=photo,
         type=Metadata.Type.EXIF,
@@ -33,7 +38,7 @@ def test_metadata_can_be_attached_to_photo():
 
 @pytest.mark.django_db
 def test_metadata_deleted_with_photo():
-    photo = Photo.objects.create(title='Photo', file_size=0)
+    photo = Photo.objects.create(title='Photo', file_size=0, batch=_make_batch())
     Metadata.objects.create(photo=photo, type=Metadata.Type.CUSTOM, data={'foo': 'bar'})
     photo.delete()
     assert Metadata.objects.count() == 0
@@ -41,7 +46,7 @@ def test_metadata_deleted_with_photo():
 
 @pytest.mark.django_db
 def test_multiple_metadata_types_per_photo():
-    photo = Photo.objects.create(title='Photo', file_size=0)
+    photo = Photo.objects.create(title='Photo', file_size=0, batch=_make_batch())
     Metadata.objects.create(photo=photo, type=Metadata.Type.EXIF, data={'ISO': 400})
     Metadata.objects.create(
         photo=photo, type=Metadata.Type.DUBLIN_CORE, data={'creator': 'Bob'}
@@ -56,6 +61,7 @@ def test_deleting_photo_deletes_file():
     photo = Photo.objects.create(
         title='Photo',
         file=SimpleUploadedFile('photo.jpg', b'image data'),
+        batch=_make_batch(),
     )
     name = photo.file.name
     photo.delete()
@@ -80,6 +86,22 @@ EMPTY_IMAGE_META = {
     'latitude': None,
     'longitude': None,
 }
+
+
+@pytest.mark.django_db
+def test_upload_photos_creates_batch_and_links_photos():
+    files = [
+        SimpleUploadedFile('a.jpg', b'image data'),
+        SimpleUploadedFile('b.jpg', b'image data'),
+    ]
+    with patch(
+        'picura.photos.use_cases.extract_image_metadata',
+        return_value=EMPTY_IMAGE_META,
+    ):
+        upload_photos(files)
+    assert Batch.objects.count() == 1
+    batch = Batch.objects.first()
+    assert batch.photos.count() == 2
 
 
 @pytest.mark.django_db
