@@ -1,5 +1,5 @@
-from django.db import models
-from django.db.models import Max, Min
+from django.db import models, transaction
+from django.db.models import F, Max, Min
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.translation import gettext_lazy as _
@@ -39,6 +39,18 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('albums_album_detail', args=[self.pk])
+
+    def append_photo(self, photo: 'Photo') -> 'AlbumPhoto':
+        with transaction.atomic():
+            max_pos = self.photo_links.aggregate(Max('position'))['position__max'] or 0
+            return AlbumPhoto.objects.create(
+                album=self, photo=photo, position=max_pos + 1
+            )
+
+    def prepend_photo(self, photo: 'Photo') -> 'AlbumPhoto':
+        with transaction.atomic():
+            self.photo_links.update(position=F('position') + 1)
+            return AlbumPhoto.objects.create(album=self, photo=photo, position=1)
 
     @property
     def date_label(self) -> str:

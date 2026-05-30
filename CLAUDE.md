@@ -24,7 +24,9 @@ Use single-quote string literals in Python.
 
 ## Testing
 
-TDD is preferred. Write tests before or alongside new code.
+**Always write tests before writing implementation code.** This is mandatory, not optional.
+
+When adding new behavior: write the failing test first, confirm it fails, then implement.
 When modifying existing behavior, update the affected tests in the same step.
 Always run `uv run pytest` before considering a task complete — never leave tests failing.
 Use `uv run pytest` — not `manage.py test`.
