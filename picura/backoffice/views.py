@@ -1,7 +1,8 @@
 from django.db import models
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
-from picura.photos.models import Metadata, Photo
+from picura.photos.models import Batch, Metadata, Photo
 from picura.photos.use_cases import upload_photos
 
 from .forms import PhotoForm
@@ -20,6 +21,29 @@ def dashboard(request):
             'total_file_size': total_file_size,
         },
     )
+
+
+def batch_list(request):
+    batches = (
+        Batch.objects.annotate(
+            photo_count=Count('photos', distinct=True),
+            assigned_count=Count(
+                'photos',
+                filter=Q(photos__album_links__isnull=False),
+                distinct=True,
+            ),
+        )
+        .prefetch_related('photos')
+        .order_by('-created_at')
+    )
+    return render(
+        request, 'backoffice/content/batch_list.html', {'batch_list': batches}
+    )
+
+
+def batch_detail(request, pk):
+    batch = get_object_or_404(Batch, pk=pk)
+    return render(request, 'backoffice/content/batch_detail.html', {'batch': batch})
 
 
 def photo_list(request):
@@ -51,8 +75,8 @@ def photo_detail(request, pk):
 
 def photo_upload(request):
     if request.method == 'POST':
-        upload_photos(request.FILES.getlist('files'))
-        return redirect('backoffice_photo_list')
+        batch = upload_photos(request.FILES.getlist('files'))
+        return redirect('backoffice_batch_detail', pk=batch.pk)
     return render(request, 'backoffice/content/photo_upload.html')
 
 

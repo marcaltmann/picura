@@ -1,0 +1,63 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}
+  {% trans "Batches" %} – {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div class="container mt-lh mb-lh">
+    <header class="header">
+      <div class="header__main">
+        <h1 class="header__title">{% trans "Batches" %}</h1>
+        <div class="header__actions">
+          <a class="button" href="{% url 'backoffice_photo_upload' %}">{% trans "Upload" %}</a>
+        </div>
+      </div>
+    </header>
+    <div class="scroll-x:auto mt-lh">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>{% trans "Preview" %}</th>
+            <th>{% trans "Uploaded" %}</th>
+            <th data-align="end">{% trans "Photos" %}</th>
+            <th>{% trans "Status" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for batch in batch_list %}
+            <tr>
+              <td>
+                <a href="{% url 'backoffice_batch_detail' batch.pk %}">
+                  <div class="cluster" style="gap: 0.25rem;">
+                    {% for photo in batch.photos.all|slice:":4" %}
+                      <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="">
+                    {% endfor %}
+                  </div>
+                </a>
+              </td>
+              <td>
+                <a href="{% url 'backoffice_batch_detail' batch.pk %}">{{ batch.created_at|date:"j N Y, H:i" }}</a>
+              </td>
+              <td data-align="end">{{ batch.photo_count }}</td>
+              <td>
+                {% if batch.photo_count == 0 %}
+                  –
+                {% elif batch.assigned_count == 0 %}
+                  {% trans "New" %}
+                {% elif batch.assigned_count == batch.photo_count %}
+                  {% trans "Done" %}
+                {% else %}
+                  {% trans "In progress" %}
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4">{% trans "No batches yet." %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

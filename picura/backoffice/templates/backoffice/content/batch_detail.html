@@ -1,0 +1,27 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}
+  {% trans "Batch" %} {{ batch.created_at|date:"j N Y" }} – {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div class="container mt-lh mb-lh">
+    <header class="header">
+      <div class="header__breadcrumbs">
+        <a href="{% url 'backoffice_batch_list' %}">{% trans "Batches" %}</a> /
+        {{ batch.created_at|date:"j N Y, H:i" }}
+      </div>
+      <div class="header__main">
+        <h1 class="header__title">{{ batch.created_at|date:"j N Y, H:i" }}</h1>
+      </div>
+    </header>
+    <div class="cluster mt-lh">
+      {% for photo in batch.photos.all %}
+        <a href="{% url 'backoffice_photo_detail' photo.pk %}">
+          <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+        </a>
+      {% empty %}
+        <p>{% trans "No photos in this batch." %}</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

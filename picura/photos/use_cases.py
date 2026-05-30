@@ -9,7 +9,7 @@ def _title_from_filename(name):
     return Path(name).stem.replace('-', ' ').replace('_', ' ').title()
 
 
-def upload_photos(files):
+def upload_photos(files) -> Batch:
     batch = Batch.objects.create()
     for f in files:
         meta = extract_image_metadata(f)
@@ -49,3 +49,4 @@ def upload_photos(files):
                 type=Metadata.Type.EXIF,
                 data=exif_data,
             )
+    return batch

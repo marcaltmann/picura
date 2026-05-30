@@ -5,7 +5,8 @@ import pytest
 from django.urls import reverse
 from PIL import Image
 
-from picura.photos.models import Photo
+from picura.albums.models import Album, AlbumPhoto
+from picura.photos.models import Batch, Photo
 
 
 @pytest.fixture
@@ -86,7 +87,8 @@ def test_photo_detail_returns_404_for_missing(client):
 def test_photo_upload_post_calls_use_case_and_redirects(client):
     f = io.BytesIO(b'image data')
     f.name = 'my-photo.jpg'
-    with patch('picura.backoffice.views.upload_photos') as mock:
+    batch = Batch.objects.create()
+    with patch('picura.backoffice.views.upload_photos', return_value=batch) as mock:
         response = client.post(
             reverse('backoffice_photo_upload'),
             {'files': [f]},
@@ -94,7 +96,7 @@ def test_photo_upload_post_calls_use_case_and_redirects(client):
         )
     assert mock.called
     assert response.status_code == 302
-    assert response['Location'] == reverse('backoffice_photo_list')
+    assert response['Location'] == reverse('backoffice_batch_detail', args=[batch.pk])
 
 
 @pytest.mark.django_db
@@ -170,3 +172,84 @@ def test_photo_bulk_delete_post_with_no_ids_redirects(client):
 def test_photo_bulk_delete_get_redirects(client):
     response = client.get(reverse('backoffice_photo_bulk_delete'))
     assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_batch_list_returns_200(client):
+    response = client.get(reverse('backoffice_batch_list'))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_batch_list_context_contains_batches(client):
+    batch = Batch.objects.create()
+    response = client.get(reverse('backoffice_batch_list'))
+    assert batch in response.context['batch_list']
+
+
+@pytest.fixture
+def make_photo(settings):
+    img_dir = settings.MEDIA_ROOT / 'photos'
+    img_dir.mkdir(parents=True, exist_ok=True)
+    counter = [0]
+
+    def _make(batch=None, **kwargs):
+        counter[0] += 1
+        name = f'test_{counter[0]}.jpg'
+        img = Image.new('RGB', (10, 10), color='red')
+        img.save(img_dir / name, 'JPEG')
+        return Photo.objects.create(
+            title=kwargs.get('title', f'Photo {counter[0]}'),
+            file=f'photos/{name}',
+            batch=batch,
+        )
+
+    return _make
+
+
+@pytest.mark.django_db
+def test_batch_list_annotates_photo_count(client, make_photo):
+    batch = Batch.objects.create()
+    make_photo(batch=batch)
+    make_photo(batch=batch)
+    response = client.get(reverse('backoffice_batch_list'))
+    assert response.context['batch_list'][0].photo_count == 2
+
+
+@pytest.mark.django_db
+def test_batch_list_annotates_assigned_count_zero_when_unassigned(client, make_photo):
+    batch = Batch.objects.create()
+    make_photo(batch=batch)
+    response = client.get(reverse('backoffice_batch_list'))
+    assert response.context['batch_list'][0].assigned_count == 0
+
+
+@pytest.mark.django_db
+def test_batch_list_annotates_assigned_count_when_some_assigned(client, make_photo):
+    batch = Batch.objects.create()
+    p1 = make_photo(batch=batch)
+    make_photo(batch=batch)
+    album = Album.objects.create(name='Test Album')
+    AlbumPhoto.objects.create(album=album, photo=p1, position=1)
+    response = client.get(reverse('backoffice_batch_list'))
+    assert response.context['batch_list'][0].assigned_count == 1
+
+
+@pytest.mark.django_db
+def test_batch_detail_returns_200(client):
+    batch = Batch.objects.create()
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_batch_detail_returns_404_for_missing(client):
+    response = client.get(reverse('backoffice_batch_detail', args=[9999]))
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_batch_detail_context_contains_batch(client):
+    batch = Batch.objects.create()
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert response.context['batch'] == batch
