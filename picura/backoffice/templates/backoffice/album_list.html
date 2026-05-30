@@ -1,0 +1,43 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}
+  {% trans "Albums" %} – {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div class="container mt-lh mb-lh">
+    <header class="header">
+      <div class="header__main">
+        <h1 class="header__title">{% trans "Albums" %}</h1>
+        <div class="header__actions">
+          <a class="button" href="{% url 'backoffice_album_create' %}">{% trans "New album" %}</a>
+        </div>
+      </div>
+    </header>
+    <div class="scroll-x:auto mt-lh">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>{% trans "Name" %}</th>
+            <th data-align="end">{% trans "Photos" %}</th>
+            <th>{% trans "Created" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for album in album_list %}
+            <tr>
+              <td>
+                <a href="{% url 'backoffice_album_detail' album.pk %}">{{ album.name }}</a>
+              </td>
+              <td data-align="end">{{ album.photos.count }}</td>
+              <td>{{ album.created_at|date:"j N Y" }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3">{% trans "No albums yet." %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

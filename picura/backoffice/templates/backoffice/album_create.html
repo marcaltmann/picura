@@ -1,0 +1,32 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}
+  {% trans "New album" %} – {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div class="container mt-lh mb-lh">
+    <header class="header">
+      <div class="header__breadcrumbs">
+        <a href="{% url 'backoffice_album_list' %}">{% trans "Albums" %}</a> /
+        {% trans "New album" %}
+      </div>
+      <div class="header__main">
+        <h1 class="header__title">{% trans "New album" %}</h1>
+        <div class="header__actions">
+          <button class="button" type="submit" form="main-form">{% trans "Save" %}</button>
+        </div>
+      </div>
+    </header>
+    <div class="mt-lh">
+      <form id="main-form" method="post">
+        {% csrf_token %}
+        <dl class="details">
+          <dt>{{ form.name.label }}</dt>
+          <dd>{{ form.name }}</dd>
+          <dt>{{ form.description.label }}</dt>
+          <dd>{{ form.description }}</dd>
+        </dl>
+      </form>
+    </div>
+  </div>
+{% endblock %}

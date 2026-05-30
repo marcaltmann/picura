@@ -1,0 +1,26 @@
+{% extends "backoffice/base.html" %}
+{% load i18n %}
+{% block title %}
+  {% trans "Delete" %} {{ album.name }} – {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div class="container mt-lh">
+    <header class="header">
+      <div class="header__breadcrumbs">
+        <a href="{% url 'backoffice_album_list' %}">{% trans "Albums" %}</a> /
+        <a href="{% url 'backoffice_album_detail' album.pk %}">{{ album.name }}</a>
+      </div>
+      <div class="header__main">
+        <h1 class="header__title">{% trans "Delete album" %}</h1>
+      </div>
+    </header>
+    <p class="mt-lh">{% blocktrans with name=album.name %}Are you sure you want to delete "{{ name }}"?{% endblocktrans %}</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="button" type="submit">{% trans "Delete" %}</button>
+      <a class="button"
+         data-variant="secondary"
+         href="{% url 'backoffice_album_detail' album.pk %}">{% trans "Cancel" %}</a>
+    </form>
+  </div>
+{% endblock %}

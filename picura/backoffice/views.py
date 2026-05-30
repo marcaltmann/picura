@@ -2,10 +2,11 @@ from django.db import models
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
+from picura.albums.models import Album
 from picura.photos.models import Batch, Metadata, Photo
 from picura.photos.use_cases import upload_photos
 
-from .forms import PhotoForm
+from .forms import AlbumForm, PhotoForm
 
 
 def dashboard(request):
@@ -91,3 +92,44 @@ def photo_bulk_delete(request):
         ids = request.POST.getlist('photo_ids')
         Photo.objects.filter(pk__in=ids).delete()
     return redirect('backoffice_photo_list')
+
+
+def album_list(request):
+    return render(
+        request,
+        'backoffice/album_list.html',
+        {'album_list': Album.objects.all()},
+    )
+
+
+def album_create(request):
+    if request.method == 'POST':
+        form = AlbumForm(request.POST)
+        if form.is_valid():
+            album = form.save()
+            return redirect('backoffice_album_detail', pk=album.pk)
+    else:
+        form = AlbumForm()
+    return render(request, 'backoffice/album_create.html', {'form': form})
+
+
+def album_detail(request, pk):
+    album = get_object_or_404(Album, pk=pk)
+    if request.method == 'POST':
+        form = AlbumForm(request.POST, instance=album)
+        if form.is_valid():
+            form.save()
+            return redirect('backoffice_album_detail', pk=pk)
+    else:
+        form = AlbumForm(instance=album)
+    return render(
+        request, 'backoffice/album_detail.html', {'album': album, 'form': form}
+    )
+
+
+def album_delete(request, pk):
+    album = get_object_or_404(Album, pk=pk)
+    if request.method == 'POST':
+        album.delete()
+        return redirect('backoffice_album_list')
+    return render(request, 'backoffice/album_delete.html', {'album': album})
