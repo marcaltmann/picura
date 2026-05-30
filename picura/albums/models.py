@@ -1,3 +1,5 @@
+from collections.abc import Iterable
+
 from django.db import models, transaction
 from django.db.models import F, Max, Min
 from django.urls import reverse
@@ -40,17 +42,33 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('albums_album_detail', args=[self.pk])
 
-    def append_photo(self, photo: 'Photo') -> 'AlbumPhoto':
+    def append_photos(self, photos: 'Photo | Iterable[Photo]') -> 'list[AlbumPhoto]':
+        if isinstance(photos, Photo):
+            photos = [photos]
+        else:
+            photos = list(photos)
         with transaction.atomic():
             max_pos = self.photo_links.aggregate(Max('position'))['position__max'] or 0
-            return AlbumPhoto.objects.create(
-                album=self, photo=photo, position=max_pos + 1
+            return AlbumPhoto.objects.bulk_create(
+                [
+                    AlbumPhoto(album=self, photo=p, position=max_pos + i)
+                    for i, p in enumerate(photos, start=1)
+                ]
             )
 
-    def prepend_photo(self, photo: 'Photo') -> 'AlbumPhoto':
+    def prepend_photos(self, photos: 'Photo | Iterable[Photo]') -> 'list[AlbumPhoto]':
+        if isinstance(photos, Photo):
+            photos = [photos]
+        else:
+            photos = list(photos)
         with transaction.atomic():
-            self.photo_links.update(position=F('position') + 1)
-            return AlbumPhoto.objects.create(album=self, photo=photo, position=1)
+            self.photo_links.update(position=F('position') + len(photos))
+            return AlbumPhoto.objects.bulk_create(
+                [
+                    AlbumPhoto(album=self, photo=p, position=i)
+                    for i, p in enumerate(photos, start=1)
+                ]
+            )
 
     @property
     def date_label(self) -> str:
