@@ -36,20 +36,18 @@ def batch_list(request):
         .prefetch_related('photos')
         .order_by('-created_at')
     )
-    return render(
-        request, 'backoffice/content/batch_list.html', {'batch_list': batches}
-    )
+    return render(request, 'backoffice/batch_list.html', {'batch_list': batches})
 
 
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
-    return render(request, 'backoffice/content/batch_detail.html', {'batch': batch})
+    return render(request, 'backoffice/batch_detail.html', {'batch': batch})
 
 
 def photo_list(request):
     return render(
         request,
-        'backoffice/content/photo_list.html',
+        'backoffice/photo_list.html',
         {
             'photo_list': Photo.objects.order_by('-created_at'),
         },
@@ -68,7 +66,7 @@ def photo_detail(request, pk):
     exif = photo.metadata.filter(type=Metadata.Type.EXIF).first()
     return render(
         request,
-        'backoffice/content/photo_detail.html',
+        'backoffice/photo_detail.html',
         {'photo': photo, 'exif': exif, 'form': form},
     )
 
@@ -77,7 +75,7 @@ def photo_upload(request):
     if request.method == 'POST':
         batch = upload_photos(request.FILES.getlist('files'))
         return redirect('backoffice_batch_detail', pk=batch.pk)
-    return render(request, 'backoffice/content/photo_upload.html')
+    return render(request, 'backoffice/photo_upload.html')
 
 
 def photo_delete(request, pk):
@@ -85,7 +83,7 @@ def photo_delete(request, pk):
     if request.method == 'POST':
         photo.delete()
         return redirect('backoffice_photo_list')
-    return render(request, 'backoffice/content/photo_delete.html', {'photo': photo})
+    return render(request, 'backoffice/photo_delete.html', {'photo': photo})
 
 
 def photo_bulk_delete(request):
