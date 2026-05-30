@@ -8,6 +8,12 @@ from picura.photos.use_cases import upload_photos
 
 from .forms import AlbumForm, PhotoForm
 
+# TODO: These views have no access control — every backoffice view, including
+# destructive ones (photo_delete, photo_bulk_delete, album_delete), is fully
+# public to anonymous visitors. Add login protection once django-allauth is
+# wired into INSTALLED_APPS and a login URL exists. Auth tests are deferred
+# until then (see picura/backoffice/tests/).
+
 
 def dashboard(request):
     photo_count = Photo.objects.count()
