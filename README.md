@@ -1,6 +1,6 @@
 # Picura
 
-A media library built with Django.
+Self-hosted photo and media library built with Django.
 
 ## Requirements
 
