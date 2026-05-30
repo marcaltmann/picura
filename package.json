@@ -1,7 +1,7 @@
 {
   "name": "picura",
   "version": "0.1.0",
-  "description": "",
+  "description": "Self-hosted photo and media library",
   "homepage": "https://github.com/marcaltmann/picura#readme",
   "bugs": {
     "url": "https://github.com/marcaltmann/picura/issues"
@@ -14,8 +14,8 @@
     "node": ">=24",
     "npm": ">=11"
   },
-  "license": "ISC",
-  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "author": "Marc Altmann <marcaltmann@posteo.de>",
   "type": "module",
   "main": "index.js",
   "scripts": {
