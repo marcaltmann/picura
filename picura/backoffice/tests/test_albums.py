@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from picura.albums.models import Album
+from picura.albums.models import Album, AlbumPhoto
 
 
 @pytest.mark.django_db
@@ -70,6 +70,27 @@ def test_album_detail_shows_album_name(client):
 def test_album_detail_returns_404_for_missing(client):
     response = client.get(reverse('backoffice_album_detail', args=[9999]))
     assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_album_detail_shows_photos_in_position_order(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    p1 = make_photo(title='First')
+    p2 = make_photo(title='Second')
+    AlbumPhoto.objects.create(album=album, photo=p2, position=2)
+    AlbumPhoto.objects.create(album=album, photo=p1, position=1)
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    content = response.content.decode()
+    assert content.index('First') < content.index('Second')
+
+
+@pytest.mark.django_db
+def test_album_detail_marks_primary_photo(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    p1 = make_photo(title='Primary One')
+    album.append_photos(p1)
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    assert b'Primary' in response.content
 
 
 @pytest.mark.django_db

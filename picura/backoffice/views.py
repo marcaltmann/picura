@@ -153,8 +153,11 @@ def album_detail(request, pk):
             return redirect('backoffice_album_detail', pk=pk)
     else:
         form = AlbumForm(instance=album)
+    photo_links = album.photo_links.select_related('photo').order_by('position')
     return render(
-        request, 'backoffice/album_detail.html', {'album': album, 'form': form}
+        request,
+        'backoffice/album_detail.html',
+        {'album': album, 'form': form, 'photo_links': photo_links},
     )
 
 

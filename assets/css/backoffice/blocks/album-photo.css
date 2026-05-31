@@ -1,0 +1,25 @@
+.album-photo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rlh;
+    margin: 0;
+    width: 3rlh;
+}
+
+.album-photo__badge {
+    align-self: start;
+    padding: 0 0.25rlh;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-bg);
+    background: var(--color-ink);
+}
+
+.album-photo__title {
+    font-size: 0.75rem;
+    color: var(--color-ink-faded);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

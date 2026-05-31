@@ -30,6 +30,22 @@
            data-variant="secondary"
            href="{% url 'backoffice_album_delete' album.pk %}">{% trans "Delete" %}</a>
       </div>
+      <h2 class="mt-lh">{% trans "Photos" %}</h2>
+      <div class="cluster mt-lh">
+        {% for link in photo_links %}
+          <figure class="album-photo">
+            <img class="image-thumbnail"
+                 src="{{ link.photo.thumbnail_300.url }}"
+                 alt="{{ link.photo.title }}">
+            {% if link.position == 1 %}
+              <figcaption class="album-photo__badge">{% trans "Primary" %}</figcaption>
+            {% endif %}
+            <figcaption class="album-photo__title">{{ link.photo.title }}</figcaption>
+          </figure>
+        {% empty %}
+          <p>{% trans "No photos in this album." %}</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}
