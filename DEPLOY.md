@@ -17,7 +17,7 @@ just DNS records).
 | Static files | **WhiteNoise** — Django serves static, baked into the image |
 | Media files | **Hetzner Object Storage** (S3-compatible) via `django-storages` |
 | Reverse proxy | **Caddy** — automatic HTTPS (Let's Encrypt), auto-renewal |
-| Database | **Postgres in a container** + named volume; backups via `pg_dump` |
+| Database | **Postgres in a container** + named volume; backups via `pg_dump` (see note below) |
 | Image build | **CI builds the image from the start**; box pulls, never builds |
 | Registry | **GHCR**, image is **public** (no box-side auth needed) |
 | Provisioning | **cloud-init** (lightweight, native to Hetzner); Ansible only if we outgrow one box |
@@ -45,6 +45,28 @@ One VPS, one `docker compose` stack, three containers: `caddy`, `web`, `db`.
 - **Static** → WhiteNoise (in the app image). No shared volume with Caddy.
 - **Media** → Hetzner Object Storage. Survives container/box rebuilds.
 - **Postgres** → container + named volume. Can graduate to managed DB later.
+
+### Why containerized Postgres (not host-installed)?
+
+The "don't run Postgres in Docker" advice is mostly outdated for a single-box
+setup:
+
+- **Data safety** is handled by the **named volume** — data lives in the volume,
+  not the container, so recreating the container never loses data.
+- **Performance** concerns came from the union filesystem; a volume bypasses
+  image layers entirely, so there's no meaningful overhead at this scale.
+- Redeploying the `web` container never touches the `db` container or its volume,
+  so the DB is already insulated from app-deploy churn.
+
+Host-installed Postgres has real but small upsides (OS-managed patching, fully
+decoupled lifecycle, standard tooling). We keep it containerized for a
+reproducible single-stack `compose up`. Switch to host-installed only if we
+specifically want the DB fully outside the Docker stack.
+
+**What actually matters most: backups.** A nightly `pg_dump` shipped off-box
+(e.g. to the same Hetzner Object Storage used for media) protects the data
+regardless of where Postgres runs. This is a higher priority than the
+container-vs-host choice — see slice 8.
 
 ### Build/deploy flow
 
