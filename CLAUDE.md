@@ -31,6 +31,12 @@ When modifying existing behavior, update the affected tests in the same step.
 Always run `uv run pytest` before considering a task complete — never leave tests failing.
 Use `uv run pytest` — not `manage.py test`.
 
+## Implementing features
+
+Build features and changes as a sequence of **vertical slices**. A slice is the smallest piece of work that is both self-contained (its own failing test → implementation → green suite) and coherent end-to-end — it cuts through whatever layers the behavior touches (model, view, template) rather than completing one layer at a time. Each slice must leave the system working and be independently committable.
+
+For non-trivial work, first propose the slices and their order, then implement them one at a time: write the failing test, confirm it fails, implement, run `uv run pytest`, commit. Never bundle several slices into one commit.
+
 ## Git
 
 Keep commit messages short (one line is usually enough). Do not add `Co-Authored-By` trailers.
