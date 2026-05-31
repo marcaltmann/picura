@@ -137,6 +137,13 @@ class Album(models.Model):
                 link.position = i
             AlbumPhoto.objects.bulk_update(links, ['position'])
 
+    def has_consistent_positions(self) -> bool:
+        # Occasional integrity check: positions must run 1..N with no gaps.
+        positions = list(
+            self.photo_links.order_by('position').values_list('position', flat=True)
+        )
+        return positions == list(range(1, len(positions) + 1))
+
     @property
     def date_label(self) -> str:
         min_date = self.__dict__.get('min_produced_at', _MISSING)
