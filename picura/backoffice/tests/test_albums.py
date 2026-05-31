@@ -73,10 +73,17 @@ def test_album_detail_returns_404_for_missing(client):
 
 
 @pytest.mark.django_db
-def test_album_detail_links_to_public_album(client):
-    album = Album.objects.create(name='Summer 2024')
+def test_album_detail_links_to_public_album_when_published(client):
+    album = Album.objects.create(name='Summer 2024', status=Album.Status.PUBLISHED)
     response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
     assert f'href="{album.get_absolute_url()}"'.encode() in response.content
+
+
+@pytest.mark.django_db
+def test_album_detail_hides_public_link_for_draft(client):
+    album = Album.objects.create(name='Summer 2024', status=Album.Status.DRAFT)
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    assert f'href="{album.get_absolute_url()}"'.encode() not in response.content
 
 
 @pytest.mark.django_db
