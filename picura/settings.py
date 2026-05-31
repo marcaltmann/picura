@@ -173,6 +173,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static', BASE_DIR / 'dist']
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+GEOCODING_PROVIDER = 'nominatim'
+GEOCODING_USER_AGENT = os.environ.get('GEOCODING_USER_AGENT', 'picura/1.0')
+
 DJANGO_VITE = {
     'default': {
         'dev_mode': DEBUG,
