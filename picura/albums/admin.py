@@ -1,15 +1,11 @@
 from django.contrib import admin
 
-from .models import Album, AlbumPhoto
-
-
-class AlbumPhotoInline(admin.TabularInline):
-    model = AlbumPhoto
-    extra = 1
-    autocomplete_fields = ['photo']
-    fields = ['photo', 'position']
+from .models import Album
 
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    inlines = [AlbumPhotoInline]
+    # Photo membership and ordering are managed through the backoffice, which
+    # maintains the contiguous 1..N position invariant. Editing AlbumPhoto rows
+    # here would bypass that, so no inline is exposed.
+    pass
