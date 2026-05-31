@@ -137,6 +137,10 @@ class Album(models.Model):
                 link.position = i
             AlbumPhoto.objects.bulk_update(links, ['position'])
 
+    def photo_at(self, position: int) -> 'Photo':
+        # Positions are 1-based (1..N); raises Photo.DoesNotExist if out of range.
+        return self.photos.get(album_links__position=position)
+
     def neighbour_photo_ids(self, position: int) -> 'tuple[int | None, int | None]':
         # Positions run 1..N with no gaps, so neighbours sit at position ± 1.
         # A missing position (0 before the first, N + 1 past the last) yields None.
