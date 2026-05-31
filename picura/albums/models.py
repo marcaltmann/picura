@@ -95,6 +95,11 @@ class Album(models.Model):
                 ]
             )
 
+    @property
+    def primary_photo(self) -> 'Photo | None':
+        link = self.photo_links.select_related('photo').order_by('position').first()
+        return link.photo if link else None
+
     def set_primary(self, photo: 'Photo') -> None:
         with transaction.atomic():
             link = self.photo_links.get(photo=photo)

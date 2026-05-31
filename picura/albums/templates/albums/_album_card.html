@@ -1,7 +1,7 @@
 {% load i18n %}
 <a class="c-album-card" href="{{ album.get_absolute_url }}" aria-label="{{ album.name }}">
   <div class="c-album-card__cover">
-    <img src="{{ album.photos.first.thumbnail_500.url }}" alt=""
+    <img src="{{ album.primary_photo.thumbnail_500.url }}" alt=""
          width="300"
          height="200">
   </div>
