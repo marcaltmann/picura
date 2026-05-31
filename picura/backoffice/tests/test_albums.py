@@ -73,6 +73,13 @@ def test_album_detail_returns_404_for_missing(client):
 
 
 @pytest.mark.django_db
+def test_album_detail_links_to_public_album(client):
+    album = Album.objects.create(name='Summer 2024')
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    assert f'href="{album.get_absolute_url()}"'.encode() in response.content
+
+
+@pytest.mark.django_db
 def test_album_detail_shows_photos_in_position_order(client, make_photo):
     album = Album.objects.create(name='Summer 2024')
     p1 = make_photo(title='First')

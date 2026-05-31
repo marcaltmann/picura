@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 21:37+0200\n"
+"POT-Creation-Date: 2026-05-31 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,14 +166,14 @@ msgid "New album"
 msgstr "Neues Album"
 
 #: picura/backoffice/templates/backoffice/album_create.html:16
-#: picura/backoffice/templates/backoffice/album_detail.html:14
+#: picura/backoffice/templates/backoffice/album_detail.html:18
 #: picura/backoffice/templates/backoffice/photo_detail.html:26
 msgid "Save"
 msgstr "Speichern"
 
 #: picura/backoffice/templates/backoffice/album_delete.html:4
 #: picura/backoffice/templates/backoffice/album_delete.html:20
-#: picura/backoffice/templates/backoffice/album_detail.html:31
+#: picura/backoffice/templates/backoffice/album_detail.html:35
 #: picura/backoffice/templates/backoffice/photo_delete.html:4
 #: picura/backoffice/templates/backoffice/photo_delete.html:18
 #: picura/backoffice/templates/backoffice/photo_detail.html:114
@@ -194,7 +194,11 @@ msgstr "Möchten Sie \"%(name)s\" wirklich löschen?"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:33
+#: picura/backoffice/templates/backoffice/album_detail.html:17
+msgid "View on site"
+msgstr "Auf der Website ansehen"
+
+#: picura/backoffice/templates/backoffice/album_detail.html:37
 #: picura/backoffice/templates/backoffice/album_list.html:21
 #: picura/backoffice/templates/backoffice/batch_list.html:22
 #: picura/backoffice/templates/backoffice/dashboard.html:11
@@ -205,19 +209,19 @@ msgstr "Abbrechen"
 msgid "Photos"
 msgstr "Fotos"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:41
+#: picura/backoffice/templates/backoffice/album_detail.html:45
 msgid "Primary"
 msgstr "Titelbild"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:48
+#: picura/backoffice/templates/backoffice/album_detail.html:52
 msgid "Make primary"
 msgstr "Zum Titelbild machen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:54
+#: picura/backoffice/templates/backoffice/album_detail.html:58
 msgid "Remove"
 msgstr "Entfernen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:58
+#: picura/backoffice/templates/backoffice/album_detail.html:62
 msgid "No photos in this album."
 msgstr "Keine Fotos in diesem Album."
 
