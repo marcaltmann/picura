@@ -95,6 +95,17 @@ class Album(models.Model):
                 ]
             )
 
+    def set_primary(self, photo: 'Photo') -> None:
+        with transaction.atomic():
+            link = self.photo_links.get(photo=photo)
+            if link.position == 1:
+                return
+            self.photo_links.filter(position__lt=link.position).update(
+                position=F('position') + 1
+            )
+            link.position = 1
+            link.save(update_fields=['position'])
+
     def remove_photos(self, photos: 'Photo | Iterable[Photo]') -> None:
         if isinstance(photos, Photo):
             photos = [photos]
