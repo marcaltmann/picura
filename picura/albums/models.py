@@ -73,6 +73,10 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('albums_album_detail', args=[self.pk])
 
+    @property
+    def is_published(self) -> bool:
+        return self.status == self.Status.PUBLISHED
+
     def publish(self):
         if self.published_at is None:
             self.published_at = timezone.now()

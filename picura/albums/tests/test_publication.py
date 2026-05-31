@@ -62,6 +62,19 @@ def test_publish_does_not_overwrite_existing_published_at(published_album):
     assert published_album.published_at == original_ts
 
 
+# --- is_published property ---
+
+
+@pytest.mark.django_db
+def test_is_published_false_for_draft(draft_album):
+    assert draft_album.is_published is False
+
+
+@pytest.mark.django_db
+def test_is_published_true_for_published(published_album):
+    assert published_album.is_published is True
+
+
 # --- manager filtering ---
 
 

@@ -11,7 +11,7 @@
       <div class="header__main">
         <h1 class="header__title">{{ album.name }}</h1>
         <div class="header__actions">
-          {% if album.status == "published" %}
+          {% if album.is_published %}
             <a class="button"
                data-variant="secondary"
                href="{{ album.get_absolute_url }}"
