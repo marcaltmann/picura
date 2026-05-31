@@ -48,6 +48,11 @@
                 <button class="button" data-variant="secondary" type="submit">{% trans "Make primary" %}</button>
               </form>
             {% endif %}
+            <form method="post"
+                  action="{% url 'backoffice_album_remove_photo' album.pk link.photo.pk %}">
+              {% csrf_token %}
+              <button class="button" data-variant="secondary" type="submit">{% trans "Remove" %}</button>
+            </form>
           </figure>
         {% empty %}
           <p>{% trans "No photos in this album." %}</p>
