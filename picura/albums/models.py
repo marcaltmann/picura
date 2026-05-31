@@ -3,6 +3,7 @@ from collections.abc import Iterable
 from django.db import models, transaction
 from django.db.models import F, Max, Min
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.formats import date_format
 from django.utils.translation import gettext_lazy as _
 
@@ -18,12 +19,31 @@ class AlbumQuerySet(models.QuerySet):
             max_produced_at=Max('photos__produced_at'),
         )
 
+    def published(self):
+        return self.filter(status=Album.Status.PUBLISHED)
+
+    def drafts(self):
+        return self.filter(status=Album.Status.DRAFT)
+
 
 class Album(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = 'draft', _('Draft')
+        PUBLISHED = 'published', _('Published')
+
     objects = AlbumQuerySet.as_manager()
     name = models.CharField(max_length=255, verbose_name=_('name'))
     description = models.TextField(
         blank=True, default='', verbose_name=_('description')
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=Status,
+        default=Status.DRAFT,
+        verbose_name=_('status'),
+    )
+    published_at = models.DateTimeField(
+        null=True, blank=True, verbose_name=_('published at')
     )
     photos = models.ManyToManyField(
         Photo, through='AlbumPhoto', related_name='albums', verbose_name=_('photos')
@@ -41,6 +61,11 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('albums_album_detail', args=[self.pk])
+
+    def publish(self):
+        if self.published_at is None:
+            self.published_at = timezone.now()
+        self.status = self.Status.PUBLISHED
 
     def append_photos(self, photos: 'Photo | Iterable[Photo]') -> 'list[AlbumPhoto]':
         if isinstance(photos, Photo):

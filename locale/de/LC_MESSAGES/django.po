@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 09:29+0200\n"
+"POT-Creation-Date: 2026-05-31 16:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,52 +32,68 @@ msgstr ""
 msgid "Albums"
 msgstr "Alben"
 
-#: picura/albums/models.py:24
+#: picura/albums/models.py:31
+msgid "Draft"
+msgstr "Entwurf"
+
+#: picura/albums/models.py:32
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: picura/albums/models.py:35
 msgid "name"
 msgstr "Name"
 
-#: picura/albums/models.py:26 picura/photos/models.py:43
+#: picura/albums/models.py:37 picura/photos/models.py:43
 msgid "description"
 msgstr "Beschreibung"
 
-#: picura/albums/models.py:29 picura/photos/models.py:94
+#: picura/albums/models.py:43
+msgid "status"
+msgstr "Status"
+
+#: picura/albums/models.py:46
+msgid "published at"
+msgstr "Veröffentlicht am"
+
+#: picura/albums/models.py:49 picura/photos/models.py:94
 msgid "photos"
 msgstr "Fotos"
 
-#: picura/albums/models.py:31 picura/albums/models.py:109
+#: picura/albums/models.py:51 picura/albums/models.py:135
 #: picura/photos/models.py:16 picura/photos/models.py:52
 #: picura/photos/models.py:128
 msgid "created at"
 msgstr "Erstellt am"
 
-#: picura/albums/models.py:32 picura/albums/models.py:110
+#: picura/albums/models.py:52 picura/albums/models.py:136
 #: picura/photos/models.py:17 picura/photos/models.py:53
 #: picura/photos/models.py:129
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: picura/albums/models.py:36 picura/albums/models.py:106
+#: picura/albums/models.py:56 picura/albums/models.py:132
 msgid "album"
 msgstr "Album"
 
-#: picura/albums/models.py:37
+#: picura/albums/models.py:57
 msgid "albums"
 msgstr "Alben"
 
-#: picura/albums/models.py:100 picura/photos/models.py:93
+#: picura/albums/models.py:126 picura/photos/models.py:93
 #: picura/photos/models.py:124
 msgid "photo"
 msgstr "Foto"
 
-#: picura/albums/models.py:108
+#: picura/albums/models.py:134
 msgid "position"
 msgstr "Position"
 
-#: picura/albums/models.py:114
+#: picura/albums/models.py:140
 msgid "album photo"
 msgstr "Albumfoto"
 
-#: picura/albums/models.py:115
+#: picura/albums/models.py:141
 msgid "album photos"
 msgstr "Albumfotos"
 
