@@ -29,21 +29,15 @@ def album_photo_detail(request, album_pk, photo_pk):
     )
     photo = link.photo
 
-    # Positions run 1..N with no gaps, so neighbours are position ± 1.
-    # A missing position (0 at the start, N + 1 at the end) simply yields no link.
-    neighbours = dict(
-        album.photo_links.filter(
-            position__in=(link.position - 1, link.position + 1)
-        ).values_list('position', 'photo_id')
-    )
+    prev_id, next_id = album.neighbour_photo_ids(link.position)
 
-    def url_for(position):
-        if position not in neighbours:
+    def url_for(photo_id):
+        if photo_id is None:
             return None
-        return reverse('albums_photo_detail', args=[album_pk, neighbours[position]])
+        return reverse('albums_photo_detail', args=[album_pk, photo_id])
 
-    prev_url = url_for(link.position - 1)
-    next_url = url_for(link.position + 1)
+    prev_url = url_for(prev_id)
+    next_url = url_for(next_id)
 
     return render(
         request,

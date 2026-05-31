@@ -1,62 +1,46 @@
-import io
-
 import pytest
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from PIL import Image
 
 from picura.albums.models import Album, AlbumPhoto
 from picura.photos.models import Photo
 
 
-def make_photo():
-    buffer = io.BytesIO()
-    Image.new('RGB', (4, 3), 'white').save(buffer, format='JPEG')
-    file = SimpleUploadedFile('p.jpg', buffer.getvalue(), content_type='image/jpeg')
-    return Photo.objects.create(title='Photo', file=file, width=4, height=3)
-
-
 @pytest.fixture
 def album_with_photos(db):
     album = Album.objects.create(name='Test Album')
-    photos = [make_photo() for _ in range(3)]
+    photos = [Photo.objects.create(title=f'Photo {i}') for i in range(3)]
     for i, photo in enumerate(photos, start=1):
         AlbumPhoto.objects.create(album=album, photo=photo, position=i)
     return album, photos
 
 
-def detail_url(album, photo):
-    return reverse('albums_photo_detail', args=[album.pk, photo.pk])
+# --- Album.neighbour_photo_ids ---
 
 
 @pytest.mark.django_db
-def test_middle_photo_has_prev_and_next(client, album_with_photos):
+def test_middle_photo_has_both_neighbours(album_with_photos):
     album, photos = album_with_photos
-    response = client.get(detail_url(album, photos[1]))
-    assert response.status_code == 200
-    assert response.context['prev_url'] == detail_url(album, photos[0])
-    assert response.context['next_url'] == detail_url(album, photos[2])
+    assert album.neighbour_photo_ids(2) == (photos[0].pk, photos[2].pk)
 
 
 @pytest.mark.django_db
-def test_first_photo_has_no_prev(client, album_with_photos):
+def test_first_photo_has_no_previous(album_with_photos):
     album, photos = album_with_photos
-    response = client.get(detail_url(album, photos[0]))
-    assert response.context['prev_url'] is None
-    assert response.context['next_url'] == detail_url(album, photos[1])
+    assert album.neighbour_photo_ids(1) == (None, photos[1].pk)
 
 
 @pytest.mark.django_db
-def test_last_photo_has_no_next(client, album_with_photos):
+def test_last_photo_has_no_next(album_with_photos):
     album, photos = album_with_photos
-    response = client.get(detail_url(album, photos[2]))
-    assert response.context['prev_url'] == detail_url(album, photos[1])
-    assert response.context['next_url'] is None
+    assert album.neighbour_photo_ids(3) == (photos[1].pk, None)
+
+
+# --- album_photo_detail view ---
 
 
 @pytest.mark.django_db
 def test_photo_not_in_album_returns_404(client, db):
     album = Album.objects.create(name='Empty')
-    other = make_photo()
-    response = client.get(detail_url(album, other))
-    assert response.status_code == 404
+    other = Photo.objects.create(title='Other')
+    url = reverse('albums_photo_detail', args=[album.pk, other.pk])
+    assert client.get(url).status_code == 404
