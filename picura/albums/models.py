@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 
 from django.db import models, transaction
-from django.db.models import F, Max, Min
+from django.db.models import F, Max, Min, Prefetch
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.formats import date_format
@@ -24,6 +24,17 @@ class AlbumQuerySet(models.QuerySet):
 
     def drafts(self):
         return self.filter(status=Album.Status.DRAFT)
+
+    def with_primary_photo(self):
+        return self.prefetch_related(
+            Prefetch(
+                'photo_links',
+                queryset=AlbumPhoto.objects.select_related('photo').order_by(
+                    'position'
+                ),
+                to_attr='_ordered_links',
+            )
+        )
 
 
 class Album(models.Model):
@@ -97,6 +108,9 @@ class Album(models.Model):
 
     @property
     def primary_photo(self) -> 'Photo | None':
+        links = getattr(self, '_ordered_links', None)
+        if links is not None:
+            return links[0].photo if links else None
         link = self.photo_links.select_related('photo').order_by('position').first()
         return link.photo if link else None
 
