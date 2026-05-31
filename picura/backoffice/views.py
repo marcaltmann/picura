@@ -162,6 +162,15 @@ def album_detail(request, pk):
 
 
 @staff_required
+def album_set_primary(request, pk, photo_pk):
+    album = get_object_or_404(Album, pk=pk)
+    if request.method == 'POST':
+        photo = get_object_or_404(album.photos, pk=photo_pk)
+        album.set_primary(photo)
+    return redirect('backoffice_album_detail', pk=pk)
+
+
+@staff_required
 def album_delete(request, pk):
     album = get_object_or_404(Album, pk=pk)
     if request.method == 'POST':

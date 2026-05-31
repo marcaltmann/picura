@@ -119,6 +119,42 @@ def test_album_detail_post_invalid_rerenders(client):
 
 
 @pytest.mark.django_db
+def test_album_set_primary_post_moves_photo_to_position_one(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    p1 = make_photo(title='First')
+    p2 = make_photo(title='Second')
+    album.append_photos([p1, p2])
+    response = client.post(
+        reverse('backoffice_album_set_primary', args=[album.pk, p2.pk])
+    )
+    assert response.status_code == 302
+    assert response['Location'] == reverse('backoffice_album_detail', args=[album.pk])
+    assert album.photo_links.get(photo=p2).position == 1
+    assert album.photo_links.get(photo=p1).position == 2
+
+
+@pytest.mark.django_db
+def test_album_set_primary_404_for_photo_not_in_album(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    other = make_photo(title='Outsider')
+    response = client.post(
+        reverse('backoffice_album_set_primary', args=[album.pk, other.pk])
+    )
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_album_set_primary_get_redirects(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    p1 = make_photo(title='First')
+    album.append_photos(p1)
+    response = client.get(
+        reverse('backoffice_album_set_primary', args=[album.pk, p1.pk])
+    )
+    assert response.status_code == 302
+
+
+@pytest.mark.django_db
 def test_album_delete_get_returns_200(client):
     album = Album.objects.create(name='To Delete')
     response = client.get(reverse('backoffice_album_delete', args=[album.pk]))

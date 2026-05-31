@@ -23,5 +23,10 @@ urlpatterns = [
     path('albums/', views.album_list, name='backoffice_album_list'),
     path('albums/new/', views.album_create, name='backoffice_album_create'),
     path('albums/<int:pk>/', views.album_detail, name='backoffice_album_detail'),
+    path(
+        'albums/<int:pk>/photos/<int:photo_pk>/set-primary/',
+        views.album_set_primary,
+        name='backoffice_album_set_primary',
+    ),
     path('albums/<int:pk>/delete/', views.album_delete, name='backoffice_album_delete'),
 ]
