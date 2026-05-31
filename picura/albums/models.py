@@ -95,6 +95,18 @@ class Album(models.Model):
                 ]
             )
 
+    def remove_photos(self, photos: 'Photo | Iterable[Photo]') -> None:
+        if isinstance(photos, Photo):
+            photos = [photos]
+        else:
+            photos = list(photos)
+        with transaction.atomic():
+            self.photo_links.filter(photo__in=photos).delete()
+            links = list(self.photo_links.order_by('position'))
+            for i, link in enumerate(links, start=1):
+                link.position = i
+            AlbumPhoto.objects.bulk_update(links, ['position'])
+
     @property
     def date_label(self) -> str:
         min_date = self.__dict__.get('min_produced_at', _MISSING)
