@@ -1,7 +1,30 @@
 import pytest
+from django.contrib.auth import get_user_model
 from PIL import Image
 
 from picura.photos.models import Photo
+
+
+@pytest.fixture
+def staff_user(db):
+    return get_user_model().objects.create_user(
+        username='staff', password='pw', is_staff=True
+    )
+
+
+@pytest.fixture
+def non_staff_user(db):
+    return get_user_model().objects.create_user(
+        username='member', password='pw', is_staff=False
+    )
+
+
+@pytest.fixture(autouse=True)
+def _login_staff(client, staff_user):
+    # The backoffice is staff-only. The existing tests exercise behaviour, not
+    # access control, so log the default test client in as staff. The
+    # access-control tests in test_access_control.py use their own clients.
+    client.force_login(staff_user)
 
 
 @pytest.fixture

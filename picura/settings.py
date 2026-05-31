@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
 if DJANGO_ENV == 'development':
     os.environ['DJANGO_RUNSERVER_HIDE_WARNING'] = 'true'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     INSTALLED_APPS += [
         'debug_toolbar',
     ]
@@ -77,7 +78,7 @@ ROOT_URLCONF = 'picura.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,7 +125,9 @@ ACCOUNT_LOGIN_METHODS = ['username', 'email']
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = 'address'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Picura] '
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@picura.example')
 
 
 # Password validation

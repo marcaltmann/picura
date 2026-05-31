@@ -6,15 +6,11 @@ from picura.albums.models import Album
 from picura.photos.models import Batch, Metadata, Photo
 from picura.photos.use_cases import upload_photos
 
+from .decorators import staff_required
 from .forms import AlbumForm, PhotoForm
 
-# TODO: These views have no access control — every backoffice view, including
-# destructive ones (photo_delete, photo_bulk_delete, album_delete), is fully
-# public to anonymous visitors. Add login protection once django-allauth is
-# wired into INSTALLED_APPS and a login URL exists. Auth tests are deferred
-# until then (see picura/backoffice/tests/).
 
-
+@staff_required
 def dashboard(request):
     photo_count = Photo.objects.count()
     total_file_size = (
@@ -30,6 +26,7 @@ def dashboard(request):
     )
 
 
+@staff_required
 def batch_list(request):
     batches = (
         Batch.objects.annotate(
@@ -46,6 +43,7 @@ def batch_list(request):
     return render(request, 'backoffice/batch_list.html', {'batch_list': batches})
 
 
+@staff_required
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
     albums = Album.objects.all()
@@ -54,6 +52,7 @@ def batch_detail(request, pk):
     )
 
 
+@staff_required
 def batch_assign_to_album(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
     if request.method == 'POST':
@@ -69,6 +68,7 @@ def batch_assign_to_album(request, pk):
     return redirect('backoffice_batch_detail', pk=pk)
 
 
+@staff_required
 def photo_list(request):
     return render(
         request,
@@ -79,6 +79,7 @@ def photo_list(request):
     )
 
 
+@staff_required
 def photo_detail(request, pk):
     photo = get_object_or_404(Photo, pk=pk)
     if request.method == 'POST':
@@ -96,6 +97,7 @@ def photo_detail(request, pk):
     )
 
 
+@staff_required
 def photo_upload(request):
     if request.method == 'POST':
         batch = upload_photos(request.FILES.getlist('files'))
@@ -103,6 +105,7 @@ def photo_upload(request):
     return render(request, 'backoffice/photo_upload.html')
 
 
+@staff_required
 def photo_delete(request, pk):
     photo = get_object_or_404(Photo, pk=pk)
     if request.method == 'POST':
@@ -111,6 +114,7 @@ def photo_delete(request, pk):
     return render(request, 'backoffice/photo_delete.html', {'photo': photo})
 
 
+@staff_required
 def photo_bulk_delete(request):
     if request.method == 'POST':
         ids = request.POST.getlist('photo_ids')
@@ -118,6 +122,7 @@ def photo_bulk_delete(request):
     return redirect('backoffice_photo_list')
 
 
+@staff_required
 def album_list(request):
     return render(
         request,
@@ -126,6 +131,7 @@ def album_list(request):
     )
 
 
+@staff_required
 def album_create(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
@@ -137,6 +143,7 @@ def album_create(request):
     return render(request, 'backoffice/album_create.html', {'form': form})
 
 
+@staff_required
 def album_detail(request, pk):
     album = get_object_or_404(Album, pk=pk)
     if request.method == 'POST':
@@ -151,6 +158,7 @@ def album_detail(request, pk):
     )
 
 
+@staff_required
 def album_delete(request, pk):
     album = get_object_or_404(Album, pk=pk)
     if request.method == 'POST':
