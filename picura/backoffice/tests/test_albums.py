@@ -112,12 +112,31 @@ def test_album_detail_post_updates_name_and_redirects(client):
     album = Album.objects.create(name='Old Name')
     response = client.post(
         reverse('backoffice_album_detail', args=[album.pk]),
-        {'name': 'New Name'},
+        {'name': 'New Name', 'status': Album.Status.DRAFT},
     )
     assert response.status_code == 302
     assert response['Location'] == reverse('backoffice_album_detail', args=[album.pk])
     album.refresh_from_db()
     assert album.name == 'New Name'
+
+
+@pytest.mark.django_db
+def test_album_detail_post_updates_status(client):
+    album = Album.objects.create(name='Summer 2024', status=Album.Status.DRAFT)
+    response = client.post(
+        reverse('backoffice_album_detail', args=[album.pk]),
+        {'name': album.name, 'status': Album.Status.PUBLISHED},
+    )
+    assert response.status_code == 302
+    album.refresh_from_db()
+    assert album.status == Album.Status.PUBLISHED
+
+
+@pytest.mark.django_db
+def test_album_detail_shows_status_field(client):
+    album = Album.objects.create(name='Summer 2024')
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    assert b'name="status"' in response.content
 
 
 @pytest.mark.django_db

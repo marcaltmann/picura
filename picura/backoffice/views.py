@@ -7,7 +7,7 @@ from picura.photos.models import Batch, Metadata, Photo
 from picura.photos.use_cases import upload_photos
 
 from .decorators import staff_required
-from .forms import AlbumForm, PhotoForm
+from .forms import AlbumCreateForm, AlbumForm, PhotoForm
 
 
 @staff_required
@@ -134,12 +134,12 @@ def album_list(request):
 @staff_required
 def album_create(request):
     if request.method == 'POST':
-        form = AlbumForm(request.POST)
+        form = AlbumCreateForm(request.POST)
         if form.is_valid():
             album = form.save()
             return redirect('backoffice_album_detail', pk=album.pk)
     else:
-        form = AlbumForm()
+        form = AlbumCreateForm()
     return render(request, 'backoffice/album_create.html', {'form': form})
 
 
