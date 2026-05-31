@@ -2,8 +2,6 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from picura.photos.models import Photo
-
 from .models import Album
 
 PAGE_SIZE = 48
@@ -26,23 +24,26 @@ def album_detail(request, pk):
 
 def album_photo_detail(request, album_pk, photo_pk):
     album = get_object_or_404(Album, pk=album_pk)
-    photo = get_object_or_404(Photo, pk=photo_pk, albums=album)
+    link = get_object_or_404(
+        album.photo_links.select_related('photo'), photo_id=photo_pk
+    )
+    photo = link.photo
 
-    photo_ids = list(
-        album.photo_links.order_by('position').values_list('photo_id', flat=True)
+    # Positions run 1..N with no gaps, so neighbours are position ± 1.
+    # A missing position (0 at the start, N + 1 at the end) simply yields no link.
+    neighbours = dict(
+        album.photo_links.filter(
+            position__in=(link.position - 1, link.position + 1)
+        ).values_list('position', 'photo_id')
     )
-    idx = photo_ids.index(photo_pk)
 
-    prev_url = (
-        reverse('albums_photo_detail', args=[album_pk, photo_ids[idx - 1]])
-        if idx > 0
-        else None
-    )
-    next_url = (
-        reverse('albums_photo_detail', args=[album_pk, photo_ids[idx + 1]])
-        if idx < len(photo_ids) - 1
-        else None
-    )
+    def url_for(position):
+        if position not in neighbours:
+            return None
+        return reverse('albums_photo_detail', args=[album_pk, neighbours[position]])
+
+    prev_url = url_for(link.position - 1)
+    next_url = url_for(link.position + 1)
 
     return render(
         request,
