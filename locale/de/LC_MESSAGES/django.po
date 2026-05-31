@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 01:48+0200\n"
+"POT-Creation-Date: 2026-05-31 09:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -250,6 +250,7 @@ msgstr "Noch keine Batches vorhanden."
 
 #: picura/backoffice/templates/backoffice/dashboard.html:4
 #: picura/backoffice/templates/backoffice/dashboard.html:8
+#: picura/core/templates/_header.html:24
 msgid "Backoffice"
 msgstr "Backoffice"
 
@@ -357,11 +358,11 @@ msgstr "Dateien"
 msgid "Core"
 msgstr "Core"
 
-#: picura/core/templates/_header.html:28
+#: picura/core/templates/_header.html:33
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: picura/core/templates/_header.html:33
+#: picura/core/templates/_header.html:38
 msgid "Sign in"
 msgstr "Anmelden"
 

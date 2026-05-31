@@ -19,6 +19,11 @@
           <a href="{% url 'albums_album_list' %}">{% trans "Albums" %}</a>
         </li>
         {% if user.is_authenticated %}
+          {% if user.is_staff %}
+            <li>
+              <a href="{% url 'backoffice_dashboard' %}">{% trans "Backoffice" %}</a>
+            </li>
+          {% endif %}
           <li>
             <a href="{% url 'account_email' %}">{{ user.username }}</a>
           </li>
