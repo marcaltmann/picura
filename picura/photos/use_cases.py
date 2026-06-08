@@ -2,7 +2,7 @@ import mimetypes
 from pathlib import Path
 
 from .extraction import extract_image_metadata
-from .models import Metadata, Photo, Batch
+from .models import Metadata, Photo, PhotoExif, Batch
 
 
 def _title_from_filename(name):
@@ -26,27 +26,33 @@ def upload_photos(files) -> Batch:
             height=meta['height'],
             produced_at=meta['taken_at'],
         )
-        exif_data = {
+        if meta['raw']:
+            PhotoExif.objects.create(
+                photo=photo,
+                camera_make=meta['camera_make'] or '',
+                camera_model=meta['camera_model'] or '',
+                lens=meta['lens'] or '',
+                aperture=meta['aperture'],
+                exposure_time=meta['exposure_time'],
+                focal_length=meta['focal_length'],
+                iso=meta['iso'],
+                latitude=meta['latitude'],
+                longitude=meta['longitude'],
+                raw=meta['raw'],
+            )
+        dc_data = {
             k: v
             for k, v in {
-                'format': meta['format'],
-                'color_mode': meta['color_mode'],
-                'icc_profile': meta['icc_profile'],
-                'camera_make': meta['camera_make'],
-                'camera_model': meta['camera_model'],
-                'lens': meta['lens'],
-                'aperture': meta['aperture'],
-                'shutter_speed': meta['shutter_speed'],
-                'focal_length': meta['focal_length'],
-                'latitude': meta['latitude'],
-                'longitude': meta['longitude'],
+                'creator': meta['creator'],
+                'copyright': meta['copyright'],
+                'keywords': meta['keywords'] or None,
             }.items()
-            if v is not None
+            if v
         }
-        if exif_data:
+        if dc_data:
             Metadata.objects.create(
                 photo=photo,
-                type=Metadata.Type.EXIF,
-                data=exif_data,
+                type=Metadata.Type.DUBLIN_CORE,
+                data=dc_data,
             )
     return batch

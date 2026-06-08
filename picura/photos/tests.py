@@ -81,10 +81,16 @@ EMPTY_IMAGE_META = {
     'camera_model': None,
     'lens': None,
     'aperture': None,
+    'exposure_time': None,
     'shutter_speed': None,
     'focal_length': None,
+    'iso': None,
     'latitude': None,
     'longitude': None,
+    'keywords': [],
+    'copyright': None,
+    'creator': None,
+    'raw': {},
 }
 
 
@@ -131,60 +137,94 @@ def test_upload_photos_stores_dimensions():
 
 
 @pytest.mark.django_db
-def test_upload_photos_stores_technical_metadata():
-    f = SimpleUploadedFile('photo.jpg', b'image data')
-    meta = {
-        **EMPTY_IMAGE_META,
-        'format': 'JPEG',
-        'color_mode': 'RGB',
-        'icc_profile': 'sRGB',
-    }
-    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
-        upload_photos([f])
-    photo = Photo.objects.first()
-    exif = photo.metadata.get(type=Metadata.Type.EXIF)
-    assert exif.data['format'] == 'JPEG'
-    assert exif.data['color_mode'] == 'RGB'
-    assert exif.data['icc_profile'] == 'sRGB'
-
-
-@pytest.mark.django_db
-def test_upload_photos_stores_exif_metadata():
+def test_upload_photos_stores_produced_at_from_taken_at():
     f = SimpleUploadedFile('photo.jpg', b'image data')
     taken = datetime(2024, 6, 15, 10, 30, 0, tzinfo=timezone.utc)
-    meta = {
-        **EMPTY_IMAGE_META,
-        'taken_at': taken,
-        'camera_make': 'Canon',
-        'camera_model': 'EOS R5',
-    }
+    meta = {**EMPTY_IMAGE_META, 'taken_at': taken, 'raw': {'Make': 'Canon'}}
     with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
-    photo = Photo.objects.first()
-    assert photo.produced_at == taken
-    exif = photo.metadata.get(type=Metadata.Type.EXIF)
-    assert exif.data['camera_make'] == 'Canon'
-    assert exif.data['camera_model'] == 'EOS R5'
+    assert Photo.objects.first().produced_at == taken
 
 
 @pytest.mark.django_db
-def test_upload_photos_stores_lens_and_exposure_metadata():
+def test_upload_photos_creates_photo_exif():
     f = SimpleUploadedFile('photo.jpg', b'image data')
     meta = {
         **EMPTY_IMAGE_META,
+        'camera_make': 'Canon',
+        'camera_model': 'EOS R5',
         'lens': 'EF 50mm f/1.4 USM',
         'aperture': 1.4,
-        'shutter_speed': '1/250',
+        'exposure_time': 0.004,
         'focal_length': 50.0,
+        'iso': 400,
+        'raw': {'Make': 'Canon', 'Model': 'EOS R5'},
     }
     with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
         upload_photos([f])
-    photo = Photo.objects.first()
-    exif = photo.metadata.get(type=Metadata.Type.EXIF)
-    assert exif.data['lens'] == 'EF 50mm f/1.4 USM'
-    assert exif.data['aperture'] == 1.4
-    assert exif.data['shutter_speed'] == '1/250'
-    assert exif.data['focal_length'] == 50.0
+    exif = Photo.objects.first().exif
+    assert exif.camera_make == 'Canon'
+    assert exif.camera_model == 'EOS R5'
+    assert exif.lens == 'EF 50mm f/1.4 USM'
+    assert exif.aperture == 1.4
+    assert exif.exposure_time == 0.004
+    assert exif.shutter_speed == '1/250'
+    assert exif.focal_length == 50.0
+    assert exif.iso == 400
+    assert exif.raw == {'Make': 'Canon', 'Model': 'EOS R5'}
+
+
+@pytest.mark.django_db
+def test_upload_photos_stores_geo_coordinates():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    meta = {
+        **EMPTY_IMAGE_META,
+        'latitude': -33.85,
+        'longitude': -70.66,
+        'raw': {'GPSLatitude': -33.85},
+    }
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
+        upload_photos([f])
+    exif = Photo.objects.first().exif
+    assert exif.latitude == -33.85
+    assert exif.longitude == -70.66
+
+
+@pytest.mark.django_db
+def test_upload_photos_skips_photo_exif_when_no_raw():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    with patch(
+        'picura.photos.use_cases.extract_image_metadata',
+        return_value=EMPTY_IMAGE_META,
+    ):
+        upload_photos([f])
+    assert not PhotoExif.objects.exists()
+
+
+@pytest.mark.django_db
+def test_upload_photos_stores_dublin_core_from_iptc():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    meta = {
+        **EMPTY_IMAGE_META,
+        'creator': 'Marc Altmann',
+        'copyright': '© Marc',
+        'keywords': ['lake', 'dusk'],
+    }
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
+        upload_photos([f])
+    dc = Photo.objects.first().metadata.get(type=Metadata.Type.DUBLIN_CORE)
+    assert dc.data['creator'] == 'Marc Altmann'
+    assert dc.data['copyright'] == '© Marc'
+    assert dc.data['keywords'] == ['lake', 'dusk']
+
+
+@pytest.mark.django_db
+def test_upload_photos_skips_dublin_core_when_absent():
+    f = SimpleUploadedFile('photo.jpg', b'image data')
+    meta = {**EMPTY_IMAGE_META, 'raw': {'Make': 'Canon'}}
+    with patch('picura.photos.use_cases.extract_image_metadata', return_value=meta):
+        upload_photos([f])
+    assert not Metadata.objects.filter(type=Metadata.Type.DUBLIN_CORE).exists()
 
 
 @pytest.mark.django_db
@@ -196,6 +236,7 @@ def test_upload_photos_stores_none_metadata_when_unreadable():
     assert photo.height is None
     assert photo.produced_at is None
     assert photo.metadata.count() == 0
+    assert not PhotoExif.objects.exists()
 
 
 @pytest.mark.django_db
