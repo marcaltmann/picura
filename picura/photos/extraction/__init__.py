@@ -1,9 +1,11 @@
 import io
+from datetime import datetime
+from fractions import Fraction
 
+from django.utils import timezone
 from PIL import Image, ImageCms
 
-from .exif import extract_exif
-from .iptc import extract_iptc
+from .exiftool import run_exiftool
 
 
 def _extract_icc_profile(img):
@@ -17,8 +19,79 @@ def _extract_icc_profile(img):
         return None
 
 
-def extract_image_metadata(file):
-    result = {
+def _str_or_none(value):
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def _first_str(*values):
+    for value in values:
+        text = _str_or_none(value)
+        if text is not None:
+            return text
+    return None
+
+
+def _float_or_none(value):
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except ValueError:
+        return None
+    except TypeError:
+        return None
+
+
+def _int_or_none(value):
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+    except TypeError:
+        return None
+
+
+def _parse_taken_at(value):
+    if not value:
+        return None
+    try:
+        naive = datetime.strptime(str(value), '%Y:%m:%d %H:%M:%S')
+    except ValueError:
+        return None
+    return timezone.make_aware(naive)
+
+
+def _shutter_speed(exposure_time):
+    if exposure_time is None:
+        return None
+    frac = Fraction(exposure_time).limit_denominator(100000)
+    if frac.denominator == 1:
+        return str(frac.numerator)
+    return f'{frac.numerator}/{frac.denominator}'
+
+
+def _keywords(raw):
+    value = raw.get('Keywords')
+    if value is None:
+        value = raw.get('Subject')
+    if value is None:
+        return []
+    items = value if isinstance(value, list) else [value]
+    result = []
+    for item in items:
+        text = _str_or_none(item)
+        if text is not None:
+            result.append(text)
+    return result
+
+
+def _empty_result():
+    return {
         'title': None,
         'description': None,
         'width': None,
@@ -31,31 +104,68 @@ def extract_image_metadata(file):
         'camera_model': None,
         'lens': None,
         'aperture': None,
+        'exposure_time': None,
         'shutter_speed': None,
         'focal_length': None,
+        'iso': None,
         'latitude': None,
         'longitude': None,
+        'keywords': [],
+        'copyright': None,
+        'creator': None,
+        'raw': {},
     }
+
+
+def extract_image_metadata(file):
+    result = _empty_result()
     try:
-        img = Image.open(file)
+        data = file.read()
+    except Exception:
+        return result
+    finally:
+        try:
+            file.seek(0)
+        except Exception:
+            pass
+
+    try:
+        img = Image.open(io.BytesIO(data))
         img.load()
     except Exception:
         return result
+
     result['width'], result['height'] = img.size
     result['format'] = img.format
     result['color_mode'] = img.mode
-    iptc = extract_iptc(img)
-    result['title'] = iptc.title
-    result['description'] = iptc.description
     result['icc_profile'] = _extract_icc_profile(img)
-    exif = extract_exif(img)
-    result['taken_at'] = exif.taken_at
-    result['camera_make'] = exif.camera_make
-    result['camera_model'] = exif.camera_model
-    result['lens'] = exif.lens
-    result['aperture'] = exif.aperture
-    result['shutter_speed'] = exif.shutter_speed
-    result['focal_length'] = exif.focal_length
-    result['latitude'] = exif.latitude
-    result['longitude'] = exif.longitude
+
+    raw = run_exiftool(data)
+    result['raw'] = raw
+    result['taken_at'] = _parse_taken_at(raw.get('DateTimeOriginal'))
+    result['camera_make'] = _str_or_none(raw.get('Make'))
+    result['camera_model'] = _str_or_none(raw.get('Model'))
+    result['lens'] = _first_str(
+        raw.get('LensID'), raw.get('LensModel'), raw.get('Lens')
+    )
+    result['aperture'] = _float_or_none(raw.get('FNumber'))
+    result['exposure_time'] = _float_or_none(raw.get('ExposureTime'))
+    result['shutter_speed'] = _shutter_speed(result['exposure_time'])
+    result['focal_length'] = _float_or_none(raw.get('FocalLength'))
+    result['iso'] = _int_or_none(raw.get('ISO'))
+    result['latitude'] = _float_or_none(raw.get('GPSLatitude'))
+    result['longitude'] = _float_or_none(raw.get('GPSLongitude'))
+    result['title'] = _first_str(
+        raw.get('Title'), raw.get('ObjectName'), raw.get('Headline')
+    )
+    result['description'] = _first_str(
+        raw.get('Description'),
+        raw.get('Caption-Abstract'),
+        raw.get('ImageDescription'),
+    )
+    result['keywords'] = _keywords(raw)
+    result['copyright'] = _first_str(raw.get('Copyright'), raw.get('Rights'))
+    result['creator'] = _first_str(
+        raw.get('Creator'), raw.get('By-line'), raw.get('Artist')
+    )
     return result
