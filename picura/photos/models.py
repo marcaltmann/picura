@@ -1,4 +1,5 @@
 import math
+from fractions import Fraction
 
 from django.db import models
 from django.db.models.signals import post_delete
@@ -134,6 +135,53 @@ class Metadata(models.Model):
 
     def __str__(self):
         return f'{self.get_type_display()} – {self.photo}'
+
+
+class PhotoExif(models.Model):
+    photo = models.OneToOneField(
+        Photo,
+        on_delete=models.CASCADE,
+        related_name='exif',
+        verbose_name=_('photo'),
+    )
+    camera_make = models.CharField(
+        max_length=255, blank=True, default='', verbose_name=_('camera make')
+    )
+    camera_model = models.CharField(
+        max_length=255, blank=True, default='', verbose_name=_('camera model')
+    )
+    lens = models.CharField(
+        max_length=255, blank=True, default='', verbose_name=_('lens')
+    )
+    aperture = models.FloatField(null=True, blank=True, verbose_name=_('aperture'))
+    exposure_time = models.FloatField(
+        null=True, blank=True, verbose_name=_('exposure time')
+    )
+    focal_length = models.FloatField(
+        null=True, blank=True, verbose_name=_('focal length')
+    )
+    iso = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('ISO'))
+    latitude = models.FloatField(null=True, blank=True, verbose_name=_('latitude'))
+    longitude = models.FloatField(null=True, blank=True, verbose_name=_('longitude'))
+    raw = models.JSONField(default=dict, verbose_name=_('raw'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    class Meta:
+        verbose_name = _('EXIF')
+        verbose_name_plural = _('EXIF')
+
+    def __str__(self):
+        return f'EXIF – {self.photo}'
+
+    @property
+    def shutter_speed(self) -> str | None:
+        if self.exposure_time is None:
+            return None
+        frac = Fraction(self.exposure_time).limit_denominator(100000)
+        if frac.denominator == 1:
+            return str(frac.numerator)
+        return f'{frac.numerator}/{frac.denominator}'
 
 
 @receiver(post_delete, sender=Photo)

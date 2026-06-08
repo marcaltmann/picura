@@ -6,7 +6,7 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 
-from .models import Metadata, Photo, Batch
+from .models import Metadata, Photo, PhotoExif, Batch
 from .use_cases import upload_photos
 
 
@@ -242,6 +242,55 @@ def test_upload_photos_leaves_description_blank_when_absent():
     ):
         upload_photos([f])
     assert Photo.objects.first().description == ''
+
+
+# --- PhotoExif model ---
+
+
+@pytest.mark.django_db
+def test_photo_exif_round_trips_typed_fields():
+    photo = Photo.objects.create(title='Photo', file_size=0, batch=_make_batch())
+    exif = PhotoExif.objects.create(
+        photo=photo,
+        camera_make='Canon',
+        camera_model='EOS R5',
+        lens='EF 50mm f/1.4 USM',
+        aperture=1.4,
+        exposure_time=0.004,
+        focal_length=50.0,
+        iso=400,
+        latitude=52.52,
+        longitude=13.405,
+        raw={'foo': 'bar'},
+    )
+    exif.refresh_from_db()
+    assert photo.exif == exif
+    assert exif.camera_make == 'Canon'
+    assert exif.aperture == 1.4
+    assert exif.iso == 400
+    assert exif.latitude == 52.52
+    assert exif.longitude == 13.405
+    assert exif.raw == {'foo': 'bar'}
+
+
+@pytest.mark.django_db
+def test_photo_exif_deleted_with_photo():
+    photo = Photo.objects.create(title='Photo', file_size=0, batch=_make_batch())
+    PhotoExif.objects.create(photo=photo)
+    photo.delete()
+    assert PhotoExif.objects.count() == 0
+
+
+def test_photo_exif_shutter_speed_formats_fraction():
+    assert PhotoExif(exposure_time=0.004).shutter_speed == '1/250'
+
+
+def test_photo_exif_shutter_speed_whole_seconds():
+    assert PhotoExif(exposure_time=2.0).shutter_speed == '2'
+
+
+def test_photo_exif_shutter_speed_none_when_no_exposure():
+    assert PhotoExif().shutter_speed is None
 
 
 # --- aspect_ratio property ---
