@@ -70,41 +70,47 @@
           <dd>
             {{ photo.produced_at|default:"–" }}
           </dd>
-          {% if exif.data.camera_make or exif.data.camera_model %}
+          {% if photo.exif.camera_make or photo.exif.camera_model %}
             <dt>{% trans "Camera" %}</dt>
             <dd>
-              {{ exif.data.camera_make|default:"" }} {{ exif.data.camera_model|default:"" }}
+              {{ photo.exif.camera_make|default:"" }} {{ photo.exif.camera_model|default:"" }}
             </dd>
           {% endif %}
-          {% if exif.data.lens %}
+          {% if photo.exif.lens %}
             <dt>{% trans "Lens" %}</dt>
             <dd>
-              {{ exif.data.lens }}
+              {{ photo.exif.lens }}
             </dd>
           {% endif %}
-          {% if exif.data.focal_length %}
+          {% if photo.exif.focal_length %}
             <dt>{% trans "Focal length" %}</dt>
             <dd>
-              {{ exif.data.focal_length }}mm
+              {{ photo.exif.focal_length }}mm
             </dd>
           {% endif %}
-          {% if exif.data.aperture %}
+          {% if photo.exif.aperture %}
             <dt>{% trans "Aperture" %}</dt>
             <dd>
-              f/{{ exif.data.aperture }}
+              f/{{ photo.exif.aperture }}
             </dd>
           {% endif %}
-          {% if exif.data.shutter_speed %}
+          {% if photo.exif.shutter_speed %}
             <dt>{% trans "Shutter speed" %}</dt>
             <dd>
-              {{ exif.data.shutter_speed }}s
+              {{ photo.exif.shutter_speed }}s
             </dd>
           {% endif %}
-          {% if exif.data.latitude and exif.data.longitude %}
+          {% if photo.exif.iso %}
+            <dt>{% trans "ISO" %}</dt>
+            <dd>
+              {{ photo.exif.iso }}
+            </dd>
+          {% endif %}
+          {% if photo.exif.latitude and photo.exif.longitude %}
             <dt>{% trans "Location" %}</dt>
             <dd>
-              <a href="https://www.openstreetmap.org/?mlat={{ exif.data.latitude|unlocalize }}&mlon={{ exif.data.longitude|unlocalize }}&zoom=14"
-                 target="_blank">{{ exif.data.latitude|floatformat:5 }}, {{ exif.data.longitude|floatformat:5 }}</a>
+              <a href="https://www.openstreetmap.org/?mlat={{ photo.exif.latitude|unlocalize }}&mlon={{ photo.exif.longitude|unlocalize }}&zoom=14"
+                 target="_blank">{{ photo.exif.latitude|floatformat:5 }}, {{ photo.exif.longitude|floatformat:5 }}</a>
             </dd>
           {% endif %}
         </dl>

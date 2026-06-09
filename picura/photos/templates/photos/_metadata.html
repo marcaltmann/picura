@@ -7,29 +7,35 @@
   <section>
     <p class="c-photo-detail__label">{% trans "Capture" %}</p>
     <dl class="c-photo-detail__specs">
-      <dt>{% trans "Lens" %}</dt>
-      <dd>
-        {{ photo.lens }}
-      </dd>
-      <dt>{% trans "Focal length" %}</dt>
-      <dd>
-        {{ photo.focal_length }}mm
-      </dd>
-      <dt>{% trans "Aperture" %}</dt>
-      <dd>
-        f/{{ photo.aperture }}
-      </dd>
-      <dt>{% trans "Shutter" %}</dt>
-      <dd>
-        {{ photo.shutter }}s
-      </dd>
-      <dt>{% trans "ISO" %}</dt>
-      <dd>
-        {{ photo.iso }}
-      </dd>
+      {% if photo.exif %}
+        <dt>{% trans "Camera" %}</dt>
+        <dd>
+          {{ photo.exif.camera_make }} {{ photo.exif.camera_model }}
+        </dd>
+        <dt>{% trans "Lens" %}</dt>
+        <dd>
+          {{ photo.exif.lens }}
+        </dd>
+        <dt>{% trans "Focal length" %}</dt>
+        <dd>
+          {{ photo.exif.focal_length }}mm
+        </dd>
+        <dt>{% trans "Aperture" %}</dt>
+        <dd>
+          f/{{ photo.exif.aperture }}
+        </dd>
+        <dt>{% trans "Shutter" %}</dt>
+        <dd>
+          {{ photo.exif.shutter_speed }}s
+        </dd>
+        <dt>{% trans "ISO" %}</dt>
+        <dd>
+          {{ photo.exif.iso }}
+        </dd>
+      {% endif %}
       <dt>{% trans "Dimensions" %}</dt>
       <dd data-mono>
-        {{ photo.image.width }}×{{ photo.image.height }}
+        {{ photo.width }}×{{ photo.height }}
       </dd>
     </dl>
   </section>
