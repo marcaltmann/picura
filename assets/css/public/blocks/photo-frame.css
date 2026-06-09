@@ -1,4 +1,5 @@
 .photo-frame {
+    background-color: var(--color-surface);
     display: flex;
     justify-content: center;
 }

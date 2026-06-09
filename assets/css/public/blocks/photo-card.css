@@ -29,10 +29,10 @@
 /* ---------- Block ---------- */
 
 .c-photo-card {
-  display: block;
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
+  display: block;
+  text-decoration: none;
 }
 
 .c-photo-card:focus-visible {
@@ -46,44 +46,44 @@
 /* Frame: the photo's home. 1:1 surface backplate that contains the photo
    without cropping. Acts as the positioning context for the caption. */
 .c-photo-card__frame {
-  position: relative;
+  align-items: center;
   aspect-ratio: 1 / 1;
   background-color: var(--color-surface);
   display: flex;
-  align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+  transition: background-color 125ms ease-in;
 }
 
 .c-photo-card__frame > img,
 .c-photo-card__frame > svg {
   display: block;
-  width: auto;
   height: auto;
-  max-width: 100%;
   max-height: 100%;
+  max-width: 100%;
+  width: auto;
 }
 
 /* Caption: sits inside the frame, glued to the bottom edge. Hidden until
    the card is hovered or keyboard-focused. */
 .c-photo-card__caption {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 0.5rlh 0.75rlh;
   background-color: color-mix(in srgb, var(--color-ink) 72%, transparent);
   color: var(--color-on-accent);
+  inset: auto 0 0 0;
   opacity: 0;
-  transition: opacity 140ms ease-out;
+  padding: 0.5rlh 0.75rlh;
+  position: absolute;
+  transition: opacity 125ms ease-in;
 }
 
 .c-photo-card__title {
-  margin: 0;
+  color: inherit;
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1rlh;
-  color: inherit;
+  margin: 0;
 }
 
 
@@ -92,6 +92,10 @@
 .c-photo-card:hover .c-photo-card__caption,
 .c-photo-card:focus-visible .c-photo-card__caption {
   opacity: 1;
+}
+
+.c-photo-card:hover .c-photo-card__frame {
+  background-color: var(--color-surface-hover);
 }
 
 

@@ -19,6 +19,7 @@
         box-sizing: border-box;
     }
 
+    color: var(--color-ink);
     background-color: var(--color-bg);
 }
 

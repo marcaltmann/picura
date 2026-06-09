@@ -29,6 +29,11 @@
     --color-surface:     var(--gray-100);  /* raised surface: cards  */
     --color-surface-alt: var(--gray-100);  /* secondary surface      */
 
+    /* State layers — translucent tints from ink; auto-adapt per theme,
+     * composite over any surface. */
+    --color-surface-hover:    color-mix(in srgb, var(--color-ink) 10%, transparent);
+    --color-surface-selected: color-mix(in srgb, var(--color-ink) 15%, transparent);
+
     --color-accent:      var(--aubergine-600);
     --color-danger:      var(--brick-600);
 }
