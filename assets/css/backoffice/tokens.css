@@ -1,0 +1,8 @@
+:root {
+    /* Backoffice — light theme with a near-white background.
+     * Ink stays dark (base default); only the surfaces are lightened. */
+    --color-bg:          var(--white);
+    --color-on-accent:   var(--white);
+    --color-surface:     var(--gray-50);
+    --color-surface-alt: var(--gray-100);
+}

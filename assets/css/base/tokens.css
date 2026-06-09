@@ -1,18 +1,34 @@
 :root {
-    --color-bg: #757575;
-    --color-surface: #808080;
-    --color-ink: #1a1a1a;
-    --color-ink-faded: #767676;
+    /* ---------------------------------------------------------------
+     * Tier 1 — primitives (the palette)
+     * Named by what they are. Components must NOT use these directly.
+     * ------------------------------------------------------------- */
+    --gray-950: #1a1a1a;
+    --gray-900: #242424;
+    --gray-800: #333333;
+    --gray-700: #474747;
+    --gray-500: #767676;
+    --gray-300: #c2bdb2;  /* warm mid */
+    --gray-100: #e7e3da;  /* warm light */
+    --gray-50:  #f5f3ee;  /* warm off-white */
+    --white:    #ffffff;
 
-    --color-paper: var(--color-bg);
-    --color-creme: var(--color-surface);
+    --aubergine-600: #6b2e6b;
+    --aubergine-400: #b06bb0;  /* lighter, for dark backgrounds */
+    --brick-600:     #9b3a3a;
 
+    /* ---------------------------------------------------------------
+     * Tier 2 — semantic roles
+     * Named by job. This is the only tier components reference.
+     * ------------------------------------------------------------- */
+    --color-ink:         var(--gray-950);  /* default text          */
+    --color-ink-faded:   var(--gray-500);  /* muted / secondary text */
+    --color-on-accent:   var(--gray-50);   /* text on accent/ink fills */
 
-    --color-accent: #6b2e6b;  /* Aubergine */
-    --color-danger: #9b3a3a;  /* Brick */
+    --color-bg:          var(--gray-50);   /* page canvas            */
+    --color-surface:     var(--gray-100);  /* raised surface: cards  */
+    --color-surface-alt: var(--gray-100);  /* secondary surface      */
 
-    --color-video: #6e6a5d;
-    --color-audio: #5b8a92;
-    --color-image: #b4471f;
-    --color-document: #b9a679;
+    --color-accent:      var(--aubergine-600);
+    --color-danger:      var(--brick-600);
 }

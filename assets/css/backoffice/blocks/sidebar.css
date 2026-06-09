@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: var(--color-creme);
+  background-color: var(--color-surface-alt);
   color: var(--color-ink);
   padding: 1.5rem 1rem;
   display: flex;
@@ -46,11 +46,11 @@
 }
 
 .sidebar__nav a:hover {
-  background-color: color-mix(in srgb, var(--color-paper) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-on-accent) 10%, transparent);
 }
 
 .sidebar__nav [aria-current='page'] {
-  background-color: color-mix(in srgb, var(--color-paper) 15%, transparent);
+  background-color: color-mix(in srgb, var(--color-on-accent) 15%, transparent);
   font-weight: bold;
 }
 

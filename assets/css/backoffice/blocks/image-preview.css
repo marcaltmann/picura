@@ -1,7 +1,7 @@
 .image-preview {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: var(--color-creme);
+  background-color: var(--color-surface-alt);
   display: flex;
   align-items: center;
   justify-content: center;

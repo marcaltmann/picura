@@ -19,7 +19,7 @@
         box-sizing: border-box;
     }
 
-    background-color: var(--color-paper);
+    background-color: var(--color-bg);
 }
 
 a {

@@ -45,5 +45,5 @@
 
 .pagination a:hover {
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }

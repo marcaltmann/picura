@@ -1,0 +1,14 @@
+:root {
+    /* Public site — dark theme.
+     * Re-points the Tier 2 roles onto the dark end of the palette.
+     * Primitives are defined in base/tokens.css; do not redefine them here. */
+    --color-ink:         var(--gray-50);
+    --color-ink-faded:   var(--gray-500);
+    --color-on-accent:   var(--gray-950);
+
+    --color-bg:          var(--gray-950);
+    --color-surface:     var(--gray-800);
+    --color-surface-alt: var(--gray-700);
+
+    --color-accent:      var(--aubergine-400);
+}

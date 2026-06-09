@@ -71,7 +71,7 @@
   inset: auto 0 0 0;
   padding: 0.5rlh 0.75rlh;
   background-color: color-mix(in srgb, var(--color-ink) 72%, transparent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
   opacity: 0;
   transition: opacity 140ms ease-out;
 }
