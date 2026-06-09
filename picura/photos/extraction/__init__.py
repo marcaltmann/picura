@@ -5,7 +5,7 @@ from fractions import Fraction
 from django.utils import timezone
 from PIL import Image, ImageCms
 
-from .exiftool import run_exiftool
+from .exiftool import extract_lens, run_exiftool
 
 
 def _extract_icc_profile(img):
@@ -145,8 +145,9 @@ def extract_image_metadata(file):
     result['taken_at'] = _parse_taken_at(raw.get('DateTimeOriginal'))
     result['camera_make'] = _str_or_none(raw.get('Make'))
     result['camera_model'] = _str_or_none(raw.get('Model'))
+    lens = extract_lens(data)
     result['lens'] = _first_str(
-        raw.get('LensID'), raw.get('LensModel'), raw.get('Lens')
+        lens.get('LensID'), lens.get('LensModel'), lens.get('Lens')
     )
     result['aperture'] = _float_or_none(raw.get('FNumber'))
     result['exposure_time'] = _float_or_none(raw.get('ExposureTime'))

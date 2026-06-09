@@ -14,9 +14,12 @@ def _image_file(size=(640, 480), mode='RGB'):
     return buf
 
 
-def _extract(raw, file=None):
+def _extract(raw, file=None, lens=None):
     file = file or _image_file()
-    with patch('picura.photos.extraction.run_exiftool', return_value=raw):
+    with (
+        patch('picura.photos.extraction.run_exiftool', return_value=raw),
+        patch('picura.photos.extraction.extract_lens', return_value=lens or {}),
+    ):
         return extract_image_metadata(file)
 
 
@@ -49,13 +52,18 @@ def test_maps_camera_fields():
     assert result['camera_model'] == 'NIKON Z 9'
 
 
-def test_lens_prefers_lens_id():
-    raw = {'LensID': 'NIKKOR Z 24-70mm f/2.8 S', 'LensModel': 'fallback'}
-    assert _extract(raw)['lens'] == 'NIKKOR Z 24-70mm f/2.8 S'
+def test_lens_prefers_decoded_lens_id():
+    lens = {'LensID': 'NIKKOR Z 24-70mm f/2.8 S', 'LensModel': 'fallback'}
+    assert _extract({}, lens=lens)['lens'] == 'NIKKOR Z 24-70mm f/2.8 S'
 
 
 def test_lens_falls_back_to_lens_model():
-    assert _extract({'LensModel': 'EF 50mm f/1.4 USM'})['lens'] == 'EF 50mm f/1.4 USM'
+    lens = {'LensModel': 'EF 50mm f/1.4 USM'}
+    assert _extract({}, lens=lens)['lens'] == 'EF 50mm f/1.4 USM'
+
+
+def test_lens_is_none_without_lens_call_result():
+    assert _extract({'LensID': 'B2 00 5C 80 30 30 B4 0E'})['lens'] is None
 
 
 def test_maps_exposure_fields_as_floats():
