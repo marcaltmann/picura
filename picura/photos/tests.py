@@ -400,3 +400,53 @@ def test_display_width_square():
 def test_display_width_none_when_dimensions_missing():
     photo = Photo(title='Test', width=None, height=None)
     assert photo.display_width is None
+
+
+# --- date_display property ---
+
+
+def test_date_display_formats_produced_at():
+    from datetime import datetime, timezone
+
+    photo = Photo(produced_at=datetime(2024, 6, 15, tzinfo=timezone.utc))
+    assert photo.date_display == 'June 15, 2024'
+
+
+def test_date_display_empty_when_no_produced_at():
+    photo = Photo()
+    assert photo.date_display == ''
+
+
+# --- place property ---
+
+
+def test_place_returns_empty_string():
+    assert Photo().place == ''
+
+
+# --- map_tile_url property ---
+
+
+@pytest.mark.django_db
+def test_map_tile_url_returns_osm_url_for_known_coords():
+    photo = _make_photo()
+    PhotoExif.objects.create(photo=photo, latitude=52.52, longitude=13.405)
+    photo.refresh_from_db()
+    url = photo.map_tile_url
+    assert url is not None
+    assert url.startswith('https://tile.openstreetmap.org/12/')
+    assert url.endswith('.png')
+
+
+@pytest.mark.django_db
+def test_map_tile_url_none_when_no_exif():
+    photo = _make_photo()
+    assert photo.map_tile_url is None
+
+
+@pytest.mark.django_db
+def test_map_tile_url_none_when_coords_missing():
+    photo = _make_photo()
+    PhotoExif.objects.create(photo=photo, latitude=None, longitude=None)
+    photo.refresh_from_db()
+    assert photo.map_tile_url is None

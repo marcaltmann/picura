@@ -1,9 +1,11 @@
 import math
 from fractions import Fraction
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.utils.formats import date_format as _date_format
 from django.utils.translation import gettext_lazy as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
@@ -110,6 +112,41 @@ class Photo(models.Model):
         if self.aspect_ratio is None:
             return None
         return round(math.sqrt(self._DISPLAY_AREA * self.aspect_ratio))
+
+    @property
+    def date_display(self):
+        if self.produced_at is None:
+            return ''
+        return _date_format(self.produced_at, 'DATE_FORMAT')
+
+    @property
+    def place(self):
+        return ''
+
+    @property
+    def map_tile_url(self):
+        try:
+            lat = self.exif.latitude
+            lon = self.exif.longitude
+        except ObjectDoesNotExist:
+            return None
+        if lat is None or lon is None:
+            return None
+        zoom = 12
+        n = 2**zoom
+        x = int((lon + 180) / 360 * n)
+        y = int(
+            (
+                1
+                - math.log(
+                    math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))
+                )
+                / math.pi
+            )
+            / 2
+            * n
+        )
+        return f'https://tile.openstreetmap.org/{zoom}/{x}/{y}.png'
 
 
 class Metadata(models.Model):
