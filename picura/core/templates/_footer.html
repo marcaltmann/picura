@@ -1,10 +1,18 @@
 {% load i18n %}
 {% load static %}
 {% get_current_language as LANGUAGE_CODE %}
-<footer class="footer site__footer">
-  <div class="footer__inner container container--wide">
-    <p class="u-align-center">Picura</p>
-    <nav class="secondary-nav u-mt">
+<footer class="footer site-frame__footer">
+  <div class="footer__inner container container--wide repel">
+    <p class="footer__brand">
+      <a href="https://github.com/marcaltmann/picura" target="_blank" rel="noopener">Picura {{ picura_version }}</a>
+    </p>
+    <nav class="footer__nav" aria-label="{% trans "Legal" %}">
+      <ul>
+        <li><a href="">{% trans "About" %}</a></li>
+        <li><a href="">{% trans "Legal Notice" %}</a></li>
+        <li><a href="">{% trans "Privacy" %}</a></li>
+        <li><a href="">{% trans "Terms of Use" %}</a></li>
+      </ul>
     </nav>
   </div>
 </footer>

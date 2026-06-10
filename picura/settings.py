@@ -1,4 +1,5 @@
 import os
+import tomllib
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
@@ -8,6 +9,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+with open(BASE_DIR / 'pyproject.toml', 'rb') as _f:
+    PICURA_VERSION = tomllib.load(_f)['project']['version']
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,6 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'picura.core.context_processors.picura_context',
             ],
         },
     },

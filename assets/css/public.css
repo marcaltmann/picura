@@ -22,4 +22,5 @@
 @import "./public/blocks/photo-frame.css" layer(blocks);
 @import "./public/blocks/photo-list.css" layer(blocks);
 @import "./public/blocks/pricing.css" layer(blocks);
+@import "./public/blocks/footer.css" layer(blocks);
 @import "./public/blocks/primary_nav.css" layer(blocks);
