@@ -6,6 +6,6 @@
   min-block-size: var(--min-height);
 }
 
-.site-frame > :last-child {
+.site-frame__footer {
   margin-block-start: auto;
 }

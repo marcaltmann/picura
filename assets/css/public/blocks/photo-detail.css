@@ -40,8 +40,12 @@
 .c-photo-detail {
   --c-photo-max-h: 150vh;   /* tallest a photo may get; tune per layout */
 
-  max-width: 60rlh;
+  background-color: var(--color-surface);
+}
+
+.c-photo-detail__inner {
   margin-inline: auto;
+  max-width: 60rlh;
   padding-inline: 1.5rlh;
 }
 
