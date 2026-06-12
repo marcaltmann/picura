@@ -99,6 +99,16 @@ def test_album_detail_shows_photos_in_position_order(client, make_photo):
 
 
 @pytest.mark.django_db
+def test_album_detail_links_to_photo_detail(client, make_photo):
+    album = Album.objects.create(name='Summer 2024')
+    photo = make_photo()
+    album.append_photos(photo)
+    response = client.get(reverse('backoffice_album_detail', args=[album.pk]))
+    photo_url = reverse('backoffice_photo_detail', args=[photo.pk])
+    assert photo_url in response.content.decode()
+
+
+@pytest.mark.django_db
 def test_album_detail_marks_primary_photo(client, make_photo):
     album = Album.objects.create(name='Summer 2024')
     p1 = make_photo(title='Primary One')

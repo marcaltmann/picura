@@ -48,7 +48,9 @@
             {% if link.position == 1 %}
               <figcaption class="album-photo__badge">{% trans "Primary" %}</figcaption>
             {% endif %}
-            <figcaption class="album-photo__title">{{ link.photo.title }}</figcaption>
+            <figcaption class="album-photo__title">
+              <a href="{% url 'backoffice_photo_detail' link.photo.pk %}">{{ link.photo.title }}</a>
+            </figcaption>
             {% if link.position != 1 %}
               <form method="post"
                     action="{% url 'backoffice_album_set_primary' album.pk link.photo.pk %}">
