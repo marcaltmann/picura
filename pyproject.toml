@@ -1,6 +1,6 @@
 [project]
 name = "picura"
-version = "0.1.0"
+version = "0.1.1"
 description = "Self-hosted photo and media library"
 readme = "README.md"
 authors = [{name = "Marc Altmann", email = "marcaltmann@posteo.de"}]
