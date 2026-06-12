@@ -27,6 +27,12 @@ def test_dashboard_context_total_file_size(client):
 
 
 @pytest.mark.django_db
+def test_sidebar_links_to_photo_list(client):
+    response = client.get(reverse('backoffice_dashboard'))
+    assert reverse('backoffice_photo_list') in response.content.decode()
+
+
+@pytest.mark.django_db
 def test_dashboard_context_empty_db(client):
     response = client.get(reverse('backoffice_dashboard'))
     assert response.context['photo_count'] == 0

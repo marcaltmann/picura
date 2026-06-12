@@ -35,6 +35,10 @@
            {% if 'backoffice_batch' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Batches" %}</a>
       </li>
       <li>
+        <a href="{% url 'backoffice_photo_list' %}"
+           {% if 'backoffice_photo' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Photos" %}</a>
+      </li>
+      <li>
         <a href="{% url 'backoffice_album_list' %}"
            {% if 'backoffice_album' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% trans "Albums" %}</a>
       </li>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-12 20:37+0200\n"
+"POT-Creation-Date: 2026-06-12 21:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: picura/albums/apps.py:7 picura/albums/templates/albums/album_detail.html:7
 #: picura/albums/templates/albums/album_list.html:4
 #: picura/albums/templates/albums/album_list.html:8
-#: picura/backoffice/templates/backoffice/_sidebar.html:39
+#: picura/backoffice/templates/backoffice/_sidebar.html:43
 #: picura/backoffice/templates/backoffice/album_create.html:10
 #: picura/backoffice/templates/backoffice/album_delete.html:10
 #: picura/backoffice/templates/backoffice/album_detail.html:8
@@ -32,68 +32,68 @@ msgstr ""
 msgid "Albums"
 msgstr "Alben"
 
-#: picura/albums/models.py:42
+#: picura/albums/models.py:48
 msgid "Draft"
 msgstr "Entwurf"
 
-#: picura/albums/models.py:43
+#: picura/albums/models.py:49
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: picura/albums/models.py:46
+#: picura/albums/models.py:52
 msgid "name"
 msgstr "Name"
 
-#: picura/albums/models.py:48 picura/photos/models.py:46
+#: picura/albums/models.py:54 picura/photos/models.py:46
 msgid "description"
 msgstr "Beschreibung"
 
-#: picura/albums/models.py:54
+#: picura/albums/models.py:60
 msgid "status"
 msgstr "Status"
 
-#: picura/albums/models.py:57
+#: picura/albums/models.py:63
 msgid "published at"
 msgstr "Veröffentlicht am"
 
-#: picura/albums/models.py:60 picura/photos/models.py:97
+#: picura/albums/models.py:66 picura/photos/models.py:97
 msgid "photos"
 msgstr "Fotos"
 
-#: picura/albums/models.py:62 picura/albums/models.py:201
+#: picura/albums/models.py:68 picura/albums/models.py:207
 #: picura/photos/models.py:19 picura/photos/models.py:55
 #: picura/photos/models.py:166 picura/photos/models.py:204
 msgid "created at"
 msgstr "Erstellt am"
 
-#: picura/albums/models.py:63 picura/albums/models.py:202
+#: picura/albums/models.py:69 picura/albums/models.py:208
 #: picura/photos/models.py:20 picura/photos/models.py:56
 #: picura/photos/models.py:167 picura/photos/models.py:205
 msgid "updated at"
 msgstr "Aktualisiert am"
 
-#: picura/albums/models.py:67 picura/albums/models.py:198
+#: picura/albums/models.py:73 picura/albums/models.py:204
 msgid "album"
 msgstr "Album"
 
-#: picura/albums/models.py:68
+#: picura/albums/models.py:74
 msgid "albums"
 msgstr "Alben"
 
-#: picura/albums/models.py:192 picura/photos/models.py:96
+#: picura/albums/models.py:198 picura/photos/models.py:96
 #: picura/photos/models.py:162 picura/photos/models.py:182
 msgid "photo"
 msgstr "Foto"
 
-#: picura/albums/models.py:200
+#: picura/albums/models.py:206
 msgid "position"
 msgstr "Position"
 
-#: picura/albums/models.py:206
+#: picura/albums/models.py:212
 msgid "album photo"
 msgstr "Albumfoto"
 
-#: picura/albums/models.py:207
+#: picura/albums/models.py:213
 msgid "album photos"
 msgstr "Albumfotos"
 
@@ -154,7 +154,19 @@ msgstr "Inhalte"
 msgid "Batches"
 msgstr "Batches"
 
-#: picura/backoffice/templates/backoffice/_sidebar.html:46
+#: picura/backoffice/templates/backoffice/_sidebar.html:39
+#: picura/backoffice/templates/backoffice/album_detail.html:41
+#: picura/backoffice/templates/backoffice/album_list.html:21
+#: picura/backoffice/templates/backoffice/batch_list.html:22
+#: picura/backoffice/templates/backoffice/dashboard.html:11
+#: picura/backoffice/templates/backoffice/photo_list.html:4
+#: picura/backoffice/templates/backoffice/photo_list.html:8
+#: picura/photos/apps.py:7 picura/photos/templates/photos/photo_list.html:4
+#: picura/photos/templates/photos/photo_list.html:8
+msgid "Photos"
+msgstr "Fotos"
+
+#: picura/backoffice/templates/backoffice/_sidebar.html:50
 msgid "Public website"
 msgstr "Öffentliche Website"
 
@@ -198,17 +210,6 @@ msgstr "Abbrechen"
 msgid "View on site"
 msgstr "Auf der Website ansehen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:41
-#: picura/backoffice/templates/backoffice/album_list.html:21
-#: picura/backoffice/templates/backoffice/batch_list.html:22
-#: picura/backoffice/templates/backoffice/dashboard.html:11
-#: picura/backoffice/templates/backoffice/photo_list.html:4
-#: picura/backoffice/templates/backoffice/photo_list.html:8
-#: picura/photos/apps.py:7 picura/photos/templates/photos/photo_list.html:4
-#: picura/photos/templates/photos/photo_list.html:8
-msgid "Photos"
-msgstr "Fotos"
-
 #: picura/backoffice/templates/backoffice/album_detail.html:49
 msgid "Primary"
 msgstr "Titelbild"
@@ -247,23 +248,23 @@ msgstr "Alle"
 msgid "Unassigned"
 msgstr "Nicht zugeordnet"
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:36
+#: picura/backoffice/templates/backoffice/batch_detail.html:41
 msgid "All photos in this batch are assigned."
 msgstr "Alle Fotos in diesem Batch sind zugeordnet."
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:38
+#: picura/backoffice/templates/backoffice/batch_detail.html:43
 msgid "No photos in this batch."
 msgstr "Noch keine Fotos in diesem Batch vorhanden."
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:48
+#: picura/backoffice/templates/backoffice/batch_detail.html:53
 msgid "No albums"
 msgstr "Keine Alben"
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:53
+#: picura/backoffice/templates/backoffice/batch_detail.html:58
 msgid "Or create new album…"
 msgstr "Oder neues Album erstellen …"
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:54
+#: picura/backoffice/templates/backoffice/batch_detail.html:59
 msgid "Add to album"
 msgstr "Zum Album hinzufügen"
 
