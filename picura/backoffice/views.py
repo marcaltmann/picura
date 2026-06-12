@@ -46,14 +46,22 @@ def batch_list(request):
 @staff_required
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
+    unassigned_only = request.GET.get('filter') == 'unassigned'
     photos = batch.photos.order_by(
         F('produced_at').asc(nulls_last=True), 'pk'
     ).prefetch_related('albums')
+    if unassigned_only:
+        photos = photos.filter(album_links__isnull=True)
     albums = Album.objects.all()
     return render(
         request,
         'backoffice/batch_detail.html',
-        {'batch': batch, 'photos': photos, 'albums': albums},
+        {
+            'batch': batch,
+            'photos': photos,
+            'albums': albums,
+            'unassigned_only': unassigned_only,
+        },
     )
 
 

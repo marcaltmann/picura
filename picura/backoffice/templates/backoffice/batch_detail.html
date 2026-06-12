@@ -14,6 +14,12 @@
         <h1 class="header__title">{{ batch.created_at|date:"j N Y, H:i" }}</h1>
       </div>
     </header>
+    <div class="cluster mt-lh">
+      <a href="{% url 'backoffice_batch_detail' batch.pk %}"
+         {% if not unassigned_only %}aria-current="page"{% endif %}>{% trans "All" %}</a>
+      <a href="?filter=unassigned"
+         {% if unassigned_only %}aria-current="page"{% endif %}>{% trans "Unassigned" %}</a>
+    </div>
     <form method="post" action="{% url 'backoffice_batch_assign_to_album' batch.pk %}">
       {% csrf_token %}
       <div class="cluster mt-lh">
@@ -26,7 +32,11 @@
             {% endfor %}
           </label>
         {% empty %}
-          <p>{% trans "No photos in this batch." %}</p>
+          {% if unassigned_only %}
+            <p>{% trans "All photos in this batch are assigned." %}</p>
+          {% else %}
+            <p>{% trans "No photos in this batch." %}</p>
+          {% endif %}
         {% endfor %}
       </div>
       {% if batch.photos.exists %}

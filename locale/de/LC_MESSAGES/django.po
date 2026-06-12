@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 22:23+0200\n"
+"POT-Creation-Date: 2026-06-12 20:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -239,15 +239,27 @@ msgstr "Erstellt"
 msgid "Batch"
 msgstr "Batch"
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:26
+#: picura/backoffice/templates/backoffice/batch_detail.html:19
+msgid "All"
+msgstr "Alle"
+
+#: picura/backoffice/templates/backoffice/batch_detail.html:21
+msgid "Unassigned"
+msgstr "Nicht zugeordnet"
+
+#: picura/backoffice/templates/backoffice/batch_detail.html:36
+msgid "All photos in this batch are assigned."
+msgstr "Alle Fotos in diesem Batch sind zugeordnet."
+
+#: picura/backoffice/templates/backoffice/batch_detail.html:38
 msgid "No photos in this batch."
 msgstr "Noch keine Fotos in diesem Batch vorhanden."
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:35
+#: picura/backoffice/templates/backoffice/batch_detail.html:48
 msgid "No albums"
 msgstr "Keine Alben"
 
-#: picura/backoffice/templates/backoffice/batch_detail.html:38
+#: picura/backoffice/templates/backoffice/batch_detail.html:51
 msgid "Add to album"
 msgstr "Zum Album hinzufügen"
 

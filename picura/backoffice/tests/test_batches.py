@@ -110,6 +110,29 @@ def test_batch_assign_to_album_post_appends_photos(client, make_photo):
 
 
 @pytest.mark.django_db
+def test_batch_detail_unassigned_filter_hides_assigned_photos(client, make_photo):
+    batch = Batch.objects.create()
+    assigned = make_photo(batch=batch)
+    unassigned = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    album.append_photos(assigned)
+    url = reverse('backoffice_batch_detail', args=[batch.pk])
+    response = client.get(url, {'filter': 'unassigned'})
+    assert list(response.context['photos']) == [unassigned]
+
+
+@pytest.mark.django_db
+def test_batch_detail_without_filter_shows_all_photos(client, make_photo):
+    batch = Batch.objects.create()
+    assigned = make_photo(batch=batch)
+    unassigned = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    album.append_photos(assigned)
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert set(response.context['photos']) == {assigned, unassigned}
+
+
+@pytest.mark.django_db
 def test_batch_detail_shows_album_badge_for_assigned_photo(client, make_photo):
     batch = Batch.objects.create()
     photo = make_photo(batch=batch)
