@@ -82,3 +82,22 @@ def test_album_detail_returns_404_for_empty_published_album(client, make_album):
     empty = make_album(photo_count=0)
     response = client.get(reverse('albums_album_detail', args=[empty.pk]))
     assert response.status_code == 404
+
+
+# --- album_photo_detail ---
+
+
+@pytest.mark.django_db
+def test_album_photo_detail_returns_200_for_public_album(client, make_album):
+    album = make_album()
+    photo = album.photo_at(1)
+    response = client.get(reverse('albums_photo_detail', args=[album.pk, photo.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_album_photo_detail_returns_404_for_draft_album(client, make_album):
+    draft = make_album(published=False)
+    photo = draft.photo_at(1)
+    response = client.get(reverse('albums_photo_detail', args=[draft.pk, photo.pk]))
+    assert response.status_code == 404

@@ -30,7 +30,7 @@ def album_detail(request, pk):
 
 
 def album_photo_detail(request, album_pk, photo_pk):
-    album = get_object_or_404(Album, pk=album_pk)
+    album = get_object_or_404(Album.objects.public(), pk=album_pk)
     link = get_object_or_404(
         album.photo_links.select_related('photo'), photo_id=photo_pk
     )
