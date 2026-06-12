@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 
 from django.db import models, transaction
-from django.db.models import F, Max, Min, Prefetch
+from django.db.models import Exists, F, Max, Min, OuterRef, Prefetch
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.formats import date_format
@@ -24,6 +24,12 @@ class AlbumQuerySet(models.QuerySet):
 
     def drafts(self):
         return self.filter(status=Album.Status.DRAFT)
+
+    def public(self):
+        # Visible on the public site: published and not empty.
+        return self.published().filter(
+            Exists(AlbumPhoto.objects.filter(album=OuterRef('pk')))
+        )
 
     def with_primary_photo(self):
         return self.prefetch_related(

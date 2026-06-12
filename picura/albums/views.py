@@ -8,7 +8,14 @@ PAGE_SIZE = 48
 
 
 def album_list(request):
-    albums = Album.objects.with_date_range().with_primary_photo()
+    albums = (
+        Album.objects.public()
+        .with_date_range()
+        .with_primary_photo()
+        # annotate() with aggregates drops Meta.ordering; restore it for
+        # stable pagination.
+        .order_by('-created_at')
+    )
     paginator = Paginator(albums, PAGE_SIZE)
     page_obj = paginator.get_page(request.GET.get('page'))
     return render(request, 'albums/album_list.html', {'page_obj': page_obj})
