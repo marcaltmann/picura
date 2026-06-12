@@ -3,14 +3,29 @@
 {% load static %}
 {% block title %}{{ block.super }}{% endblock %}
 {% block content %}
-  <div class="container">
+  <div class="container container-lg">
     <div class="hero" data-testid="hero">
       <div class="hero__inner">
         <div class="hero__body">
           <h1 class="hero__title">Picura</h1>
-          <div class="hero__text grid-wrapper u-mt">Welcome to Picura</div>
+          <div class="hero__text grid-wrapper u-mt">{% trans "Welcome to Picura" %}</div>
         </div>
       </div>
     </div>
+    {% if recent_albums %}
+      <section class="welcome-albums u-mt">
+        <div class="welcome-albums__header">
+          <h2>{% trans "Recent Albums" %}</h2>
+          <a href="{% url 'albums_album_list' %}">{% trans "All albums" %}</a>
+        </div>
+        <ul class="album-list__grid" role="list">
+          {% for album in recent_albums %}
+            <li>{% include "albums/_album_card.html" %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% else %}
+      <p><a href="{% url 'albums_album_list' %}">{% trans "All albums" %}</a></p>
+    {% endif %}
   </div>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-12 21:03+0200\n"
+"POT-Creation-Date: 2026-06-12 22:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,15 +214,15 @@ msgstr "Auf der Website ansehen"
 msgid "Primary"
 msgstr "Titelbild"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:56
+#: picura/backoffice/templates/backoffice/album_detail.html:58
 msgid "Make primary"
 msgstr "Zum Titelbild machen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:62
+#: picura/backoffice/templates/backoffice/album_detail.html:64
 msgid "Remove"
 msgstr "Entfernen"
 
-#: picura/backoffice/templates/backoffice/album_detail.html:66
+#: picura/backoffice/templates/backoffice/album_detail.html:68
 msgid "No photos in this album."
 msgstr "Keine Fotos in diesem Album."
 
@@ -445,6 +445,19 @@ msgstr "Abmelden"
 #: picura/core/templates/_header.html:38
 msgid "Sign in"
 msgstr "Anmelden"
+
+#: picura/core/templates/core/welcome.html:11
+msgid "Welcome to Picura"
+msgstr "Willkommen bei Picura"
+
+#: picura/core/templates/core/welcome.html:18
+msgid "Recent Albums"
+msgstr "Aktuelle Alben"
+
+#: picura/core/templates/core/welcome.html:19
+#: picura/core/templates/core/welcome.html:28
+msgid "All albums"
+msgstr "Alle Alben"
 
 #: picura/core/templatetags/picura_tags.py:34
 msgid "Mono"
