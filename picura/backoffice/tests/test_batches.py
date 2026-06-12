@@ -110,6 +110,15 @@ def test_batch_assign_to_album_post_appends_photos(client, make_photo):
 
 
 @pytest.mark.django_db
+def test_batch_detail_links_to_photo_detail(client, make_photo):
+    batch = Batch.objects.create()
+    photo = make_photo(batch=batch)
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    photo_url = reverse('backoffice_photo_detail', args=[photo.pk])
+    assert photo_url in response.content.decode()
+
+
+@pytest.mark.django_db
 def test_batch_detail_unassigned_filter_hides_assigned_photos(client, make_photo):
     batch = Batch.objects.create()
     assigned = make_photo(batch=batch)

@@ -24,13 +24,18 @@
       {% csrf_token %}
       <div class="cluster mt-lh">
         {% for photo in photos %}
-          <label class="photo-select">
-            <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
-            <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+          <figure class="photo-select">
+            <label>
+              <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
+              <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+            </label>
+            <figcaption class="photo-select__title">
+              <a href="{% url 'backoffice_photo_detail' photo.pk %}">{{ photo.title }}</a>
+            </figcaption>
             {% for album in photo.albums.all %}
               <span class="photo-select__album">{{ album.name }}</span>
             {% endfor %}
-          </label>
+          </figure>
         {% empty %}
           {% if unassigned_only %}
             <p>{% trans "All photos in this batch are assigned." %}</p>
