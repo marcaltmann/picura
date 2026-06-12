@@ -58,3 +58,27 @@ def test_album_list_excludes_empty_published_albums(client, make_album):
     empty = make_album(photo_count=0)
     response = client.get(reverse('albums_album_list'))
     assert empty not in response.context['page_obj'].object_list
+
+
+# --- album_detail ---
+
+
+@pytest.mark.django_db
+def test_album_detail_returns_200_for_public_album(client, make_album):
+    album = make_album()
+    response = client.get(reverse('albums_album_detail', args=[album.pk]))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_album_detail_returns_404_for_draft_album(client, make_album):
+    draft = make_album(published=False)
+    response = client.get(reverse('albums_album_detail', args=[draft.pk]))
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_album_detail_returns_404_for_empty_published_album(client, make_album):
+    empty = make_album(photo_count=0)
+    response = client.get(reverse('albums_album_detail', args=[empty.pk]))
+    assert response.status_code == 404
