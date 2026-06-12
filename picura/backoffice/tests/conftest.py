@@ -38,10 +38,11 @@ def make_photo(settings):
         name = f'test_{counter[0]}.jpg'
         img = Image.new('RGB', (10, 10), color='red')
         img.save(img_dir / name, 'JPEG')
+        kwargs.setdefault('title', f'Photo {counter[0]}')
         return Photo.objects.create(
-            title=kwargs.get('title', f'Photo {counter[0]}'),
             file=f'photos/{name}',
             batch=batch,
+            **kwargs,
         )
 
     return _make

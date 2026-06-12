@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count, Q
+from django.db.models import Count, F, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from picura.albums.models import Album
@@ -46,9 +46,12 @@ def batch_list(request):
 @staff_required
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
+    photos = batch.photos.order_by(F('produced_at').asc(nulls_last=True), 'pk')
     albums = Album.objects.all()
     return render(
-        request, 'backoffice/batch_detail.html', {'batch': batch, 'albums': albums}
+        request,
+        'backoffice/batch_detail.html',
+        {'batch': batch, 'photos': photos, 'albums': albums},
     )
 
 

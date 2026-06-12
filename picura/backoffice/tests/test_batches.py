@@ -1,3 +1,5 @@
+from datetime import UTC, datetime
+
 import pytest
 from django.urls import reverse
 
@@ -72,6 +74,24 @@ def test_batch_detail_context_contains_albums(client):
     album = Album.objects.create(name='Summer 2024')
     response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
     assert album in response.context['albums']
+
+
+@pytest.mark.django_db
+def test_batch_detail_photos_ordered_by_produced_at(client, make_photo):
+    batch = Batch.objects.create()
+    later = make_photo(batch=batch, produced_at=datetime(2026, 5, 2, tzinfo=UTC))
+    earlier = make_photo(batch=batch, produced_at=datetime(2026, 5, 1, tzinfo=UTC))
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert list(response.context['photos']) == [earlier, later]
+
+
+@pytest.mark.django_db
+def test_batch_detail_photos_without_produced_at_come_last(client, make_photo):
+    batch = Batch.objects.create()
+    undated = make_photo(batch=batch)
+    dated = make_photo(batch=batch, produced_at=datetime(2026, 5, 1, tzinfo=UTC))
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    assert list(response.context['photos']) == [dated, undated]
 
 
 @pytest.mark.django_db

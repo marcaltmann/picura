@@ -17,7 +17,7 @@
     <form method="post" action="{% url 'backoffice_batch_assign_to_album' batch.pk %}">
       {% csrf_token %}
       <div class="cluster mt-lh">
-        {% for photo in batch.photos.all %}
+        {% for photo in photos %}
           <label class="photo-select">
             <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
             <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
