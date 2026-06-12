@@ -221,6 +221,45 @@ def test_batch_assign_to_album_post_invalid_album_returns_404(client, make_photo
 
 
 @pytest.mark.django_db
+def test_batch_assign_creates_new_album_from_name(client, make_photo):
+    batch = Batch.objects.create()
+    photo = make_photo(batch=batch)
+    client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [photo.pk], 'new_album_name': 'Autumn 2026'},
+    )
+    album = Album.objects.get(name='Autumn 2026')
+    assert photo in album.photos.all()
+
+
+@pytest.mark.django_db
+def test_batch_assign_new_album_name_wins_over_album_id(client, make_photo):
+    batch = Batch.objects.create()
+    photo = make_photo(batch=batch)
+    existing = Album.objects.create(name='Summer 2024')
+    client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {
+            'photo_ids': [photo.pk],
+            'album_id': existing.pk,
+            'new_album_name': 'Autumn 2026',
+        },
+    )
+    assert existing.photos.count() == 0
+    assert photo in Album.objects.get(name='Autumn 2026').photos.all()
+
+
+@pytest.mark.django_db
+def test_batch_assign_new_album_name_without_photos_creates_nothing(client):
+    batch = Batch.objects.create()
+    client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'new_album_name': 'Autumn 2026'},
+    )
+    assert not Album.objects.filter(name='Autumn 2026').exists()
+
+
+@pytest.mark.django_db
 def test_batch_assign_to_album_get_redirects(client):
     batch = Batch.objects.create()
     response = client.get(reverse('backoffice_batch_assign_to_album', args=[batch.pk]))

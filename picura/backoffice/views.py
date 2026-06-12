@@ -71,8 +71,12 @@ def batch_assign_to_album(request, pk):
     if request.method == 'POST':
         photo_ids = request.POST.getlist('photo_ids')
         album_id = request.POST.get('album_id')
-        if photo_ids and album_id:
-            album = get_object_or_404(Album, pk=album_id)
+        new_album_name = request.POST.get('new_album_name', '').strip()
+        if photo_ids and (album_id or new_album_name):
+            if new_album_name:
+                album = Album.objects.create(name=new_album_name)
+            else:
+                album = get_object_or_404(Album, pk=album_id)
             photos = (
                 Photo.objects.filter(pk__in=photo_ids, batch=batch)
                 .exclude(albums=album)

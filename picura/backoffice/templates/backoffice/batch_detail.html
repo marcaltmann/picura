@@ -48,6 +48,9 @@
               <option disabled>{% trans "No albums" %}</option>
             {% endfor %}
           </select>
+          <input type="text"
+                 name="new_album_name"
+                 placeholder="{% trans 'Or create new album…' %}">
           <button class="button" type="submit">{% trans "Add to album" %}</button>
         </div>
       {% endif %}
