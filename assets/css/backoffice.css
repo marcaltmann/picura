@@ -19,6 +19,7 @@
 @import "./backoffice/blocks/image-preview.css" layer(blocks);
 @import "./backoffice/blocks/image-thumbnail.css" layer(blocks);
 @import "./backoffice/blocks/album-photo.css" layer(blocks);
+@import "./backoffice/blocks/photo-select.css" layer(blocks);
 @import "./backoffice/blocks/details.css" layer(blocks);
 @import "./backoffice/blocks/metadata.css" layer(blocks);
 @import "./backoffice/blocks/sidebar.css" layer(blocks);

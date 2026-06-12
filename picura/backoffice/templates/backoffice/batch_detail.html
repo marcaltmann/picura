@@ -21,6 +21,9 @@
           <label class="photo-select">
             <input type="checkbox" name="photo_ids" value="{{ photo.pk }}">
             <img class="image-thumbnail" src="{{ photo.thumbnail_300.url }}" alt="{{ photo.title }}">
+            {% for album in photo.albums.all %}
+              <span class="photo-select__album">{{ album.name }}</span>
+            {% endfor %}
           </label>
         {% empty %}
           <p>{% trans "No photos in this batch." %}</p>

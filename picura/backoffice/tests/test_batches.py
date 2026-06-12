@@ -110,6 +110,30 @@ def test_batch_assign_to_album_post_appends_photos(client, make_photo):
 
 
 @pytest.mark.django_db
+def test_batch_detail_shows_album_badge_for_assigned_photo(client, make_photo):
+    batch = Batch.objects.create()
+    photo = make_photo(batch=batch)
+    album = Album.objects.create(name='Summer 2024')
+    album.append_photos(photo)
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    html = response.content.decode()
+    assert 'photo-select__album' in html
+    # Once in the assign dropdown, once as a badge on the photo.
+    assert html.count('Summer 2024') == 2
+
+
+@pytest.mark.django_db
+def test_batch_detail_no_album_badge_for_unassigned_photo(client, make_photo):
+    batch = Batch.objects.create()
+    make_photo(batch=batch)
+    Album.objects.create(name='Summer 2024')
+    response = client.get(reverse('backoffice_batch_detail', args=[batch.pk]))
+    html = response.content.decode()
+    assert 'photo-select__album' not in html
+    assert html.count('Summer 2024') == 1
+
+
+@pytest.mark.django_db
 def test_batch_assign_to_album_appends_in_produced_at_order(client, make_photo):
     batch = Batch.objects.create()
     later = make_photo(batch=batch, produced_at=datetime(2026, 5, 2, tzinfo=UTC))

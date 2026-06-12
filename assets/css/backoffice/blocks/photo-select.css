@@ -1,0 +1,16 @@
+.photo-select {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rlh;
+    width: 3rlh;
+}
+
+.photo-select__album {
+    align-self: start;
+    padding: 0 0.25rlh;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-on-accent);
+    background: var(--color-ink);
+}

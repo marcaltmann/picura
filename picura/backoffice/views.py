@@ -46,7 +46,9 @@ def batch_list(request):
 @staff_required
 def batch_detail(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
-    photos = batch.photos.order_by(F('produced_at').asc(nulls_last=True), 'pk')
+    photos = batch.photos.order_by(
+        F('produced_at').asc(nulls_last=True), 'pk'
+    ).prefetch_related('albums')
     albums = Album.objects.all()
     return render(
         request,
