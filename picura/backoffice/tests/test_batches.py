@@ -110,6 +110,20 @@ def test_batch_assign_to_album_post_appends_photos(client, make_photo):
 
 
 @pytest.mark.django_db
+def test_batch_assign_to_album_appends_in_produced_at_order(client, make_photo):
+    batch = Batch.objects.create()
+    later = make_photo(batch=batch, produced_at=datetime(2026, 5, 2, tzinfo=UTC))
+    earlier = make_photo(batch=batch, produced_at=datetime(2026, 5, 1, tzinfo=UTC))
+    album = Album.objects.create(name='Summer 2024')
+    client.post(
+        reverse('backoffice_batch_assign_to_album', args=[batch.pk]),
+        {'photo_ids': [later.pk, earlier.pk], 'album_id': album.pk},
+    )
+    assert album.photo_at(1) == earlier
+    assert album.photo_at(2) == later
+
+
+@pytest.mark.django_db
 def test_batch_assign_to_album_post_redirects_to_batch_detail(client, make_photo):
     batch = Batch.objects.create()
     p = make_photo(batch=batch)

@@ -63,8 +63,10 @@ def batch_assign_to_album(request, pk):
         album_id = request.POST.get('album_id')
         if photo_ids and album_id:
             album = get_object_or_404(Album, pk=album_id)
-            photos = Photo.objects.filter(pk__in=photo_ids, batch=batch).exclude(
-                albums=album
+            photos = (
+                Photo.objects.filter(pk__in=photo_ids, batch=batch)
+                .exclude(albums=album)
+                .order_by(F('produced_at').asc(nulls_last=True), 'pk')
             )
             if photos.exists():
                 album.append_photos(photos)
